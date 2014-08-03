@@ -21,9 +21,9 @@
 namespace ZPB\Admin\BlogBundle\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use ZPB\Admin\CommonBundle\Controller\BaseController;
 
-class NavsController extends Controller
+class NavsController extends BaseController
 {
     public function sidebarAction($active)
     {

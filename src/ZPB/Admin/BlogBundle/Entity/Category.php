@@ -27,7 +27,8 @@ class Category
 
     /**
      * @var string
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Ce champ est requis.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç' _-]*$/", message="Ce champ contient des caractères non autorisés.")
      * @ORM\Column(name="name", type="string", length=255, nullable=false, unique=true)
      */
     private $name;
@@ -35,9 +36,9 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     * @ORM\Column(name="slug", type="string", length=255, unique=true, nullable=true)
      * @Gedmo\Slug(fields={"name"})
-     * @Assert\Regex("/^[a-zA-Z0-9_-]*$/")
+     * @Assert\Regex("/^[a-zA-Z0-9_-]*$/", message="Ce champ contient des caractères non autorisés.")
      */
     private $slug;
 

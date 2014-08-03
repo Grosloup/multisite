@@ -1,4 +1,6 @@
 <?php
+namespace ZPB\Admin\BlogBundle\Form\Type;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -28,8 +30,9 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, ["label"=>"Nom"])
-            ->add('slug', null, ["label"=>"Alias (slug)"]);
+            ->add('name', null, ['label'=>'Nom'])
+            ->add('slug', null, ['label'=>'Alias (slug)', 'required'=>'false'])
+            ->add('save', 'submit', ['label'=>'Enregistrer']);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -41,6 +44,6 @@ class CategoryType extends AbstractType
 
     public function getName()
     {
-        return "category_form";
+        return 'category_form';
     }
 }

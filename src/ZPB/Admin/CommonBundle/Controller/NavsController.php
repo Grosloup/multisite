@@ -21,9 +21,8 @@
 namespace ZPB\Admin\CommonBundle\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class NavsController extends Controller
+class NavsController extends BaseController
 {
     public function topbarAction()
     {

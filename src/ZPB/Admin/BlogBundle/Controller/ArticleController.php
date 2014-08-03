@@ -21,9 +21,9 @@
 namespace ZPB\Admin\BlogBundle\Controller;
 
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use ZPB\Admin\CommonBundle\Controller\BaseController;
 
-class ArticleController extends Controller
+class ArticleController extends BaseController
 {
     public function newAction()
     {

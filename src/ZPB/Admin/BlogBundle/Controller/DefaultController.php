@@ -2,9 +2,9 @@
 
 namespace ZPB\Admin\BlogBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use ZPB\Admin\CommonBundle\Controller\BaseController;
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     public function indexAction()
     {
