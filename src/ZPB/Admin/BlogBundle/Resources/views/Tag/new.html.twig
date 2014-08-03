@@ -1,7 +1,7 @@
 {% extends "ZPBAdminBlogBundle:Layouts:master.html.twig" %}
 {% set active_ss_menu = "new_tag" %}
 {% block content %}
-    <div class="col-md-6">
+    <div class="col-md-4">
         <h1>new tag</h1>
         {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
         {{ form_errors(form) }}
@@ -20,5 +20,5 @@
         </div>
         {{ form_end(form) }}
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-8"></div>
 {% endblock %}
