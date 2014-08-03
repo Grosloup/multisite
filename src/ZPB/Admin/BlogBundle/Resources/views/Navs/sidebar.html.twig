@@ -24,8 +24,8 @@
                 <div class="sidebar-menu">
                     <h3>Mots-clés</h3>
                     <ul>
-                        <li><a href="">Liste</a></li>
-                        <li><a href="">Nouveau mot-clé</a></li>
+                        <li {% if active == "all_tags" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_tag_homepage") }}">Liste</a></li>
+                        <li {% if active == "new_tag" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_tag_new") }}">Nouveau mot-clé</a></li>
                     </ul>
                 </div>
             </div>

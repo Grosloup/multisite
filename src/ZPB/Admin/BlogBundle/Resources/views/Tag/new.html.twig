@@ -1,8 +1,8 @@
 {% extends "ZPBAdminBlogBundle:Layouts:master.html.twig" %}
-{% set active_ss_menu = "new_cat" %}
+{% set active_ss_menu = "new_tag" %}
 {% block content %}
     <div class="col-md-6">
-        <h1>new cat</h1>
+        <h1>new tag</h1>
         {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
         {{ form_errors(form) }}
         <div class="form-group {% if form.name.vars.errors|length>0 %}has-error{% endif %}">

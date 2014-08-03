@@ -1,0 +1,7 @@
+zpb_admin_blog_tag_homepage:
+    path: /
+    defaults: { _controller: ZPBAdminBlogBundle:Tag:index }
+
+zpb_admin_blog_tag_new:
+    path: /nouveau
+    defaults: { _controller: ZPBAdminBlogBundle:Tag:new }

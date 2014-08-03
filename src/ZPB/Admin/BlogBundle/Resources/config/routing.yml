@@ -9,3 +9,7 @@ zpb_admin_blog_article_routes:
 zpb_admin_blog_category_routes:
     prefix: /categorie
     resource: "@ZPBAdminBlogBundle/Resources/config/routing/category.yml"
+
+zpb_admin_blog_tag_routes:
+    prefix: /mots-cles
+    resource: "@ZPBAdminBlogBundle/Resources/config/routing/tag.yml"
