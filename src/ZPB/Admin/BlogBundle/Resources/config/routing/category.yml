@@ -1,0 +1,7 @@
+zpb_admin_blog_category_homepage:
+    path: /
+    defaults: { _controller: ZPBAdminBlogBundle:Category:index }
+
+zpb_admin_blog_category_new:
+    path: /nouvelle
+    defaults: { _controller: ZPBAdminBlogBundle:Category:new }

@@ -5,3 +5,7 @@ zpb_admin_blog_homepage:
 zpb_admin_blog_article_routes:
     prefix: /article
     resource: "@ZPBAdminBlogBundle/Resources/config/routing/article.yml"
+
+zpb_admin_blog_category_routes:
+    prefix: /categorie
+    resource: "@ZPBAdminBlogBundle/Resources/config/routing/category.yml"

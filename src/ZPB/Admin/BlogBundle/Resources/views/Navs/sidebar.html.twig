@@ -17,8 +17,8 @@
                 <div class="sidebar-menu">
                     <h3>Catégories</h3>
                     <ul>
-                        <li><a href="">Liste</a></li>
-                        <li><a href="">Nouvelle catégorie</a></li>
+                        <li {% if active == "all_cats" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_category_homepage") }}">Liste</a></li>
+                        <li {% if active == "new_cat" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_category_new") }}">Nouvelle catégorie</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-menu">
