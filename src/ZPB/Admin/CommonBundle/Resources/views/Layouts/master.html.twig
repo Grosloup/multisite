@@ -1,0 +1,113 @@
+
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% if block("title") %}{{ block("title") }}{% else %}Accueil{% endif %} - Administration - ZooParc de Beauval</title>
+
+    {% block headLinks %}
+        <link rel="stylesheet" href="/admin/css/master.css"/>
+    {% endblock %}
+
+</head>
+<body class="msOpen ssOpen">
+{{ render(controller("ZPBAdminCommonBundle:Navs:topbar")) }}
+{{ render(controller("ZPBAdminCommonBundle:Navs:mainSidebar", {active: active_ms_menu|default("home")})) }}
+
+
+{% block main %}{% endblock %}
+
+
+{% block footScripts %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/admin/js/vendor/bootstrap.min.js"></script>
+    <script src="/admin/js/vendor/jquery.nanoscroller.min.js"></script>
+    <script>
+        $(function(){
+            $(".nano").nanoScroller();
+
+            var sidebarMenuHeaders, msExpand, msCompress, msToggle, body, ssToggle;
+            body = $("body");
+            msExpand = $("#msExpand");
+            msCompress = $("#msCompress");
+            msToggle = $("#msToggle");
+            ssToggle = $("#ssToggle");
+            sidebarMenuHeaders = $("#main-sidebar .sidebar-menu > h3");
+
+            sidebarMenuHeaders.each(function(idx,el){
+                var caret;
+                caret = $(el).find(".fa-caret-down");
+                if($(el).hasClass("open")){
+                    caret.addClass("fa-flip-vertical");
+                }
+            });
+
+            msExpand.on("click", function(e){
+                e.preventDefault();
+                sidebarMenuHeaders.each(function(idx,el){
+                    var caret;
+
+                    if(!$(el).hasClass("open")){
+                        caret = $(el).find(".fa-caret-down");
+                        caret.addClass("fa-flip-vertical");
+                        $(el).addClass("open");
+                    }
+                });
+            });
+            msCompress.on("click", function(e){
+                e.preventDefault();
+                sidebarMenuHeaders.each(function(idx,el){
+                    var caret;
+
+                    if($(el).hasClass("open")){
+                        caret = $(el).find(".fa-caret-down");
+                        caret.removeClass("fa-flip-vertical");
+                        $(el).removeClass("open");
+                    }
+                });
+            });
+            msToggle.on("click",function(e){
+                e.preventDefault();
+                if(body.hasClass("msOpen")){
+                    body.removeClass("msOpen").addClass("msClose");
+                } else {
+                    body.removeClass("msClose").addClass("msOpen");
+                }
+            });
+            ssToggle.on("click",function(e){
+                e.preventDefault();
+                if(body.hasClass("ssOpen")){
+                    body.removeClass("ssOpen").addClass("ssClose");
+                } else {
+                    body.removeClass("ssClose").addClass("ssOpen");
+                }
+            });
+
+
+            sidebarMenuHeaders.on("click", function(e){
+                e.preventDefault();
+                var header, caret;
+                header = e.target;
+                caret = $(header).find(".fa-caret-down");
+                if($(header).hasClass("open")){
+                    caret.removeClass("fa-flip-vertical");
+                    $(header).removeClass("open");
+                } else {
+                    caret.addClass("fa-flip-vertical");
+                    $(header).addClass("open");
+                }
+
+            });
+
+
+        });
+    </script>
+{% endblock %}
+</body>
+</html>

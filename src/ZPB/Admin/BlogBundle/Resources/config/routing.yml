@@ -1,0 +1,7 @@
+zpb_admin_blog_homepage:
+    path:     /
+    defaults: { _controller: ZPBAdminBlogBundle:Default:index }
+
+zpb_admin_blog_article_routes:
+    prefix: /article
+    resource: "@ZPBAdminBlogBundle/Resources/config/routing/article.yml"

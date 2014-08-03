@@ -1,0 +1,37 @@
+<div id="secondary-sidebar">
+    <div class="nano">
+        <div class="nano-content">
+            <div id="secondary-sidebar-content">
+                <div class="controls-bar">
+                    <button class="fa fa-bars" id="ssToggle"></button>
+                </div>
+                <div class="sidebar-menu">
+                    <h3>Articles</h3>
+                    <ul>
+                        <li {% if active == "home" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_homepage") }}">Liste</a></li>
+                        <li {% if active == "new_art" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_article_new") }}">Nouvel article</a></li>
+                        <li><a href="">Archives</a></li>
+                        <li><a href="">Corbeille</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-menu">
+                    <h3>Catégories</h3>
+                    <ul>
+                        <li><a href="">Liste</a></li>
+                        <li><a href="">Nouvelle catégorie</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-menu">
+                    <h3>Mots-clés</h3>
+                    <ul>
+                        <li><a href="">Liste</a></li>
+                        <li><a href="">Nouveau mot-clé</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

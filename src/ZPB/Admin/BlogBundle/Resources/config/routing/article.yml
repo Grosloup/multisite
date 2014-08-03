@@ -1,0 +1,3 @@
+zpb_admin_blog_article_new:
+    path: /rediger
+    defaults: { _controller: ZPBAdminBlogBundle:Article:new }

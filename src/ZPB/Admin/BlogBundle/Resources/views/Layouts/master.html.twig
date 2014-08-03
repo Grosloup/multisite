@@ -1,0 +1,19 @@
+{% extends "ZPBAdminCommonBundle:Layouts:master.html.twig" %}
+
+{% set active_ms_menu = "news" %}
+
+{% block main %}
+    <div id="main" class="bg-default">
+        {{ render(controller("ZPBAdminBlogBundle:Navs:sidebar", {active: active_ss_menu|default("home")})) }}
+        <div id="content">
+            <div class="container-fluid">
+                <div class="row">
+
+                    {% block content %}{% endblock %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

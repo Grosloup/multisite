@@ -1,0 +1,20 @@
+zpb_admin_common:
+    resource: "@ZPBAdminCommonBundle/Resources/config/routing.yml"
+    host: new.admin.zooparc.com
+    prefix:   /
+    schemes:  [https]
+
+zpb_admin_blog:
+    resource: "@ZPBAdminBlogBundle/Resources/config/routing.yml"
+    host: new.admin.zooparc.com
+    prefix:   /actualites
+    schemes:  [https]
+
+
+
+zpb_sites_zoo:
+    resource: "@ZPBSitesZooBundle/Resources/config/routing.yml"
+    host: new.zoobeauval.com
+    prefix:   /
+    schemes:  [https]
+
