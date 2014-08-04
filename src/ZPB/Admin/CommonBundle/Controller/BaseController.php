@@ -31,6 +31,11 @@ class BaseController extends Controller
         return $this->getDoctrine()->getRepository($repo);
     }
 
+    public function getEm()
+    {
+        return $this->getDoctrine()->getManager();
+    }
+
     public function successMessage($message = "")
     {
         if(!$message || !$this->container->has('session')){
@@ -61,5 +66,10 @@ class BaseController extends Controller
             return;
         }
         $this->get('session')->getFlashBag()->add('info', $message);
+    }
+
+    public function getCsrfProvider()
+    {
+        return $this->container->get("form.csrf_provider");
     }
 }
