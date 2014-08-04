@@ -45,6 +45,7 @@ class ArticleController extends BaseController
             $em->flush();
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
+
         return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['categories'=>$cats, 'form'=>$form->createView(), 'article'=>$article]);
     }
 }

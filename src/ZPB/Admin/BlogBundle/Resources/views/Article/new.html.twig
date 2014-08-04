@@ -18,86 +18,127 @@
                     <h2>Article <small>Rédaction</small></h2>
                 </div>
             </div>
-            <div class="col-md-6"></div>
+
+        </div>
+        {{ form_start(form) }}
+        <div class="row">
             <div class="col-md-6">
-                {{ form_start(form) }}
+
                 {{ form_errors(form) }}
                 <div class="form-group">
-                    {{ form_row(form.title) }}
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title, {"attr":{"class":"form-control"}}) }}
+                    {{ form_errors(form.title) }}
                 </div>
 
                 <div class="form-group">
-                    {{ form_row(form.slug) }}
+                    {{ form_label(form.slug) }}
+                    {{ form_widget(form.slug, {"attr":{"class":"form-control"}}) }}
+                    {{ form_errors(form.slug) }}
                 </div>
 
                 <div class="form-group">
-                    {{ form_row(form.body) }}
+                    {{ form_label(form.body) }}
+                    {{ form_widget(form.body, {"attr":{"class":"form-control"}}) }}
+                    {{ form_errors(form.body) }}
                 </div>
 
                 <div class="form-group">
-                    {{ form_row(form.excerpt) }}
+                    {{ form_label(form.excerpt) }}
+                    {{ form_widget(form.excerpt, {"attr":{"class":"form-control"}}) }}
+                    {{ form_errors(form.excerpt) }}
                 </div>
-
-                <div class="form-group">
-                    {{ form_row(form.category) }}
-                </div>
-
-                <div class="form-group">
-                    {{ form_label(form.tags) }}
-                    {{ form_widget(form.tags) }}
-                    <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
-                    </ul>
-                    {{ form_errors(form.tags) }}
-                </div>
-
-                {{ form_rest(form) }}
-
-                <div class="form-group">
-                    {{ form_widget(form.save, {"attr":{"class":"btn btn-primary"}})  }}
-                </div>
-
-
-
             </div>
-        </div>
 
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>Etat de l'article</label>
+                    </div>
+                    <div class="panel-body">
+                        <h3 class="text-danger">{{ article.status }}</h3>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{ form_label(form.category) }}
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            {{ form_widget(form.category, {"attr":{"class":"form-control"}}) }}
+                            {{ form_errors(form.category) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{ form_label(form.tags) }}
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            {{ form_widget(form.tags) }}
+                            <div class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}"></div>
+                            {{ form_errors(form.tags) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    {{ form_widget(form.saveDraft, {"attr":{"class":"btn btn-primary"}})  }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.savePublish, {"attr":{"class":"btn btn-primary"}})  }}
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>Enregistrer "à la une"</label>
+                    </div>
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.saveFront, {"attr":{"class":"btn btn-primary"}})  }}
+                </div>
+            </div>
+
+            <div class="col-md-2"></div>
+
+        </div>
+        {{ form_end(form) }}
 
     {% endif %}
 {% endblock %}
 {% block footScripts %}
     {{ parent() }}
     <script>
-        var collectionHolder = $('ul.tags');
+        var collectionHolder = $('div.tags');
         var protoHolder = $("#article_form_tags");
-        var $addTagLink = $('<a href="#" class="add_tag_link">Ajouter un tag</a>');
-        var $newLinkLi = $('<li></li>').append($addTagLink);
+        var $addTagLink = $('<a href="#" class="add_tag_link btn btn-default">Ajouter un mot-clé</a>');
+        var $newLinkLi = $('<div class="form-group"></div>').append($addTagLink);
         function addTagForm(collectionHolder, $newLinkLi) {
-            // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
             var prototype = protoHolder.attr('data-prototype');
-
-            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
-            // la longueur de la collection courante
             var newForm = prototype.replace(/<label class=\"required\">__name__label__<\/label>/g, "");
             newForm = newForm.replace(/__name__/g, collectionHolder.children().length);
-
-            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
-            var $newFormLi = $('<li></li>').append(newForm);
-            $newLinkLi.before($newFormLi);
+            var nf = $(newForm);
+            var label = nf.find("label");
+            var ipt = nf.find("input");
+            var parent = label.parent();
+            parent.addClass("form-group");
+            ipt.addClass("form-control");
+            $newLinkLi.before(nf);
         }
         $(function(){
-
-
             collectionHolder.append($newLinkLi);
-
             $addTagLink.on('click', function(e) {
-                // empêche le lien de créer un « # » dans l'URL
                 e.preventDefault();
-
-                // ajoute un nouveau formulaire tag (voir le prochain bloc de code)
                 addTagForm(collectionHolder, $newLinkLi);
             });
-
-
         });
     </script>
 

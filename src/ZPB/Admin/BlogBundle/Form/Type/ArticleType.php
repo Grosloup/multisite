@@ -36,7 +36,9 @@ class ArticleType extends AbstractType
             ->add('excerpt', 'textarea', ['label'=>'Extrait'])
             ->add('category', 'entity', ['label'=>'Catégorie','class'=>'ZPBAdminBlogBundle:Category', 'data_class'=>'ZPB\Admin\BlogBundle\Entity\Category', 'property'=>'name'])
             ->add('tags', 'collection', ['label'=>'Mots-clés','type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
-            ->add('save', 'submit', ['label'=>'Enregistrer'])
+            ->add('saveDraft', 'submit', ['label'=>'Enregistrer le brouillon'])
+            ->add('savePublish', 'submit', ['label'=>'Enregistrer et publier'])
+            ->add('saveFront', 'submit', ['label'=>'Enregistrer à la une'])
             ;
     }
 

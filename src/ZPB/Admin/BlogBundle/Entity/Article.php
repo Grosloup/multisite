@@ -159,6 +159,20 @@ class Article
         $this->longId = substr($longId, 0, 8);
     }
 
+    public function getStatus()
+    {
+        if($this->isPublished){
+            return "Publié";
+        }
+        if($this->isDelayed){
+            return "Différé";
+        }
+        if($this->isDropped){
+            return "A la corbeille";
+        }
+        return "Brouillon";
+    }
+
 
     /**
      * Get id
