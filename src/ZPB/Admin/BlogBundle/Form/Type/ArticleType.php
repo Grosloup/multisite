@@ -35,7 +35,7 @@ class ArticleType extends AbstractType
             ->add('body', 'textarea', ['label'=>'Corps'])
             ->add('excerpt', 'textarea', ['label'=>'Extrait'])
             ->add('category', 'entity', ['label'=>'Catégorie','class'=>'ZPBAdminBlogBundle:Category', 'data_class'=>'ZPB\Admin\BlogBundle\Entity\Category', 'property'=>'name'])
-            ->add('tags', 'collection', ['type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
+            ->add('tags', 'collection', ['label'=>'Mots-clés','type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
             ->add('save', 'submit', ['label'=>'Enregistrer'])
             ;
     }

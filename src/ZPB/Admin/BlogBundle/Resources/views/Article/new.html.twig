@@ -43,12 +43,21 @@
                 </div>
 
                 <div class="form-group">
+                    {{ form_label(form.tags) }}
+                    {{ form_widget(form.tags) }}
                     <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
                     </ul>
+                    {{ form_errors(form.tags) }}
+                </div>
+
+                {{ form_rest(form) }}
+
+                <div class="form-group">
+                    {{ form_widget(form.save, {"attr":{"class":"btn btn-primary"}})  }}
                 </div>
 
 
-                {{ form_rest(form) }}
+
             </div>
         </div>
 
@@ -59,16 +68,17 @@
     {{ parent() }}
     <script>
         var collectionHolder = $('ul.tags');
-
+        var protoHolder = $("#article_form_tags");
         var $addTagLink = $('<a href="#" class="add_tag_link">Ajouter un tag</a>');
         var $newLinkLi = $('<li></li>').append($addTagLink);
         function addTagForm(collectionHolder, $newLinkLi) {
             // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
-            var prototype = collectionHolder.attr('data-prototype');
+            var prototype = protoHolder.attr('data-prototype');
 
             // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
             // la longueur de la collection courante
-            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+            var newForm = prototype.replace(/<label class=\"required\">__name__label__<\/label>/g, "");
+            newForm = newForm.replace(/__name__/g, collectionHolder.children().length);
 
             // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
             var $newFormLi = $('<li></li>').append(newForm);
