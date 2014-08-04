@@ -18,6 +18,77 @@
                     <h2>Article <small>Rédaction</small></h2>
                 </div>
             </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+                <div class="form-group">
+                    {{ form_row(form.title) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.slug) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.body) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.excerpt) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_row(form.category) }}
+                </div>
+
+                <div class="form-group">
+                    <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
+                    </ul>
+                </div>
+
+
+                {{ form_rest(form) }}
+            </div>
         </div>
+
+
     {% endif %}
+{% endblock %}
+{% block footScripts %}
+    {{ parent() }}
+    <script>
+        var collectionHolder = $('ul.tags');
+
+        var $addTagLink = $('<a href="#" class="add_tag_link">Ajouter un tag</a>');
+        var $newLinkLi = $('<li></li>').append($addTagLink);
+        function addTagForm(collectionHolder, $newLinkLi) {
+            // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
+            var prototype = collectionHolder.attr('data-prototype');
+
+            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
+            // la longueur de la collection courante
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+
+            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+        $(function(){
+
+
+            collectionHolder.append($newLinkLi);
+
+            $addTagLink.on('click', function(e) {
+                // empêche le lien de créer un « # » dans l'URL
+                e.preventDefault();
+
+                // ajoute un nouveau formulaire tag (voir le prochain bloc de code)
+                addTagForm(collectionHolder, $newLinkLi);
+            });
+
+
+        });
+    </script>
+
 {% endblock %}

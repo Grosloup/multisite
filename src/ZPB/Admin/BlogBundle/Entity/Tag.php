@@ -117,12 +117,15 @@ class Tag
     /**
      * Add articles
      *
-     * @param Article $articles
+     * @param Article $article
      * @return Tag
      */
-    public function addArticle(Article $articles)
+    public function addArticle(Article $article)
     {
-        $this->articles[] = $articles;
+        //$this->articles[] = $articles;
+        if(!$this->articles->contains($article)){
+            $this->articles->add($article);
+        }
 
         return $this;
     }
@@ -140,7 +143,7 @@ class Tag
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getArticles()
     {

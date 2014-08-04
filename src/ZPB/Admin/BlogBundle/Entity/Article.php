@@ -126,14 +126,14 @@ class Article
     private $viewCounter;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="long_id", type="integer", nullable=false)
+     * @ORM\Column(name="long_id", type="string",length=255, nullable=false)
      */
     private $longId;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ZPB\Admin\BlogBundle\Entity\Tag", inversedBy="articles")
+     * @ORM\ManyToMany(targetEntity="ZPB\Admin\BlogBundle\Entity\Tag", inversedBy="articles", cascade={"persist"})
      * @ORM\JoinTable(name="zpb_blog_articles_tags")
      *
      */
@@ -163,7 +163,7 @@ class Article
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -186,7 +186,7 @@ class Article
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -209,7 +209,7 @@ class Article
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -232,7 +232,7 @@ class Article
     /**
      * Get excerpt
      *
-     * @return string 
+     * @return string
      */
     public function getExcerpt()
     {
@@ -255,7 +255,7 @@ class Article
     /**
      * Get body
      *
-     * @return string 
+     * @return string
      */
     public function getBody()
     {
@@ -278,7 +278,7 @@ class Article
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -301,7 +301,7 @@ class Article
     /**
      * Get isDraft
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsDraft()
     {
@@ -324,7 +324,7 @@ class Article
     /**
      * Get isPublished
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsPublished()
     {
@@ -347,7 +347,7 @@ class Article
     /**
      * Get isDropped
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsDropped()
     {
@@ -370,7 +370,7 @@ class Article
     /**
      * Get isDelayed
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsDelayed()
     {
@@ -393,7 +393,7 @@ class Article
     /**
      * Get isFrontZoo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsFrontZoo()
     {
@@ -416,7 +416,7 @@ class Article
     /**
      * Get isFrontBn
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsFrontBn()
     {
@@ -439,7 +439,7 @@ class Article
     /**
      * Get publishedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPublishedAt()
     {
@@ -462,7 +462,7 @@ class Article
     /**
      * Get tobePublishedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getTobePublishedAt()
     {
@@ -485,7 +485,7 @@ class Article
     /**
      * Get viewCounter
      *
-     * @return integer 
+     * @return integer
      */
     public function getViewCounter()
     {
@@ -495,7 +495,7 @@ class Article
     /**
      * Set longId
      *
-     * @param integer $longId
+     * @param string $longId
      * @return Article
      */
     public function setLongId($longId)
@@ -508,7 +508,7 @@ class Article
     /**
      * Get longId
      *
-     * @return integer 
+     * @return string
      */
     public function getLongId()
     {
@@ -541,11 +541,20 @@ class Article
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTags()
     {
         return $this->tags;
+    }
+
+    public function setTags(ArrayCollection $tags)
+    {
+        foreach($tags as $tag){
+            $tag->addArticle($this);
+        }
+
+        $this->tags = $tags;
     }
 
     /**

@@ -21,16 +21,30 @@
 namespace ZPB\Admin\BlogBundle\Controller;
 
 
+use Symfony\Component\HttpFoundation\Request;
+use ZPB\Admin\BlogBundle\Entity\Article;
+use ZPB\Admin\BlogBundle\Form\Type\ArticleType;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 
 class ArticleController extends BaseController
 {
-    public function newAction()
+    public function newAction(Request $request)
     {
         $cats = $this->getRepo("ZPBAdminBlogBundle:Category")->findAllAlphaOrdered();
-        if($cats){
-
+        if(!$cats){
+            //TODO
         }
-        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['categories'=>$cats]);
+        $article = new Article();
+        $form = $this->createForm(new ArticleType(), $article);
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $em = $this->getEm();
+            $em->persist($article);
+            $em->flush();
+            return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
+        }
+        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['categories'=>$cats, 'form'=>$form->createView(), 'article'=>$article]);
     }
 }
