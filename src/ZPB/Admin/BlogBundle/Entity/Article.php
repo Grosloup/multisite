@@ -133,7 +133,7 @@ class Article
     private $longId;
 
     /**
-     * @ORM\ManyToMany(targetEntity="ZPB\Admin\BlogBundle\Entity\Tag", inversedBy="articles", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="ZPB\Admin\BlogBundle\Entity\Tag", inversedBy="articles")
      * @ORM\JoinTable(name="zpb_blog_articles_tags")
      *
      */
@@ -564,10 +564,6 @@ class Article
 
     public function setTags(ArrayCollection $tags)
     {
-        foreach($tags as $tag){
-            $tag->addArticle($this);
-        }
-
         $this->tags = $tags;
     }
 

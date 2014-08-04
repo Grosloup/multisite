@@ -40,7 +40,23 @@ class ArticleController extends BaseController
         $form->handleRequest($request);
 
         if($form->isValid()){
+            $tags = $article->getTags();
             $em = $this->getEm();
+            foreach($tags as $tag){
+                $test = $this->getRepo("ZPBAdminBlogBundle:Tag")->findOneByName($tag->getName());
+                if($test){
+                    $article->removeTag($tag);
+                    $article->addTag($test);
+                    $test->addArticle($article);
+                    $em->persist($test);
+                } else {
+                    $tag->addArticle($article);
+                    $em->persist($tag);
+                }
+
+
+            }
+
             $em->persist($article);
             $em->flush();
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
