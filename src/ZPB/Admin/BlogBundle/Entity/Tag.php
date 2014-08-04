@@ -2,6 +2,7 @@
 
 namespace ZPB\Admin\BlogBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -42,6 +43,12 @@ class Tag
      * @Assert\Regex("/^[a-zA-Z0-9_-]*$/", message="Ce champ contient des caractères non autorisés.")
      */
     private $slug;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ZPB\Admin\BlogBundle\Entity\Article", mappedBy="tags")
+     *
+     */
+    private $articles;
 
 
     /**
@@ -98,5 +105,45 @@ class Tag
     public function getSlug()
     {
         return $this->slug;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
+
+    /**
+     * Add articles
+     *
+     * @param Article $articles
+     * @return Tag
+     */
+    public function addArticle(Article $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param Article $articles
+     */
+    public function removeArticle(Article $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 }
