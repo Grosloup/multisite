@@ -9,3 +9,5 @@
 /bin/
 /composer.phar
 /.idea/
+/composer.lock
+/app/config/parameters.yml
