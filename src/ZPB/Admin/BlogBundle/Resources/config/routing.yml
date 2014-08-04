@@ -1,6 +1,8 @@
 zpb_admin_blog_homepage:
-    path:     /
-    defaults: { _controller: ZPBAdminBlogBundle:Default:index }
+    path:     /{page}
+    defaults: { _controller: ZPBAdminBlogBundle:Default:index, page: 1 }
+    requirements:
+        page: \d+
 
 zpb_admin_blog_article_routes:
     prefix: /article
