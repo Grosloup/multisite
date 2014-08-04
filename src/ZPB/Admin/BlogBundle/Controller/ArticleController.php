@@ -27,6 +27,10 @@ class ArticleController extends BaseController
 {
     public function newAction()
     {
-        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig");
+        $cats = $this->getRepo("ZPBAdminBlogBundle:Category")->findAllAlphaOrdered();
+        if($cats){
+
+        }
+        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['categories'=>$cats]);
     }
 }

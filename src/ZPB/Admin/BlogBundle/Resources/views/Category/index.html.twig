@@ -28,7 +28,7 @@
                 </thead>
                 <tbody>
                 {% if categories|length < 1 %}
-                    <tr>
+                    <tr class="warning">
                         <td colspan="6">Il n'y a aucune catégories enregistrées. <a href="{{ path("zpb_admin_blog_category_new") }}">Créer <i class="fa fa-hand-o-right"></i></a></td>
                     </tr>
                 {% else %}
