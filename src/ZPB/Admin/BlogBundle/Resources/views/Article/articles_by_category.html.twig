@@ -1,0 +1,40 @@
+{% extends "ZPBAdminBlogBundle:Layouts:master.html.twig" %}
+
+{% set active_ss_menu = "home" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2>Articles <small>de la catégorie &laquo;{{ cat_name }}&raquo;</small></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>créé le</th>
+                            <th>status</th>
+                            <th>Titre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td>{{ article.longId }}</td>
+                                <td>{{ article.createdAt|date("d-m-y")}}</td>
+                                <td>{{ article.status }}</td>
+                                <td><a href="{{ path("zpb_admin_blog_article_show", {id: article.id, _token: csrf_token("article_show")}) }}">{{ article.title }}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

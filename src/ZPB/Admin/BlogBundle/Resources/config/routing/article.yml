@@ -93,3 +93,10 @@ zpb_admin_blog_article_show:
     methods: ["GET"]
     requirements:
         id: \d+
+
+zpb_admin_blog_article_by_cat:
+    path: /par-categorie/{catslug}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:articlesByCategory }
+    methods: ["GET"]
+    requirements:
+        catslug: "[a-zA-Z0-9-]+"

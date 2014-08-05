@@ -50,7 +50,7 @@
                                     <td>{{ draft.id }}</td>
                                     <td>{{ draft.createdAt|date("d-m-y") }}</td>
                                     <td>{{ draft.title|default("sans titre")}}</td>
-                                    <td><a href="#">{{ draft.category.name }}</a></td> {# TODO #}
+                                    <td>{{ draft.category.name }}</td>
                                     <td>{% if draft.tags|length <1 %} - {% else %}{% for tag in draft.tags %}<a href="#">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}</td> {# TODO #}
                                     <td><a href="#" class="btn btn-default"><i class="fa fa-edit"></i></a></td> {# TODO #}
                                     <td><a href="{{ path("zpb_admin_blog_article_set_published", {id: draft.id, _token: csrf_token("publish_article")})}}" class="btn btn-default"><i class="fa fa-share"></i></a></td> {# TODO #}
@@ -122,7 +122,7 @@
                                     <td>{{ pub.publishedAt|date("d-m-y")}}</td>
                                     <td>{{ pub.viewCounter }}</td>
                                     <td><a href="{{ path("zpb_admin_blog_article_show", {id: pub.id, _token: csrf_token("article_show")}) }}">{{ pub.title }}</a></td>
-                                    <td><a href="#">{{ pub.category.name }}</a></td> {# TODO #}
+                                    <td><a href="{{ path("zpb_admin_blog_article_by_cat", {catslug: pub.category.slug}) }}">{{ pub.category.name }}</a></td>
                                     <td>{% if pub.tags|length <1 %} - {% else %}{% for tag in pub.tags %}<a href="#">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}</td> {# TODO #}
                                     <td>
                                         {% if pub.isFrontZoo == true %}

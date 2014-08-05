@@ -248,4 +248,14 @@ class ArticleController extends BaseController
 
         return $this->render("ZPBAdminBlogBundle:Article:show.html.twig", ['article'=>$art]);
     }
+
+    public function articlesByCategoryAction($catslug)
+    {
+        $cat = $this->getRepo('ZPBAdminBlogBundle:Category')->findOneBySlug($catslug);
+        if(!$cat){
+            throw $this->createNotFoundException();
+        }
+        $articles = $this->getRepo('ZPBAdminBlogBundle:Article')->getAllByCategorySlugAndOrderedByDate($catslug);
+        return $this->render("ZPBAdminBlogBundle:Article:articles_by_category.html.twig", ['articles'=>$articles, 'cat_name'=>$cat->getName()]);
+    }
 }

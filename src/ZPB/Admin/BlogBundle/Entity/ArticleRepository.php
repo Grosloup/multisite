@@ -185,4 +185,11 @@ class ArticleRepository extends EntityRepository
         $query->setParameter('id', $id);
         return $query->getResult();
     }
+
+    public function getAllByCategorySlugAndOrderedByDate($slug)
+    {
+        $query = $this->_em->createQuery("SELECT t FROM ZPBAdminBlogBundle:Article t JOIN t.category c WHERE c.slug=:slug ORDER BY t.createdAt DESC");
+        $query->setParameter('slug', $slug);
+        return $query->getResult();
+    }
 }
