@@ -81,6 +81,13 @@ class Article
     /**
      * @var boolean
      *
+     * @ORM\Column(name="is_archived", type="boolean")
+     */
+    private $isArchived;
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="is_dropped", type="boolean")
      */
     private $isDropped;
@@ -111,6 +118,12 @@ class Article
      * @ORM\Column(name="published_at", type="datetime", nullable=true)
      */
     private $publishedAt;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="archived_at", type="datetime", nullable=true)
+     */
+    private $archivedAt;
 
     /**
      * @var \DateTime
@@ -154,23 +167,27 @@ class Article
         $this->isFrontBn = false;
         $this->isFrontZoo = false;
         $this->isPublished = false;
+        $this->isAchived = false;
         $this->viewCounter = 0;
-        $longId = md5((new \DateTime("now", new \DateTimeZone("Europe/Paris")))->getTimestamp() . uniqid());
+        $longId = md5((new \DateTime('now', new \DateTimeZone('Europe/Paris')))->getTimestamp() . uniqid());
         $this->longId = substr($longId, 0, 8);
     }
 
     public function getStatus()
     {
         if($this->isPublished){
-            return "Publié";
+            return 'Publié';
         }
         if($this->isDelayed){
-            return "Différé";
+            return 'Différé';
         }
         if($this->isDropped){
-            return "A la corbeille";
+            return 'A la corbeille';
         }
-        return "Brouillon";
+        if($this->isAchived){
+            return 'Archivé';
+        }
+        return 'Brouillon';
     }
 
 
@@ -588,5 +605,51 @@ class Article
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set archivedAt
+     *
+     * @param \DateTime $archivedAt
+     * @return Article
+     */
+    public function setArchivedAt($archivedAt)
+    {
+        $this->archivedAt = $archivedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get archivedAt
+     *
+     * @return \DateTime 
+     */
+    public function getArchivedAt()
+    {
+        return $this->archivedAt;
+    }
+
+    /**
+     * Set isArchived
+     *
+     * @param boolean $isArchived
+     * @return Article
+     */
+    public function setIsArchived($isArchived)
+    {
+        $this->isArchived = $isArchived;
+
+        return $this;
+    }
+
+    /**
+     * Get isArchived
+     *
+     * @return boolean 
+     */
+    public function getIsArchived()
+    {
+        return $this->isArchived;
     }
 }

@@ -22,7 +22,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h3>Brouillons</h3>
+                <h3>Brouillons {% if numDraft > 0 %}<small>({{ numDraft }})</small>{% endif %}</h3>
             </div>
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -67,7 +67,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <h3>Articles publiés</h3>
+                <h3>Articles publiés {% if numPub > 0 %}<small>({{ numPub }})</small>{% endif %}</h3>
             </div>
             {% if maxPage > 1 %}
                 <div class="col-md-12 text-center">

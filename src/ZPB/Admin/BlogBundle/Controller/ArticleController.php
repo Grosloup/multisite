@@ -37,9 +37,7 @@ class ArticleController extends BaseController
         }
         $article = new Article();
         $form = $this->createForm(new ArticleType(), $article);
-
         $form->handleRequest($request);
-
         if($form->isValid()){
             $tags = $article->getTags();
             $em = $this->getEm();
@@ -54,20 +52,15 @@ class ArticleController extends BaseController
                     $tag->addArticle($article);
                     $em->persist($tag);
                 }
-
-
             }
-
             $pubAction = $form->get('savePublish')->isClicked();
             if($pubAction){
                 $article->setIsDraft(false)->setIsPublished(true);
             }
-
             $em->persist($article);
             $em->flush();
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
-
         return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['categories'=>$cats, 'form'=>$form->createView(), 'article'=>$article]);
     }
 

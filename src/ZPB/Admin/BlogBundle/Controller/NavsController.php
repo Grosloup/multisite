@@ -27,6 +27,11 @@ class NavsController extends BaseController
 {
     public function sidebarAction($active)
     {
-        return $this->render("ZPBAdminBlogBundle:Navs:sidebar.html.twig", ["active" => $active]);
+        $numDraft = $this->getRepo('ZPBAdminBlogBundle:Article')->countDraft();
+        $numPublished = $this->getRepo('ZPBAdminBlogBundle:Article')->countPublished();
+        $numArchived = $this->getRepo('ZPBAdminBlogBundle:Article')->countArchived();
+        $numDropped = $this->getRepo('ZPBAdminBlogBundle:Article')->countDropped();
+        return $this->render("ZPBAdminBlogBundle:Navs:sidebar.html.twig",
+            ["active" => $active, "pub"=>$numPublished, "draft"=>$numDraft, "arch"=>$numArchived, "drop"=>$numDropped]);
     }
 }

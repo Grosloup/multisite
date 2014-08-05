@@ -17,9 +17,36 @@ class ArticleRepository extends EntityRepository
         return $this->createQueryBuilder("p")->select("COUNT(p)")->where("p.isPublished = :isPublished")->setParameter("isPublished", true)->getQuery()->getSingleScalarResult();
     }
 
+    public function countArchived()
+    {
+        return $this->createQueryBuilder("p")->select("COUNT(p)")->where("p.isArchived = :isArchived")->setParameter("isArchived", true)->getQuery()->getSingleScalarResult();
+
+    }
+
+    public function countDraft()
+    {
+        return $this->createQueryBuilder("p")->select("COUNT(p)")->where("p.isDraft = :isDraft")->setParameter("isDraft", true)->getQuery()->getSingleScalarResult();
+    }
+
+    public function countDropped()
+    {
+        return $this->createQueryBuilder("p")->select("COUNT(p)")->where("p.isDropped = :isDropped")->setParameter("isDropped", true)->getQuery()->getSingleScalarResult();
+    }
+
     public function getNumPageForPublishedByDate($max = 10)
     {
         $numPost = $this->countPublished();
+        if($numPost>0){
+            $maxPage = ceil($numPost/$max);
+        } else {
+            $maxPage = 1;
+        }
+        return $maxPage;
+    }
+
+    public function getNumPageForArchivedByDate($max = 10)
+    {
+        $numPost = $this->countArchived();
         if($numPost>0){
             $maxPage = ceil($numPost/$max);
         } else {
@@ -33,7 +60,6 @@ class ArticleRepository extends EntityRepository
         if(!$maxPage){
             $maxPage = $this->getNumPageForPublishedByDate($max);
         }
-
         if($page>$maxPage){
             $page = $maxPage;
         }
@@ -44,6 +70,25 @@ class ArticleRepository extends EntityRepository
             ->setFirstResult($offset)
             ->setMaxResults($max)
             ->setParameter("isPublished", true);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+    public function getAllArchivedOrderedByDate($page = 1, $max = 10, $maxPage = null)
+    {
+        if(!$maxPage){
+            $maxPage = $this->getNumPageForArchivedByDate($max);
+        }
+        if($page>$maxPage){
+            $page = $maxPage;
+        }
+        $offset = (($page - 1) * $max);
+        $qb = $this->createQueryBuilder("p")
+            ->where("p.isArchived = :isArchived")
+            ->orderBy("p.archivedAt", "DESC")
+            ->setFirstResult($offset)
+            ->setMaxResults($max)
+            ->setParameter("isArchived", true);
         $query = $qb->getQuery();
         return $query->getResult();
     }

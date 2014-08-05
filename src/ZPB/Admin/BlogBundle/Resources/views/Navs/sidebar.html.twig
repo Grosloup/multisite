@@ -8,10 +8,10 @@
                 <div class="sidebar-menu">
                     <h3>Articles</h3>
                     <ul>
-                        <li {% if active == "home" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_homepage") }}">Liste</a></li>
+                        <li {% if active == "home" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_homepage") }}">Liste <small>({{draft + pub}})</small></a></li>
                         <li {% if active == "new_art" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_article_new") }}">Nouvel article</a></li>
-                        <li><a href="">Archives</a></li>
-                        <li><a href="">Corbeille</a></li>
+                        <li><a href="">Archives <small>({{arch}})</small></a></li>
+                        <li><a href="">Corbeille <small>({{drop}})</small></a></li>
                     </ul>
                 </div>
                 <div class="sidebar-menu">
