@@ -53,7 +53,7 @@
                                     <td>{{ draft.category.name }}</td>
                                     <td>{% if draft.tags|length <1 %} - {% else %}{% for tag in draft.tags %}<a href="#">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}</td> {# TODO #}
                                     <td><a href="#" class="btn btn-default"><i class="fa fa-edit"></i></a></td> {# TODO #}
-                                    <td><a href="{{ path("zpb_admin_blog_article_set_published", {id: draft.id, _token: csrf_token("publish_article")})}}" class="btn btn-default"><i class="fa fa-share"></i></a></td> {# TODO #}
+                                    <td><a href="{{ path("zpb_admin_blog_article_set_published", {id: draft.id, _token: csrf_token("publish_article")})}}" class="btn btn-default"><i class="fa fa-share"></i></a></td>
                                     <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_dropped", {id: draft.id, _token: csrf_token("article_drop")}) }}"><i class="fa fa-trash-o"></i></a></td>
                                 </tr>
                             {% endfor %}
@@ -140,7 +140,7 @@
                                     </td>
                                     <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_archived", {id: pub.id, _token: csrf_token("article_setArchived")}) }}"><i class="fa fa-archive"></i></a></td>
                                     <td><a class="btn btn-default" href="#"><i class="fa fa-edit"></i></a></td> {# TODO #}
-                                    <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_dropped", {id: pub.id, _token: csrf_token("article_drop")}) }}"><i class="fa fa-trash-o"></i></a></td> {# TODO #}
+                                    <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_dropped", {id: pub.id, _token: csrf_token("article_drop")}) }}"><i class="fa fa-trash-o"></i></a></td>
                                 </tr>
                             {% endfor %}
                         {% endif %}
