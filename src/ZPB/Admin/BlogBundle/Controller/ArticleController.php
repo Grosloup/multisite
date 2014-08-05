@@ -228,4 +228,10 @@ class ArticleController extends BaseController
         return $this->render("ZPBAdminBlogBundle:Article:trashes.html.twig",
             ['currentPage'=>$page, 'maxPage'=>$maxPage, 'trashes'=>$dropped, 'numDropped'=>$numDropped]);
     }
+
+    public function deleteAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_undrop');
+    }
 }

@@ -74,8 +74,15 @@ zpb_admin_blog_article_set_dropped:
         id: \d+
 
 zpb_admin_blog_article_set_undropped:
-    path: /sorti-de-la-corbeille/{id}
+    path: /sortie-de-la-corbeille/{id}
     defaults: { _controller: ZPBAdminBlogBundle:Article:undrop }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_blog_article_delete:
+    path: /supprimer/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:delete }
     methods: ["GET"]
     requirements:
         id: \d+

@@ -21,3 +21,10 @@ zpb_admin_blog_category_edit:
     methods: ["GET", "POST"]
     requirements:
         id: \d+
+
+zpb_admin_blog_category_setDefault:
+    path: /mettre-en-defaut/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Category:setDefault }
+    methods: ["GET"]
+    requirements:
+        id: \d+

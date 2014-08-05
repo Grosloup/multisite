@@ -32,12 +32,14 @@ class CategoryController extends BaseController
     public function indexAction()
     {
         $cats = $this->getRepo("ZPBAdminBlogBundle:Category")->findAllAlphaOrdered();
-        return $this->render("ZPBAdminBlogBundle:Category:index.html.twig", ["categories"=>$cats]);
+        $defaultCat = $this->getRepo('ZPBAdminBlogBundle:Category')->findOneByIsDefault(true);
+        return $this->render("ZPBAdminBlogBundle:Category:index.html.twig", ["categories"=>$cats, "defaultCat"=>$defaultCat]);
     }
 
     public function newAction(Request $request)
     {
         $cat = new Category();
+        $cat->setIsDefault(false);
         $form = $this->createForm(new CategoryType(), $cat);
         $form->handleRequest($request);
         if($form->isValid()){
@@ -72,18 +74,58 @@ class CategoryController extends BaseController
     public function deleteAction($id, Request $request)
     {
         $csrfProv = $this->getCsrfProvider();
+        $token = $request->query->get('_token');
+        if(!$token || !$csrfProv->isCsrfTokenValid('delete_category',$token)){
+            throw new AccessDeniedException();
+        }
+        $cat = $this->getRepo('ZPBAdminBlogBundle:Category')->find($id);
+        if(!$cat){
+            throw $this->createNotFoundException();
+        }
+        if($cat->getIsDefault()){
+            $this->warningMessage('Vous devez définir une autre catégorie par défaut pour pouvoir supprimer l\'actuelle.');
+            return $this->redirect($this->generateUrl('zpb_admin_blog_category_homepage'));
+        }
+        $defaultCat = $this->getRepo('ZPBAdminBlogBundle:Category')->findOneByIsDefault(true);
+        if(!$defaultCat){
+            throw new AccessDeniedException();
+        }
+        $articles = $this->getRepo('ZPBAdminBlogBundle:Article')->getAllByCategoryId($id);
+
+        $em = $this->getEm();
+        if(count($articles)){
+            foreach($articles as $art){
+                $art->setCategory($defaultCat);
+                $em->persist($art);
+            }
+        }
+        $em->remove($cat);
+        $em->flush();
+        $this->successMessage('La catégorie ' . $cat->getName() . ' a bien été supprimée.');
+        return $this->redirect($this->generateUrl('zpb_admin_blog_category_homepage'));
+    }
+
+    public function setDefaultAction($id, Request $request)
+    {
+        $csrfProv = $this->getCsrfProvider();
         $token = $request->query->get("_token");
-        if(!$token || !$csrfProv->isCsrfTokenValid("delete_category",$token)){
+        if(!$token || !$csrfProv->isCsrfTokenValid("category_setDefault",$token)){
             throw new AccessDeniedException();
         }
         $cat = $this->getRepo("ZPBAdminBlogBundle:Category")->find($id);
         if(!$cat){
             throw $this->createNotFoundException();
         }
+        $default = $this->getRepo('ZPBAdminBlogBundle:Category')->findOneByIsDefault(true);
         $em = $this->getEm();
-        $em->remove($cat);
+        if($default){
+            $default->setIsDefault(false);
+            $em->persist($default);
+        }
+        $cat->setIsDefault(true);
+        $em->persist($cat);
         $em->flush();
-        $this->successMessage("La catégorie " . $cat->getName() . " a bien été supprimée.");
+        $this->successMessage("La catégorie " . $cat->getName() . " est maintenat la catégorie par défaut.");
         return $this->redirect($this->generateUrl("zpb_admin_blog_category_homepage"));
     }
 }

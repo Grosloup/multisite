@@ -33,10 +33,10 @@
                     {% else %}
                         {% for trash in trashes %}
                             <tr>
-                                <td>{{ trash.id }}</td>
+                                <td>{{ trash.longId }}</td>
                                 <td>{{ trash.title }}</td>
                                 <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_undropped", {id: trash.id, _token: csrf_token("article_undrop")})}}"><i class="fa fa-share"></i></a></td>
-                                <td><a class="btn btn-default" href=""><i class="fa fa-trash-o"></i></a></td> {# TODO #}
+                                <td><a class="btn btn-default delete-alert" href="{{ path("zpb_admin_blog_article_delete", {id: trash.id, _token: csrf_token("article_delete")}) }}" data-name="{{trash.longId}}"><i class="fa fa-trash-o"></i></a></td>
                             </tr>
                         {% endfor %}
                     {% endif %}
@@ -45,4 +45,19 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block footScripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            $(".delete-alert").on("click", function(e){
+                e.preventDefault();
+                var name = $(this).data("name");
+                if(window.confirm("Attention, cette action est irréversible, êtes-vous certain de vouloir continuer et effacer '" + name + "' ?")){
+                    window.location.href = $(this).attr("href");
+                }
+            });
+        });
+    </script>
+
 {% endblock %}
