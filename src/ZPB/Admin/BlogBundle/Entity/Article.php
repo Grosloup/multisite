@@ -167,7 +167,7 @@ class Article
         $this->isFrontBn = false;
         $this->isFrontZoo = false;
         $this->isPublished = false;
-        $this->isAchived = false;
+        $this->isArchived = false;
         $this->viewCounter = 0;
         $longId = md5((new \DateTime('now', new \DateTimeZone('Europe/Paris')))->getTimestamp() . uniqid());
         $this->longId = substr($longId, 0, 8);
@@ -184,7 +184,7 @@ class Article
         if($this->isDropped){
             return 'A la corbeille';
         }
-        if($this->isAchived){
+        if($this->isArchived){
             return 'Archivé';
         }
         return 'Brouillon';
@@ -651,5 +651,53 @@ class Article
     public function getIsArchived()
     {
         return $this->isArchived;
+    }
+
+    public function archive()
+    {
+        $this->isDraft = false;
+        $this->isDelayed = false;
+        $this->isDropped = false;
+        $this->isFrontBn = false;
+        $this->isFrontZoo = false;
+        $this->isPublished = false;
+        $this->isArchived = true;
+        return $this;
+    }
+
+    public function unarchive()
+    {
+        $this->isDraft = false;
+        $this->isDelayed = false;
+        $this->isDropped = false;
+        $this->isFrontBn = false;
+        $this->isFrontZoo = false;
+        $this->isPublished = true;
+        $this->isArchived = false;
+        return $this;
+    }
+
+    public function drop()
+    {
+        $this->isDraft = false;
+        $this->isDelayed = false;
+        $this->isDropped = true;
+        $this->isFrontBn = false;
+        $this->isFrontZoo = false;
+        $this->isPublished = false;
+        $this->isArchived = false;
+        return $this;
+    }
+
+    public function undrop()
+    {
+        $this->isDraft = false;
+        $this->isDelayed = false;
+        $this->isDropped = false;
+        $this->isFrontBn = false;
+        $this->isFrontZoo = false;
+        $this->isPublished = true;
+        $this->isArchived = false;
+        return $this;
     }
 }

@@ -1,0 +1,50 @@
+{% extends "ZPBAdminBlogBundle:Layouts:master.html.twig" %}
+
+
+{% set active_ss_menu = "archive" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2>Articles <small>archives ({{numArchives}})</small></h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titre</th>
+                        <th>Catégorie</th>
+                        <th>Lire</th>
+                        <th>Republier</th>
+                        <th>Mettre à la corbeille</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if archives|length <1 %}
+                        <tr class="info">
+                            <td colspan="6">Il n'y a pas d'articles archivés.</td>
+                        </tr>
+                    {% else %}
+                        {% for archive in archives %}
+                            <tr>
+                                <td>{{ archive.id }}</td>
+                                <td>{{ archive.title }}</td>
+                                <td>{{ archive.category.name }}</td>
+                                <td><a class="btn btn-default" href="#"><i class="fa fa-eye"></i></a></td> {# TODO #}
+                                <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_unset_archived", {id: archive.id, _token: csrf_token("article_unsetArchived")})}}"><i class="fa fa-share"></i></a></td>
+                                <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_dropped", {id: archive.id, _token: csrf_token("article_drop")}) }}"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

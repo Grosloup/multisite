@@ -146,6 +146,30 @@ class ArticleController extends BaseController
         return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
     }
 
+    public function setArchivedAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_setArchived');
+        $em = $this->getEm();
+        $art->archive();
+        $em->persist($art);
+        $em->flush();
+        $this->successMessage('Votre article ('.$art->getLongId().') fait maintenant partie des archives.');
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
+
+    public function unsetArchivedAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_unsetArchived');
+        $em = $this->getEm();
+        $art->unarchive();
+        $em->persist($art);
+        $em->flush();
+        $this->successMessage('Votre article ('.$art->getLongId().') est maintenant remis en publication.');
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
+
     private function getSecureArticleById($id, $token=false, $intention='')
     {
         $art = null;
@@ -161,5 +185,38 @@ class ArticleController extends BaseController
         return $art;
     }
 
+    public function archivesAction($page = 1)
+    {
+        $maxPage = $this->getRepo("ZPBAdminBlogBundle:Article")->getNumPageForArchivedByDate(10);
+        $archives = $this->getRepo("ZPBAdminBlogBundle:Article")->getAllArchivedOrderedByDate($page, 10, $maxPage);
+        $numArchived = $this->getRepo('ZPBAdminBlogBundle:Article')->countArchived();
+        return $this->render("ZPBAdminBlogBundle:Article:archives.html.twig",
+            ['archives'=>$archives, 'maxPage'=>$maxPage, 'currentPage'=>$page, 'numArchives'=>$numArchived]);
+    }
 
+    public function dropAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_drop');
+        $art->drop();
+        $em = $this->getEm();
+        $em->persist($art);
+        $em->flush();
+        //TODO referrer
+        $this->successMessage('Votre article ('.$art->getLongId().') est mis à la corbeille.');
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
+
+    public function undropAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_undrop');
+        $art->undrop();
+        $em = $this->getEm();
+        $em->persist($art);
+        $em->flush();
+        //TODO referrer
+        $this->successMessage('Votre article ('.$art->getLongId().') est maintenant remis en publication.');
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
 }

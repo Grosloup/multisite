@@ -37,3 +37,38 @@ zpb_admin_blog_article_unset_front_bn:
     methods: ["GET"]
     requirements:
         id: \d+
+
+zpb_admin_blog_article_set_archived:
+    path: /archiver/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:setArchived }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_blog_article_unset_archived:
+    path: /republier/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:unsetArchived }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_blog_article_archives:
+    path: /archives/{page}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:archives, page: 1}
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
+zpb_admin_blog_article_set_dropped:
+    path: /mettre-a-la-corbeille/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:drop }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_blog_article_set_undropped:
+    path: /sorti-de-la-corbeille/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:undrop }
+    methods: ["GET"]
+    requirements:
+        id: \d+

@@ -31,6 +31,9 @@ class BaseController extends Controller
         return $this->getDoctrine()->getRepository($repo);
     }
 
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager|object
+     */
     public function getEm()
     {
         return $this->getDoctrine()->getManager();
