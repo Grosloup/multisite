@@ -16,7 +16,7 @@
     {% endblock %}
 
 </head>
-<body class="msOpen ssOpen">
+<body>
 {{ render(controller("ZPBAdminCommonBundle:Navs:topbar")) }}
 {{ render(controller("ZPBAdminCommonBundle:Navs:mainSidebar", {active: active_ms_menu|default("home")})) }}
 
@@ -30,10 +30,36 @@
     <script src="/admin/js/vendor/bootstrap.min.js"></script>
     <script src="/admin/js/vendor/jquery.nanoscroller.min.js"></script>
     <script>
+        function createCookie(name,value,days) {
+            var expires;
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime()+(days*24*60*60*1000));
+                expires = "; expires="+date.toGMTString();
+            }
+            else expires = "";
+            document.cookie = name+"="+value+expires+"; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                c = c.replace(/^\s+|\s+$/, '');
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name,"",-1);
+        }
+
         $(function(){
             $(".nano").nanoScroller();
 
-            var sidebarMenuHeaders, msExpand, msCompress, msToggle, body, ssToggle;
+            var sidebarMenuHeaders, msExpand, msCompress, msToggle,msIsOpen,ssIsOpen, body, ssToggle;
             body = $("body");
             msExpand = $("#msExpand");
             msCompress = $("#msCompress");
@@ -73,20 +99,37 @@
                     }
                 });
             });
+            msIsOpen = readCookie("mainmenu");
+            if(msIsOpen < 2){
+                body.removeClass("msClose").addClass("msOpen");
+            } else {
+                body.removeClass("msOpen").addClass("msClose");
+            }
+            ssIsOpen = readCookie("secondmenu");
+            if(ssIsOpen < 2){
+                body.removeClass("ssClose").addClass("ssOpen");
+            } else {
+                body.removeClass("ssOpen").addClass("ssClose");
+            }
+
             msToggle.on("click",function(e){
                 e.preventDefault();
                 if(body.hasClass("msOpen")){
                     body.removeClass("msOpen").addClass("msClose");
+                    createCookie("mainmenu", 2, 4);
                 } else {
                     body.removeClass("msClose").addClass("msOpen");
+                    createCookie("mainmenu", 1, 4);
                 }
             });
             ssToggle.on("click",function(e){
                 e.preventDefault();
                 if(body.hasClass("ssOpen")){
                     body.removeClass("ssOpen").addClass("ssClose");
+                    createCookie("secondmenu", 2, 4);
                 } else {
                     body.removeClass("ssClose").addClass("ssOpen");
+                    createCookie("secondmenu", 1, 4);
                 }
             });
 
