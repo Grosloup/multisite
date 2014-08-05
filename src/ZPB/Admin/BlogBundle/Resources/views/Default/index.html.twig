@@ -42,19 +42,19 @@
                         <tbody>
                         {% if drafts|length < 1 %}
                             <tr class="warning">
-                                <td colspan="8">Il n'y a pas d'articles en cours d'écriture. <a href="{# TODO #}"><i class="fa fa-hand-o-right"></i> Ecrire</a></td>
+                                <td colspan="8">Il n'y a pas d'articles en cours d'écriture. <a href="{{ path("zpb_admin_blog_article_new")}}"><i class="fa fa-hand-o-right"></i> Ecrire</a></td>
                             </tr>
                         {% else %}
                             {% for draft in drafts %}
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ draft.id }}</td>
+                                    <td>{{ draft.createdAt|date("d-m-y") }}</td>
+                                    <td>{{ draft.title|default("sans titre")}}</td>
+                                    <td><a href="#">{{ draft.category.name }}</a></td> {# TODO #}
+                                    <td>{% if draft.tags|length <1 %} - {% else %}{% for tag in draft.tags %}<a href="#">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}</td> {# TODO #}
+                                    <td><a href="#" class="btn btn-default"><i class="fa fa-edit"></i></a></td> {# TODO #}
+                                    <td><a href="{{ path("zpb_admin_blog_article_set_published", {id: draft.id, _token: csrf_token("publish_article")})}}" class="btn btn-default"><i class="fa fa-share"></i></a></td> {# TODO #}
+                                    <td><a class="btn btn-default" href="#"><i class="fa fa-trash-o"></i></a></td> {# TODO #}
                                 </tr>
                             {% endfor %}
                         {% endif %}
@@ -69,6 +69,29 @@
             <div class="col-md-12">
                 <h3>Articles publiés</h3>
             </div>
+            {% if maxPage > 1 %}
+                <div class="col-md-12 text-center">
+                    <ul class="pagination">
+                        {% if currentPage == 1 %}
+                            <li class="disabled"><a href="#">&laquo;</a></li>
+                        {% else %}
+                            <li><a href="{{ path("zpb_admin_blog_homepage", {page:1}) }}">&laquo;</a></li>
+                        {% endif %}
+                        {% for p in 1..maxPage %}
+                            {% if p==currentPage %}
+                                <li class="disabled"><a href="#">{{ p }}</a></li>
+                            {% else %}
+                                <li><a href="{{ path("zpb_admin_blog_homepage", {page:p}) }}">{{ p }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if currentPage == maxPage %}
+                            <li class="disabled"><a href="#">&raquo;</a></li>
+                        {% else %}
+                            <li><a href="{{ path("zpb_admin_blog_homepage", {page:maxPage}) }}">&raquo;</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
             <div class="col-md-12">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped">
@@ -90,22 +113,34 @@
                         <tbody>
                         {% if published|length < 1 %}
                             <tr class="warning">
-                                <td colspan="11">Il n'y a pas d'articles publiés. <a href="{# TODO #}"><i class="fa fa-hand-o-right"></i> Ecrire</a></td>
+                                <td colspan="11">Il n'y a pas d'articles publiés. <a href="{{ path("zpb_admin_blog_article_new")}}"><i class="fa fa-hand-o-right"></i> Ecrire</a></td>
                             </tr>
                         {% else %}
                             {% for pub in published %}
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ pub.longId }}</td>
+                                    <td>{{ pub.publishedAt|date("d-m-y")}}</td>
+                                    <td>{{ pub.viewCounter }}</td>
+                                    <td>{{ pub.title }}</td>
+                                    <td><a href="#">{{ pub.category.name }}</a></td> {# TODO #}
+                                    <td>{% if pub.tags|length <1 %} - {% else %}{% for tag in pub.tags %}<a href="#">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}</td> {# TODO #}
+                                    <td>
+                                        {% if pub.isFrontZoo == true %}
+                                            <a href="#" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
+                                        {% else %}
+                                            <a class="btn btn-default" href="#"><i class="fa fa-square-o"></i></a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if pub.isFrontBn == true %}
+                                            <a href="#" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
+                                        {% else %}
+                                            <a class="btn btn-default" href="#"><i class="fa fa-square-o"></i></a>
+                                        {% endif %}
+                                    </td>
+                                    <td><a class="btn btn-default" href="#"><i class="fa fa-archive"></i></a></td> {# TODO #}
+                                    <td><a class="btn btn-default" href="#"><i class="fa fa-edit"></i></a></td> {# TODO #}
+                                    <td><a class="btn btn-default" href="#"><i class="fa fa-trash-o"></i></a></td> {# TODO #}
                                 </tr>
                             {% endfor %}
                         {% endif %}

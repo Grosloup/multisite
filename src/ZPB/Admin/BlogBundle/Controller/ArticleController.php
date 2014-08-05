@@ -22,6 +22,7 @@ namespace ZPB\Admin\BlogBundle\Controller;
 
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use ZPB\Admin\BlogBundle\Entity\Article;
 use ZPB\Admin\BlogBundle\Form\Type\ArticleType;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
@@ -57,11 +58,36 @@ class ArticleController extends BaseController
 
             }
 
+            $pubAction = $form->get('savePublish')->isClicked();
+            if($pubAction){
+                $article->setIsDraft(false)->setIsPublished(true);
+            }
+
             $em->persist($article);
             $em->flush();
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
 
         return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['categories'=>$cats, 'form'=>$form->createView(), 'article'=>$article]);
+    }
+
+    public function setPublishedAction($id, Request $request)
+    {
+        $csrfPro = $this->getCsrfProvider();
+        $token = $request->query->get('_token', false);
+        if(!$token || !$csrfPro->isCsrfTokenValid('publish_article', $token)){
+            throw new AccessDeniedException('token invalid ou absent');
+        }
+        /** @var \ZPB\Admin\BlogBundle\Entity\Article $art */
+        $art = $this->getRepo('ZPBAdminBlogBundle:Article')->find($id);
+        if(!$art){
+            throw $this->createNotFoundException();
+        }
+        $em = $this->getEm();
+        $art->setIsDraft(false)->setIsPublished(true);
+        $em->persist($art);
+        $em->flush();
+        $this->successMessage('Votre article ('.$art->getLongId().') est publié.');
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
     }
 }

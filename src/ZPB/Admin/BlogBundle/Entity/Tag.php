@@ -31,7 +31,7 @@ class Tag
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false, unique=true)
      * @Assert\NotBlank(message="Ce champ est requis.")
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç' _-]*$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'., _-]*$/", message="Ce champ contient des caractères non autorisés.")
      */
     private $name;
 

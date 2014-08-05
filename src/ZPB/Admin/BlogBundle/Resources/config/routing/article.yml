@@ -1,3 +1,9 @@
 zpb_admin_blog_article_new:
     path: /rediger
     defaults: { _controller: ZPBAdminBlogBundle:Article:new }
+    methods: ["GET", "POST"]
+
+zpb_admin_blog_article_set_published:
+    path: /publier/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:setPublished }
+    methods: ["GET"]

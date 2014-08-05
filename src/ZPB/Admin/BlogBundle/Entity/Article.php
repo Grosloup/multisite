@@ -28,7 +28,7 @@ class Article
 
     /**
      * @var string
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç' _-]*$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'., _-]*$/", message="Ce champ contient des caractères non autorisés.")
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
