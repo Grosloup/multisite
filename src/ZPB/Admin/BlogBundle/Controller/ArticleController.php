@@ -232,6 +232,11 @@ class ArticleController extends BaseController
     public function deleteAction($id, Request $request)
     {
         $token = $request->query->get('_token', false);
-        $art = $this->getSecureArticleById($id, $token, 'article_undrop');
+        $art = $this->getSecureArticleById($id, $token, 'article_delete');
+        $em = $this->getEm();
+        $em->remove($art);
+        $em->flush();
+        $this->successMessage('Votre article ('.$art->getLongId().') a bien été supprimé.');
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
     }
 }
