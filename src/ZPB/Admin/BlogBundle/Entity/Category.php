@@ -42,6 +42,12 @@ class Category
      */
     private $slug;
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="is_default", type="boolean")
+     */
+    private $isDefault;
+
 
     /**
      * Get id
@@ -97,5 +103,28 @@ class Category
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set isDefault
+     *
+     * @param boolean $isDefault
+     * @return Category
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+
+        return $this;
+    }
+
+    /**
+     * Get isDefault
+     *
+     * @return boolean 
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
     }
 }

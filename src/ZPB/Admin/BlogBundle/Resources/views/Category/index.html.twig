@@ -21,6 +21,7 @@
                         <th>Id</th>
                         <th>Nom</th>
                         <th>Alias (slug)</th>
+                        <th>Choisir comme catégorie par défaut</th>
                         <th>Articles</th>
                         <th>Editer</th>
                         <th>Supprimer</th>
@@ -37,6 +38,11 @@
                             <td>{{ categorie.id }}</td>
                             <td>{{ categorie.name }}</td>
                             <td>{{ categorie.slug }}</td>
+                            {% if categorie.isDefault == true %}
+
+                            {% else %}
+
+                            {% endif %}
                             <td><a href="#">voir</a></td>
                             <td><a href="{{ path("zpb_admin_blog_category_edit", {id: categorie.id})}}" class="btn btn-default"><i class="fa fa-edit"></i></a></td>
                             <td><a href="{{ path("zpb_admin_blog_category_delete", {id: categorie.id, _token: csrf_token("delete_category")}) }}" class="btn btn-default delete-alert" data-name="{{ categorie.name }}"><i class="fa fa-trash-o"></i></a></td>
