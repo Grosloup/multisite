@@ -668,6 +668,7 @@ class Article
         $this->isFrontZoo = false;
         $this->isPublished = false;
         $this->isArchived = true;
+        $this->setArchivedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
         return $this;
     }
 
@@ -680,6 +681,7 @@ class Article
         $this->isFrontZoo = false;
         $this->isPublished = true;
         $this->isArchived = false;
+        $this->setArchivedAt(null);
         return $this;
     }
 
@@ -692,6 +694,7 @@ class Article
         $this->isFrontZoo = false;
         $this->isPublished = false;
         $this->isArchived = false;
+        $this->setDroppedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
         return $this;
     }
 
@@ -704,6 +707,7 @@ class Article
         $this->isFrontZoo = false;
         $this->isPublished = true;
         $this->isArchived = false;
+        $this->setDroppedAt(null);
         return $this;
     }
 

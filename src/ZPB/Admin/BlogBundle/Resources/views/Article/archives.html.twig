@@ -19,6 +19,7 @@
                     <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Archivé le</th>
                         <th>Titre</th>
                         <th>Catégorie</th>
                         <th>Lire</th>
@@ -29,15 +30,16 @@
                     <tbody>
                     {% if archives|length <1 %}
                         <tr class="info">
-                            <td colspan="6">Il n'y a pas d'articles archivés.</td>
+                            <td colspan="7">Il n'y a pas d'articles archivés.</td>
                         </tr>
                     {% else %}
                         {% for archive in archives %}
                             <tr>
                                 <td>{{ archive.id }}</td>
+                                <td>{{ archive.archivedAt|date("d-m-y")}}</td>
                                 <td>{{ archive.title }}</td>
                                 <td>{{ archive.category.name }}</td>
-                                <td><a class="btn btn-default" href="#"><i class="fa fa-eye"></i></a></td> {# TODO #}
+                                <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_show", {id: archive.id, _token: csrf_token("article_show")}) }}"><i class="fa fa-eye"></i></a></td>
                                 <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_unset_archived", {id: archive.id, _token: csrf_token("article_unsetArchived")})}}"><i class="fa fa-share"></i></a></td>
                                 <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_dropped", {id: archive.id, _token: csrf_token("article_drop")}) }}"><i class="fa fa-trash-o"></i></a></td>
                             </tr>

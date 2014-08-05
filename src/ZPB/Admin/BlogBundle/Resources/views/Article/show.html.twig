@@ -1,0 +1,45 @@
+{% extends "ZPBAdminBlogBundle:Layouts:master.html.twig" %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2>Articles <small>Lire</small></h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h3 class="text-center">&laquo;{{ article.title }}&raquo;</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h4>Extrait</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    {{ article.excerpt|raw }}
+                </div>
+            </div>
+
+            <div class="page-header">
+                <h4>Corps</h4>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    {{ article.body|raw }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

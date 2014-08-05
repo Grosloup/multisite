@@ -33,7 +33,8 @@ class ArticleController extends BaseController
     {
         $cats = $this->getRepo("ZPBAdminBlogBundle:Category")->findAllAlphaOrdered();
         if(!$cats){
-            //TODO
+            $this->errorMessage("Avant de pouvoir écrire un article, vous devez définir au moins une catégorie.");
+            return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
         $article = new Article();
         $form = $this->createForm(new ArticleType(), $article);
@@ -61,7 +62,7 @@ class ArticleController extends BaseController
             $em->flush();
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
-        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['categories'=>$cats, 'form'=>$form->createView(), 'article'=>$article]);
+        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['form'=>$form->createView(), 'article'=>$article]);
     }
 
     public function setPublishedAction($id, Request $request)
@@ -222,8 +223,8 @@ class ArticleController extends BaseController
 
     public function trashesAction($page = 1)
     {
-        $maxPage = $this->getRepo('ZPBAdminBlogBundle:Article')->getNumPageForDroppedByDate(10);
-        $dropped = $this->getRepo('ZPBAdminBlogBundle:Article')->getAllDroppedOrderedByDate($page, 10, $maxPage);
+        $maxPage = $this->getRepo('ZPBAdminBlogBundle:Article')->getNumPageForDroppedByDate(1);
+        $dropped = $this->getRepo('ZPBAdminBlogBundle:Article')->getAllDroppedOrderedByDate($page, 1, $maxPage);
         $numDropped = $this->getRepo('ZPBAdminBlogBundle:Article')->countDropped();
         return $this->render("ZPBAdminBlogBundle:Article:trashes.html.twig",
             ['currentPage'=>$page, 'maxPage'=>$maxPage, 'trashes'=>$dropped, 'numDropped'=>$numDropped]);
@@ -238,5 +239,13 @@ class ArticleController extends BaseController
         $em->flush();
         $this->successMessage('Votre article ('.$art->getLongId().') a bien été supprimé.');
         return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
+
+    public function showAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_show');
+
+        return $this->render("ZPBAdminBlogBundle:Article:show.html.twig", ['article'=>$art]);
     }
 }

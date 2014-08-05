@@ -121,7 +121,7 @@
                                     <td>{{ pub.longId }}</td>
                                     <td>{{ pub.publishedAt|date("d-m-y")}}</td>
                                     <td>{{ pub.viewCounter }}</td>
-                                    <td>{{ pub.title }}</td>
+                                    <td><a href="{{ path("zpb_admin_blog_article_show", {id: pub.id, _token: csrf_token("article_show")}) }}">{{ pub.title }}</a></td>
                                     <td><a href="#">{{ pub.category.name }}</a></td> {# TODO #}
                                     <td>{% if pub.tags|length <1 %} - {% else %}{% for tag in pub.tags %}<a href="#">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}</td> {# TODO #}
                                     <td>

@@ -86,3 +86,10 @@ zpb_admin_blog_article_delete:
     methods: ["GET"]
     requirements:
         id: \d+
+
+zpb_admin_blog_article_show:
+    path: /lire/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:show }
+    methods: ["GET"]
+    requirements:
+        id: \d+

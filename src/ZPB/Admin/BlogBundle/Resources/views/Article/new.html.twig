@@ -4,14 +4,6 @@
 {% set active_ss_menu = "new_art" %}
 
 {% block content %}
-    {% if categories|length < 1 %}
-        <div class="row">
-            <div class="alert alert-danger">
-                <strong>Attention ! </strong> Il n'y a pas de catégories enregistrées pour les articles. Vous devez en créer au moins une pour pouvoir commencer vos rédactions.
-                <a href="{{ path("zpb_admin_blog_category_new") }}"><i class="fa fa-hand-o-right"></i> Ajouter une catégorie.</a>
-            </div>
-        </div>
-    {% else %}
         <div class="row">
             <div class="col-md-12">
                 <div class="page-header">
@@ -106,7 +98,6 @@
         </div>
         {{ form_end(form) }}
 
-    {% endif %}
 {% endblock %}
 {% block footScripts %}
     {{ parent() }}

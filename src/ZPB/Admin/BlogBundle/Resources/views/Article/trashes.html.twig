@@ -10,9 +10,31 @@
             </div>
         </div>
     </div>
-
-    {# TODO pagination #}
-
+{% if maxPage>1 %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <ul class="pagination">
+                {% if currentPage == 1 %}
+                    <li class="disabled"><a href="#">&laquo;</a></li>
+                {% else %}
+                    <li><a href="{{ path("zpb_admin_blog_article_trashes", {page:1}) }}">&laquo;</a></li>
+                {% endif %}
+                {% for p in 1..maxPage %}
+                    {% if p==currentPage %}
+                        <li class="disabled"><a href="#">{{ p }}</a></li>
+                    {% else %}
+                        <li><a href="{{ path("zpb_admin_blog_article_trashes", {page:p}) }}">{{ p }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if currentPage == maxPage %}
+                    <li class="disabled"><a href="#">&raquo;</a></li>
+                {% else %}
+                    <li><a href="{{ path("zpb_admin_blog_article_trashes", {page:maxPage}) }}">&raquo;</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endif %}
     <div class="row">
         <div class="col-md-12">
             <div class="table-responsive">
