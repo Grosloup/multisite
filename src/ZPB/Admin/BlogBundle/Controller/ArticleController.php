@@ -62,7 +62,8 @@ class ArticleController extends BaseController
             $em->flush();
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
-        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['form'=>$form->createView(), 'article'=>$article]);
+        $tagsName = $this->getRepo('ZPBAdminBlogBundle:Tag')->findAllNamesAlphaOrdered();
+        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['form'=>$form->createView(), 'article'=>$article, 'tags'=>$tagsName]);
     }
 
     public function setPublishedAction($id, Request $request)

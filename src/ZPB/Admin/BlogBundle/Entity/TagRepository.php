@@ -14,7 +14,13 @@ class TagRepository extends EntityRepository
 {
     public function findAllAlphaOrdered()
     {
-        $qb = $this->createQueryBuilder("t")->orderBy("t.name", "ASC");
+        $qb = $this->createQueryBuilder('t')->orderBy('t.name', 'ASC');
         return $qb->getQuery()->getResult();
+    }
+
+    public function findAllNamesAlphaOrdered()
+    {
+        $qb = $this->createQueryBuilder('t')->select('t.name')->orderBy('t.name', 'ASC');
+        return $qb->getQuery()->getArrayResult();
     }
 }

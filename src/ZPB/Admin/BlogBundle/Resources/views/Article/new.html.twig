@@ -66,7 +66,7 @@
                     <div class="panel-heading">
                         {{ form_label(form.tags) }}
                     </div>
-                    <div class="panel-body">{# TODO autocompletion #}
+                    <div class="panel-body">
                         <div class="form-group">
                             {{ form_widget(form.tags) }}
                             <div class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}"></div>
@@ -102,6 +102,7 @@
 {% block footScripts %}
     {{ parent() }}
     <script src="/admin/js/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/admin/js/vendor/typeahead.bundle.js"></script>
     <script>
         var collectionHolder = $('div.tags');
         var protoHolder = $("#article_form_tags");
@@ -116,9 +117,27 @@
             var ipt = nf.find("input");
             var parent = label.parent();
             parent.addClass("form-group");
-            ipt.addClass("form-control");
+            ipt.addClass("form-control auto-comp");
             $newLinkLi.before(nf);
         }
+        var substringMatcher = function(strs) {
+            return function findMatches(q, cb) {
+                var matches, substrRegex;
+                matches = [];
+                substrRegex = new RegExp(q, 'i');
+                $.each(strs, function(i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push({ value: str });
+                    }
+                });
+                cb(matches);
+            };
+        };
+        var tags = [
+            {%- for t in tags -%}
+            "{{ t.name }}"{% if loop.last != true %}, {% endif %}
+            {%- endfor -%}
+        ];
         $(function(){
             tinymce.init({
                 selector: "textarea#article_form_body",
@@ -145,6 +164,18 @@
                 e.preventDefault();
                 addTagForm(collectionHolder, $newLinkLi);
             });
+            if(tags.length){
+                $(".auto-comp").typeahead({
+                    hint: true,
+                    highlight: true,
+                    minLength: 2
+                }, {
+                    name: 'tags',
+                    displayKey: 'value',
+                    source: substringMatcher(tags)
+                });
+            }
+
         });
     </script>
 
