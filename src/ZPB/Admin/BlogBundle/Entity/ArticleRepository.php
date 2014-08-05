@@ -55,6 +55,17 @@ class ArticleRepository extends EntityRepository
         return $maxPage;
     }
 
+    public function getNumPageForDroppedByDate($max = 10)
+    {
+        $numPost = $this->countDropped();
+        if($numPost>0){
+            $maxPage = ceil($numPost/$max);
+        } else {
+            $maxPage = 1;
+        }
+        return $maxPage;
+    }
+
     public function getAllPublishedOrderedByDate($page = 1, $max = 10, $maxPage = null)
     {
         if(!$maxPage){
@@ -89,6 +100,25 @@ class ArticleRepository extends EntityRepository
             ->setFirstResult($offset)
             ->setMaxResults($max)
             ->setParameter("isArchived", true);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+    public function getAllDroppedOrderedByDate($page = 1, $max = 10, $maxPage = null)
+    {
+        if(!$maxPage){
+            $maxPage = $this->getNumPageForDroppedByDate($max);
+        }
+        if($page>$maxPage){
+            $page = $maxPage;
+        }
+        $offset = (($page - 1) * $max);
+        $qb = $this->createQueryBuilder("p")
+            ->where("p.isDropped = :isDropped")
+            ->orderBy("p.droppedAt", "DESC")
+            ->setFirstResult($offset)
+            ->setMaxResults($max)
+            ->setParameter("isDropped", true);
         $query = $qb->getQuery();
         return $query->getResult();
     }

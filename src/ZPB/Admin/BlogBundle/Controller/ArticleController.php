@@ -219,4 +219,13 @@ class ArticleController extends BaseController
         $this->successMessage('Votre article ('.$art->getLongId().') est maintenant remis en publication.');
         return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
     }
+
+    public function trashesAction($page = 1)
+    {
+        $maxPage = $this->getRepo('ZPBAdminBlogBundle:Article')->getNumPageForDroppedByDate(10);
+        $dropped = $this->getRepo('ZPBAdminBlogBundle:Article')->getAllDroppedOrderedByDate($page, 10, $maxPage);
+        $numDropped = $this->getRepo('ZPBAdminBlogBundle:Article')->countDropped();
+        return $this->render("ZPBAdminBlogBundle:Article:trashes.html.twig",
+            ['currentPage'=>$page, 'maxPage'=>$maxPage, 'trashes'=>$dropped, 'numDropped'=>$numDropped]);
+    }
 }

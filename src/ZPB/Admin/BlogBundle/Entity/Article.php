@@ -127,6 +127,12 @@ class Article
 
     /**
      * @var \DateTime
+     * @ORM\Column(name="dropped_at", type="datetime", nullable=true)
+     */
+    private $droppedAt;
+
+    /**
+     * @var \DateTime
      * @ORM\Column(name="tobe_published_at", type="datetime", nullable=true)
      */
     private $tobePublishedAt;
@@ -699,5 +705,28 @@ class Article
         $this->isPublished = true;
         $this->isArchived = false;
         return $this;
+    }
+
+    /**
+     * Set droppedAt
+     *
+     * @param \DateTime $droppedAt
+     * @return Article
+     */
+    public function setDroppedAt($droppedAt)
+    {
+        $this->droppedAt = $droppedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get droppedAt
+     *
+     * @return \DateTime 
+     */
+    public function getDroppedAt()
+    {
+        return $this->droppedAt;
     }
 }

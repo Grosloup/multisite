@@ -59,6 +59,13 @@ zpb_admin_blog_article_archives:
     requirements:
         page: \d+
 
+zpb_admin_blog_article_trashes:
+    path: /corbeille/{page}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:trashes, page: 1}
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
 zpb_admin_blog_article_set_dropped:
     path: /mettre-a-la-corbeille/{id}
     defaults: { _controller: ZPBAdminBlogBundle:Article:drop }
