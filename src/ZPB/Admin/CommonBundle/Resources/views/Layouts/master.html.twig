@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="fr">
 <head>
@@ -40,7 +38,6 @@
             else expires = "";
             document.cookie = name+"="+value+expires+"; path=/";
         }
-
         function readCookie(name) {
             var nameEQ = name + "=";
             var ca = document.cookie.split(';');
@@ -51,14 +48,11 @@
             }
             return null;
         }
-
         function eraseCookie(name) {
             createCookie(name,"",-1);
         }
-
         $(function(){
             $(".nano").nanoScroller();
-
             var sidebarMenuHeaders, msExpand, msCompress, msToggle,msIsOpen,ssIsOpen, body, ssToggle;
             body = $("body");
             msExpand = $("#msExpand");
@@ -66,7 +60,6 @@
             msToggle = $("#msToggle");
             ssToggle = $("#ssToggle");
             sidebarMenuHeaders = $("#main-sidebar .sidebar-menu > h3");
-
             sidebarMenuHeaders.each(function(idx,el){
                 var caret;
                 caret = $(el).find(".fa-caret-down");
@@ -74,12 +67,10 @@
                     caret.addClass("fa-flip-vertical");
                 }
             });
-
             msExpand.on("click", function(e){
                 e.preventDefault();
                 sidebarMenuHeaders.each(function(idx,el){
                     var caret;
-
                     if(!$(el).hasClass("open")){
                         caret = $(el).find(".fa-caret-down");
                         caret.addClass("fa-flip-vertical");
@@ -111,7 +102,6 @@
             } else {
                 body.removeClass("ssOpen").addClass("ssClose");
             }
-
             msToggle.on("click",function(e){
                 e.preventDefault();
                 if(body.hasClass("msOpen")){
@@ -132,8 +122,6 @@
                     createCookie("secondmenu", 1, 4);
                 }
             });
-
-
             sidebarMenuHeaders.on("click", function(e){
                 e.preventDefault();
                 var header, caret;
@@ -146,10 +134,7 @@
                     caret.addClass("fa-flip-vertical");
                     $(header).addClass("open");
                 }
-
             });
-
-
         });
     </script>
 {% endblock %}
