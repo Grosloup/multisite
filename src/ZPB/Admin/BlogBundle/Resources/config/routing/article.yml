@@ -7,3 +7,33 @@ zpb_admin_blog_article_set_published:
     path: /publier/{id}
     defaults: { _controller: ZPBAdminBlogBundle:Article:setPublished }
     methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_blog_article_set_front_zoo:
+    path: /mettre-a-la-une-zoo/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:setFrontZoo }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_blog_article_set_front_bn:
+    path: /mettre-a-la-une-beauval-nature/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:setFrontBn }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_blog_article_unset_front_zoo:
+    path: /retirer-de-la-une-zoo/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:unsetFrontZoo }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_blog_article_unset_front_bn:
+    path: /retirer-de-la-une-beauval-nature/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:unsetFrontBn }
+    methods: ["GET"]
+    requirements:
+        id: \d+

@@ -90,4 +90,83 @@ class ArticleController extends BaseController
         $this->successMessage('Votre article ('.$art->getLongId().') est publié.');
         return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
     }
+
+    public function setFrontZooAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_setFrontZoo');
+        $frontZoo = $this->getRepo('ZPBAdminBlogBundle:Article')->getALaUneZoo();
+        $em = $this->getEm();
+        if($frontZoo){
+            $frontZoo->setIsFrontZoo(false);
+            $em->persist($frontZoo);
+        }
+        $art->setIsFrontZoo(true);
+        $em->persist($art);
+        $em->flush();
+        $this->successMessage('Votre article ('.$art->getLongId().') est à la une du zoo.');
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
+
+    public function unsetFrontZooAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_unsetFrontZoo');
+        if($art->getIsFrontZoo()){
+            $em = $this->getEm();
+            $art->setIsFrontZoo(false);
+            $em->persist($art);
+            $em->flush();
+            $this->successMessage('Votre article ('.$art->getLongId().') n\'est plus à la une du zoo.');
+        }
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
+
+    public function setFrontBnAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_setFrontBn');
+        $frontBn = $this->getRepo('ZPBAdminBlogBundle:Article')->getALaUneBn();
+        $em = $this->getEm();
+        if($frontBn){
+            $frontBn->setIsFrontBn(false);
+            $em->persist($frontBn);
+        }
+        $art->setIsFrontBn(true);
+        $em->persist($art);
+        $em->flush();
+        $this->successMessage('Votre article ('.$art->getLongId().') est à la une de B.Nature.');
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
+
+    public function unsetFrontBnAction($id, Request $request)
+    {
+        $token = $request->query->get('_token', false);
+        $art = $this->getSecureArticleById($id, $token, 'article_unsetFrontBn');
+        if($art->getIsFrontBn()){
+            $em = $this->getEm();
+            $art->setIsFrontBn(false);
+            $em->persist($art);
+            $em->flush();
+            $this->successMessage('Votre article ('.$art->getLongId().') n\'est plus à la une de B.Nature.');
+        }
+        return $this->redirect($this->generateUrl("zpb_admin_blog_homepage"));
+    }
+
+    private function getSecureArticleById($id, $token=false, $intention='')
+    {
+        $art = null;
+        $csrfPro = $this->getCsrfProvider();
+        if(!$token || !$csrfPro->isCsrfTokenValid($intention, $token)){
+            throw new AccessDeniedException('token invalid ou absent');
+        }
+        /** @var \ZPB\Admin\BlogBundle\Entity\Article $art */
+        $art = $this->getRepo('ZPBAdminBlogBundle:Article')->find($id);
+        if(!$art){
+            throw $this->createNotFoundException();
+        }
+        return $art;
+    }
+
+
 }

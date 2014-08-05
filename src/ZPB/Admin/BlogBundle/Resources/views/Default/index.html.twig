@@ -126,16 +126,16 @@
                                     <td>{% if pub.tags|length <1 %} - {% else %}{% for tag in pub.tags %}<a href="#">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}</td> {# TODO #}
                                     <td>
                                         {% if pub.isFrontZoo == true %}
-                                            <a href="#" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
+                                            <a href="{{ path("zpb_admin_blog_article_unset_front_zoo", {id: pub.id, _token: csrf_token("article_unsetFrontZoo")})}}" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
                                         {% else %}
-                                            <a class="btn btn-default" href="#"><i class="fa fa-square-o"></i></a>
+                                            <a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_front_zoo", {id: pub.id, _token: csrf_token("article_setFrontZoo")})}}"><i class="fa fa-square-o"></i></a>
                                         {% endif %}
                                     </td>
                                     <td>
                                         {% if pub.isFrontBn == true %}
-                                            <a href="#" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
+                                            <a href="{{ path("zpb_admin_blog_article_unset_front_bn", {id: pub.id, _token: csrf_token("article_unsetFrontBn")})}}" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
                                         {% else %}
-                                            <a class="btn btn-default" href="#"><i class="fa fa-square-o"></i></a>
+                                            <a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_front_bn", {id: pub.id, _token: csrf_token("article_setFrontBn")})}}"><i class="fa fa-square-o"></i></a>
                                         {% endif %}
                                     </td>
                                     <td><a class="btn btn-default" href="#"><i class="fa fa-archive"></i></a></td> {# TODO #}

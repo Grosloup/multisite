@@ -52,7 +52,18 @@ class ArticleRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder("p")
             ->where("p.isPublished = :isPublished")
-            ->andWhere("p.isFront = :isFront")
+            ->andWhere("p.isFrontZoo = :isFront")
+            ->setParameter("isPublished", true)
+            ->setParameter("isFront", true);
+        $query = $qb->getQuery();
+        return $query->getOneOrNullResult();
+    }
+
+    public function getALaUneBn()
+    {
+        $qb = $this->createQueryBuilder("p")
+            ->where("p.isPublished = :isPublished")
+            ->andWhere("p.isFrontBn = :isFront")
             ->setParameter("isPublished", true)
             ->setParameter("isFront", true);
         $query = $qb->getQuery();
