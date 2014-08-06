@@ -25,7 +25,7 @@ class Image
 
     /**
      * @var \Symfony\Component\HttpFoundation\File\UploadedFile
-     * @Assert\File(maxSize="6000000")
+     * @Assert\Image(maxSize="6000000",mimeTypes ={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Votre image n'est pas une image valide.", maxSizeMessage="Votre image est trop lourde.")
      */
     public $file;
 

@@ -34,22 +34,29 @@ class ImageController extends BaseController
 
     public function newAction(Request $request)
     {
-        $image = new Image($this->container->getParameter('mediatek_uploads_img_dir'),$this->container->getParameter('mediatek_uploads_img_thumbs_dir'), $this->container->getParameter('mediatek_root_dir'));
-
-        $form = $this->createFormBuilder($image)->add('name')->add('file')->add('save','submit')->getForm();
-
+        $image = new Image(
+            $this->container->getParameter('mediatek_uploads_img_dir'),
+            $this->container->getParameter('mediatek_uploads_img_thumbs_dir'),
+            $this->container->getParameter('mediatek_root_dir')
+        );
+        $form = $this->createFormBuilder($image)
+            ->add('name')
+            ->add('file')
+            ->add('save','submit')
+            ->getForm();
         $form->handleRequest($request);
         if($form->isValid()){
             if($image->upload()){
                 $em = $this->getEm();
                 $em->persist($image);
                 $em->flush();
+                //TODO make thumb => service
+                $this->successMessage("Votre image a bien été uploadée.");
+                return $this->redirect($this->generateUrl('zpb_admin_mediatek_homepage'));
             }
-            //TODO make thumb
-            var_dump($image);
-            die();
+            $this->errorMessage('Une erreur s\'est produite, votre image n\'a pas été traitée.');
+            return $this->redirect($this->generateUrl('zpb_admin_mediatek_homepage'));
         }
-
         return $this->render('ZPBAdminMediatekBundle:Image:new.html.twig', ['form'=>$form->createView()]);
     }
 } 
