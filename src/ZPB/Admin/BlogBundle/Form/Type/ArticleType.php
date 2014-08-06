@@ -40,9 +40,11 @@ class ArticleType extends AbstractType
             ->add($builder->create('category','entity', ['label'=>'Catégorie','class'=>'ZPBAdminBlogBundle:Category', 'data_class'=>'ZPB\Admin\BlogBundle\Entity\Category', 'property'=>'name'])->addModelTransformer($transformer))
             //->add('category', 'entity', ['label'=>'Catégorie','class'=>'ZPBAdminBlogBundle:Category', 'data_class'=>'ZPB\Admin\BlogBundle\Entity\Category', 'property'=>'name'])
             ->add('tags', 'collection', ['label'=>'Mots-clés','type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
+            ->add('isFrontZoo',null,['label'=>'du ZooParc'])
+            ->add('isFrontBn',null,['label'=>'de B.Nature'])
             ->add('saveDraft', 'submit', ['label'=>'Enregistrer le brouillon'])
             ->add('savePublish', 'submit', ['label'=>'Enregistrer et publier'])
-            ->add('saveFront', 'submit', ['label'=>'Enregistrer à la une'])
+            //->add('saveFront', 'submit', ['label'=>'Enregistrer à la une'])
             ;
     }
 

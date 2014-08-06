@@ -65,7 +65,6 @@ class CategoryTransformer implements DataTransformerInterface{
      */
     public function transform($value)
     {
-        // TODO: Implement transform() method.
         if($value === null){
             return "";
         }
@@ -99,7 +98,6 @@ class CategoryTransformer implements DataTransformerInterface{
      */
     public function reverseTransform($value)
     {
-        // TODO: Implement reverseTransform() method.
         if(!$value){
             return null;
         }

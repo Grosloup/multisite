@@ -54,11 +54,31 @@ class ArticleController extends BaseController
                     $em->persist($tag);
                 }
             }
+            $draftAction = $form->get('saveDraft')->isClicked();
             $pubAction = $form->get('savePublish')->isClicked();
-            if($pubAction){ //TODO
+            if($draftAction){
+                $article->setIsDraft(true);
+            }
+            if($pubAction){
                 $article->setIsDraft(false)->setIsPublished(true);
             }
-
+            if($article->getIsFrontZoo()){
+                $frontZoo = $this->getRepo('ZPBAdminBlogBundle:Article')->getALaUneZoo();
+                if($frontZoo){
+                    $frontZoo->setIsFrontZoo(false);
+                    $em->persist($frontZoo);
+                }
+            }
+            if($article->getIsFrontBn()){
+                $frontBn = $this->getRepo('ZPBAdminBlogBundle:Article')->getALaUneBn();
+                if($frontBn){
+                    $frontBn->setIsFrontBn(false);
+                    $em->persist($frontBn);
+                }
+            }
+            $em->persist($article);
+            $em->flush();
+            return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
         $tagsName = $this->getRepo('ZPBAdminBlogBundle:Tag')->findAllNamesAlphaOrdered();
         return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['form'=>$form->createView(), 'article'=>$article, 'tags'=>$tagsName]);
@@ -89,19 +109,34 @@ class ArticleController extends BaseController
                         $em->persist($tag);
                     }
                 }
+                $draftAction = $form->get('saveDraft')->isClicked();
                 $pubAction = $form->get('savePublish')->isClicked();
+                if($draftAction){
+                    $article->setIsDraft(true);
+                }
                 if($pubAction){
                     $article->setIsDraft(false)->setIsPublished(true);
+                }
+                if($article->getIsFrontZoo()){
+                    $frontZoo = $this->getRepo('ZPBAdminBlogBundle:Article')->getALaUneZoo();
+                    if($frontZoo && $frontZoo->getId() != $article->getId()){
+                        $frontZoo->setIsFrontZoo(false);
+                        $em->persist($frontZoo);
+                    }
+                }
+                if($article->getIsFrontBn()){
+                    $frontBn = $this->getRepo('ZPBAdminBlogBundle:Article')->getALaUneBn();
+
+                    if($frontBn && $frontBn->getId() != $article->getId()){
+                        $frontBn->setIsFrontBn(false);
+                        $em->persist($frontBn);
+                    }
                 }
                 $em->persist($article);
                 $em->flush();
                 return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
             }
-
         }
-
-
-
         $tagsName = $this->getRepo('ZPBAdminBlogBundle:Tag')->findAllNamesAlphaOrdered();
         return $this->render('ZPBAdminBlogBundle:Article:edit.html.twig', ['tags'=>$tagsName, 'id'=>$id, 'form'=>$form->createView(), 'article'=>$article]);
     }

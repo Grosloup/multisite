@@ -74,23 +74,32 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>Mettre "à la une"</label>
+                    </div>
+                    <div class="panel-body">
+                        <div class="checkbox">
+                            {{ form_widget(form.isFrontZoo, {"attr":{"style":"margin-left:0;"}}) }}{{form_label(form.isFrontZoo)}}
+
+                            {{ form_errors(form.isFrontZoo) }}
+                        </div>
+                        <div class="checkbox">
+                            {{ form_widget(form.isFrontBn, {"attr":{"style":"margin-left:0;"}}) }}{{form_label(form.isFrontBn)}}
+
+                            {{ form_errors(form.isFrontBn) }}
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     {{ form_widget(form.saveDraft, {"attr":{"class":"btn btn-primary"}})  }}
                 </div>
                 <div class="form-group">
                     {{ form_widget(form.savePublish, {"attr":{"class":"btn btn-primary"}})  }}
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <label>Enregistrer "à la une"</label>
-                    </div>
-                    <div class="panel-body">
-                        {# TODO set front #}
-                    </div>
-                </div>
-                <div class="form-group">
-                    {{ form_widget(form.saveFront, {"attr":{"class":"btn btn-primary"}})  }}
-                </div>
+
             </div>
 
             <div class="col-md-2"></div>
