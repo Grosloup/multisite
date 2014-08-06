@@ -112,6 +112,8 @@ class Image
      */
     private $docRoot;
 
+    //TODO remove avec unlink.
+
     public function __construct($uploadDir = "uploads/medias/img",$thumbDir = 'uploads/medias/thumbs', $docRoot = "web")
     {
         $this->uploadDir = $uploadDir;
