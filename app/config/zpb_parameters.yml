@@ -1,0 +1,4 @@
+parameters:
+   mediatek_root_dir: "%kernel.root_dir%/../web"
+   mediatek_uploads_img_dir: "uploads/medias/img"
+   mediatek_uploads_img_thumbs_dir: "uploads/medias/thumbs"

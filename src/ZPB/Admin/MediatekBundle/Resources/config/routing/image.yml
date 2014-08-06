@@ -1,0 +1,6 @@
+zpb_admin_mediatek_homepage:
+    path:     /{page}
+    defaults: { _controller: ZPBAdminMediatekBundle:Image:index, page: 1 }
+    methods: ["GET"]
+    requirements:
+        page: \d+
