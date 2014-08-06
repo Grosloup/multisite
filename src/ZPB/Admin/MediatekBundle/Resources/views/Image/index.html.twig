@@ -18,15 +18,49 @@
                     <thead>
                     <tr>
                         <th>Id</th>
+                        <th>Vignette</th>
+                        <th>Nom du fichier</th>
+                        <th>Largeur originale</th>
+                        <th>Hauteur originale</th>
+                        <th>Supprimer</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                    </tr>
+                    {%  if images|length < 1 %}
+                        <tr>
+                            <td></td>
+                        </tr>
+                    {% else %}
+                        {% for img in images %}
+                        <tr>
+                            <td>{{ img.id }}</td>
+                            <td><a href="{{ img.webPath }}" target="_blank"><img src="{{ img.webThumbnail }}" alt="" width="50"/></a></td>
+                            <td>{{ img.filename }}</td>
+                            <td>{{ img.width }}</td>
+                            <td>{{ img.height }}</td>
+                            <td><a href="#" class="btn btn-default delete-alert" data-name="{{ img.name }}"><i class="fa fa-trash-o"></i></a></td>{# TODO #}
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+{% endblock %}
+{% block footScripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            $(".delete-alert").on("click", function(e){
+                e.preventDefault();
+                var name = $(this).data("name");
+                if(window.confirm("Attention, cette action est irréversible, êtes-vous certain de vouloir continuer et effacer '" + name + "' ?")){
+                    window.location.href = $(this).attr("href");
+                }
+            });
+        });
+    </script>
+
 {% endblock %}

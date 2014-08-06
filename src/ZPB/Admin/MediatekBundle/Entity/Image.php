@@ -126,9 +126,19 @@ class Image
         return $this->filename === null ? null : "/" . $this->uploadDir . "/" . $this->filename;
     }
 
+    public function getWebThumbnail()
+    {
+        return $this->filename === null ? null : "/" . $this->thumbDir . "/" . $this->filename;
+    }
+
     public function getAbsolutePath()
     {
         return $this->filename === null ? null : $this->docRoot . "/" . $this->uploadDir . "/" . $this->filename;
+    }
+
+    public function getAbsoluteThumbnail()
+    {
+        return $this->filename === null ? null : $this->docRoot . "/" . $this->thumbDir . "/" . $this->filename;
     }
 
     public function upload()
@@ -140,6 +150,9 @@ class Image
         $this->mime = $this->file->getMimeType();
         $dest = $this->docRoot . "/" . $this->uploadDir;
         $this->filename = $this->name === null ? $this->sanitizeFilename($this->file->getClientOriginalName()) : $this->name . "." . $this->extension;
+        if($this->name === null){
+            $this->name = preg_replace('/\.(jpe?g|png|gif)$/','',$this->filename);
+        }
         $this->file->move($dest, $this->filename);
         $size = getimagesize($this->getAbsolutePath());
         $this->width = $size[0];
@@ -202,7 +215,7 @@ class Image
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -225,7 +238,7 @@ class Image
     /**
      * Get filename
      *
-     * @return string 
+     * @return string
      */
     public function getFilename()
     {
@@ -248,7 +261,7 @@ class Image
     /**
      * Get extension
      *
-     * @return string 
+     * @return string
      */
     public function getExtension()
     {
@@ -271,7 +284,7 @@ class Image
     /**
      * Get width
      *
-     * @return integer 
+     * @return integer
      */
     public function getWidth()
     {
@@ -294,7 +307,7 @@ class Image
     /**
      * Get height
      *
-     * @return integer 
+     * @return integer
      */
     public function getHeight()
     {
@@ -317,7 +330,7 @@ class Image
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -340,7 +353,7 @@ class Image
     /**
      * Get mime
      *
-     * @return string 
+     * @return string
      */
     public function getMime()
     {

@@ -29,7 +29,9 @@ class ImageController extends BaseController
 {
     public function indexAction($page=1)
     {
-        return $this->render('ZPBAdminMediatekBundle:Image:index.html.twig');
+        $images = $this->getRepo('ZPBAdminMediatekBundle:Image')->findAll(); //TODO get alphaOrder
+        //TODO pagination
+        return $this->render('ZPBAdminMediatekBundle:Image:index.html.twig', ['images'=>$images]);
     }
 
     public function newAction(Request $request)
@@ -47,10 +49,12 @@ class ImageController extends BaseController
         $form->handleRequest($request);
         if($form->isValid()){
             if($image->upload()){
+
                 $em = $this->getEm();
                 $em->persist($image);
                 $em->flush();
-                //TODO make thumb => service
+                $resizer = $this->container->get('zpb.img_resizer');
+                $resizer->resize($image);
                 $this->successMessage("Votre image a bien été uploadée.");
                 return $this->redirect($this->generateUrl('zpb_admin_mediatek_homepage'));
             }
@@ -59,4 +63,4 @@ class ImageController extends BaseController
         }
         return $this->render('ZPBAdminMediatekBundle:Image:new.html.twig', ['form'=>$form->createView()]);
     }
-} 
+}
