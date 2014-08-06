@@ -1,0 +1,19 @@
+{% extends "ZPBAdminMediatekBundle:Layouts:master.html.twig" %}
+
+{% set active_ss_menu = "new_img" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <div class="h2">Images <small>Upload</small></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form(form)}}
+        </div>
+    </div>
+{% endblock %}

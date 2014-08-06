@@ -4,3 +4,8 @@ zpb_admin_mediatek_homepage:
     methods: ["GET"]
     requirements:
         page: \d+
+
+zpb_admin_mediatek_new:
+    path:     /upload
+    defaults: { _controller: ZPBAdminMediatekBundle:Image:new}
+    methods: ["GET", "POST"]

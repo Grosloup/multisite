@@ -86,13 +86,36 @@ class Image
 
     /**
      * @var string
+     * @ORM\Column(name="thumb_dir", type="string", length=255, nullable=false)
+     */
+    private $thumbDir;
+
+    /**
+     * @param string $thumbDir
+     */
+    public function setThumbDir($thumbDir)
+    {
+        $this->thumbDir = $thumbDir;
+    }
+
+    /**
+     * @return string
+     */
+    public function getThumbDir()
+    {
+        return $this->thumbDir;
+    }
+
+    /**
+     * @var string
      * @ORM\Column(name="doc_root", type="string", length=255, nullable=false)
      */
     private $docRoot;
 
-    public function __construct($uploadDir = "uploads/medias/img", $docRoot = "web")
+    public function __construct($uploadDir = "uploads/medias/img",$thumbDir = 'uploads/medias/thumbs', $docRoot = "web")
     {
         $this->uploadDir = $uploadDir;
+        $this->thumbDir = $thumbDir;
         $this->docRoot = $docRoot;
     }
 
