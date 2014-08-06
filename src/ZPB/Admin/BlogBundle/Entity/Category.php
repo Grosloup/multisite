@@ -127,4 +127,9 @@ class Category
     {
         return $this->isDefault;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

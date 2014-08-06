@@ -139,7 +139,7 @@
                                         {% endif %}
                                     </td>
                                     <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_archived", {id: pub.id, _token: csrf_token("article_setArchived")}) }}"><i class="fa fa-archive"></i></a></td>
-                                    <td><a class="btn btn-default" href="#"><i class="fa fa-edit"></i></a></td> {# TODO #}
+                                    <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_edit", {id: pub.id})}}"><i class="fa fa-edit"></i></a></td> {# TODO #}
                                     <td><a class="btn btn-default" href="{{ path("zpb_admin_blog_article_set_dropped", {id: pub.id, _token: csrf_token("article_drop")}) }}"><i class="fa fa-trash-o"></i></a></td>
                                 </tr>
                             {% endfor %}

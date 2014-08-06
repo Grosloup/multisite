@@ -24,17 +24,21 @@ namespace ZPB\Admin\BlogBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use ZPB\Admin\BlogBundle\Form\DataTransformer\CategoryTransformer;
 
 class ArticleType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $em = $options['em'];
+        $transformer = new CategoryTransformer($em);
         $builder->add('title',null, ['label'=>'Titre'])
             ->add('slug', null, ['label'=>'Alias (slug)', 'required'=>'false'])
             ->add('body', 'textarea', ['label'=>'Corps'])
             ->add('excerpt', 'textarea', ['label'=>'Extrait'])
-            ->add('category', 'entity', ['label'=>'Catégorie','class'=>'ZPBAdminBlogBundle:Category', 'data_class'=>'ZPB\Admin\BlogBundle\Entity\Category', 'property'=>'name'])
+            ->add($builder->create('category','entity', ['label'=>'Catégorie','class'=>'ZPBAdminBlogBundle:Category', 'data_class'=>'ZPB\Admin\BlogBundle\Entity\Category', 'property'=>'name'])->addModelTransformer($transformer))
+            //->add('category', 'entity', ['label'=>'Catégorie','class'=>'ZPBAdminBlogBundle:Category', 'data_class'=>'ZPB\Admin\BlogBundle\Entity\Category', 'property'=>'name'])
             ->add('tags', 'collection', ['label'=>'Mots-clés','type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
             ->add('saveDraft', 'submit', ['label'=>'Enregistrer le brouillon'])
             ->add('savePublish', 'submit', ['label'=>'Enregistrer et publier'])
@@ -47,6 +51,9 @@ class ArticleType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'ZPB\Admin\BlogBundle\Entity\Article',
         ));
+
+        $resolver->setRequired(['em']);
+        $resolver->setAllowedTypes(['em'=>'\Doctrine\Common\Persistence\ObjectManager']);
     }
 
     public function getName()

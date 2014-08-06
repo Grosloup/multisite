@@ -575,6 +575,11 @@ class Article
         $this->tags->removeElement($tags);
     }
 
+    public function removeTags()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
     /**
      * Get tags
      *

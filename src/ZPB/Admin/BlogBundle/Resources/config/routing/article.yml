@@ -3,6 +3,13 @@ zpb_admin_blog_article_new:
     defaults: { _controller: ZPBAdminBlogBundle:Article:new }
     methods: ["GET", "POST"]
 
+zpb_admin_blog_article_edit:
+    path: /mise-a-jour/{id}
+    defaults: { _controller: ZPBAdminBlogBundle:Article:edit }
+    methods: ["GET", "POST"]
+    requirements:
+        id: \d+
+
 zpb_admin_blog_article_set_published:
     path: /publier/{id}
     defaults: { _controller: ZPBAdminBlogBundle:Article:setPublished }

@@ -1,108 +1,122 @@
 {% extends "ZPBAdminBlogBundle:Layouts:master.html.twig" %}
 
-
-{% set active_ss_menu = "new_art" %}
-
 {% block content %}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="page-header">
-                    <h2>Article <small>Rédaction</small></h2>
-                </div>
-            </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2>Article <small>Rédaction</small></h2>
+            </div>
         </div>
-        {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
-        <div class="row">
-            <div class="col-md-6">
 
-                {{ form_errors(form) }}
-                <div class="form-group">
-                    {{ form_label(form.title) }}
-                    {{ form_widget(form.title, {"attr":{"class":"form-control"}}) }}
-                    {{ form_errors(form.title) }}
-                </div>
+    </div>
 
-                <div class="form-group">
-                    {{ form_label(form.slug) }}
-                    {{ form_widget(form.slug, {"attr":{"class":"form-control"}}) }}
-                    {{ form_errors(form.slug) }}
-                </div>
+    {{ form_start(form, {"action":path("zpb_admin_blog_article_edit", {"id": id}),attr: {novalidate: 'novalidate'}}) }}
 
-                <div class="form-group">
-                    {{ form_label(form.body) }}
-                    {{ form_widget(form.body, {"attr":{"class":"form-control"}}) }}
-                    {{ form_errors(form.body) }}
-                </div>
+    <div class="row">
+        <div class="col-md-6">
 
-                <div class="form-group">
-                    {{ form_label(form.excerpt) }}
-                    {{ form_widget(form.excerpt, {"attr":{"class":"form-control"}}) }}
-                    {{ form_errors(form.excerpt) }}
-                </div>
+            {{ form_errors(form) }}
+            <div class="form-group">
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.title) }}
             </div>
 
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <label>Etat de l'article</label>
-                    </div>
-                    <div class="panel-body">
-                        <h3 class="text-danger">{{ article.status }}</h3>
+            <div class="form-group">
+                {{ form_label(form.slug) }}
+                {{ form_widget(form.slug, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.slug) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.body) }}
+                {{ form_widget(form.body, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.body) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(form.excerpt) }}
+                {{ form_widget(form.excerpt, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.excerpt) }}
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label>Etat de l'article</label>
+                </div>
+                <div class="panel-body">
+                    <h3 class="text-danger">{{ article.status }}</h3>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ form_label(form.category) }}
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        {{ form_widget(form.category, {"attr":{"class":"form-control"}}) }}
+                        {{ form_errors(form.category) }}
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        {{ form_label(form.category) }}
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            {{ form_widget(form.category, {"attr":{"class":"form-control"}}) }}
-                            {{ form_errors(form.category) }}
-                        </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ form_label(form.tags) }}
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        {{ form_widget(form.tags) }}
+                        <div class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}"></div>
+                        {{ form_errors(form.tags) }}
                     </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        {{ form_label(form.tags) }}
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            {{ form_widget(form.tags) }}
-                            <div class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}"></div>
-                            {{ form_errors(form.tags) }}
-                        </div>
-                    </div>
-                </div>
+            </div>
+            {% if article.isDraft %}
                 <div class="form-group">
                     {{ form_widget(form.saveDraft, {"attr":{"class":"btn btn-primary"}})  }}
                 </div>
                 <div class="form-group">
                     {{ form_widget(form.savePublish, {"attr":{"class":"btn btn-primary"}})  }}
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <label>Enregistrer "à la une"</label>
-                    </div>
-                    <div class="panel-body">
-                        {# TODO set front #}
-                    </div>
+            {% else %}
+                <div class="form-group">
+                    {{ form_widget(form.saveDraft, {"attr":{"class":"btn btn-primary disabled", "disabled":"disabled"}})  }}
                 </div>
                 <div class="form-group">
-                    {{ form_widget(form.saveFront, {"attr":{"class":"btn btn-primary"}})  }}
+                    {{ form_widget(form.savePublish, {"label":"Enregistrer","attr":{"class":"btn btn-primary"}})  }}
+                </div>
+            {% endif %}
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label>Enregistrer "à la une"</label>
+                </div>
+                <div class="panel-body">
+                    {# TODO set front #}
                 </div>
             </div>
-
-            <div class="col-md-2"></div>
-
+            <div class="form-group">
+                {{ form_widget(form.saveFront, {"attr":{"class":"btn btn-primary"}})  }}
+            </div>
         </div>
-        {{ form_end(form) }}
 
+        <div class="col-md-2"></div>
+
+    </div>
+    {{ form_end(form) }}
+
+
+
+
+    {{ form(form) }}
 {% endblock %}
 {% block footScripts %}
     {{ parent() }}
     <script src="/admin/js/vendor/tinymce/tinymce.min.js"></script>
-
     <script>
         var collectionHolder = $('div.tags');
         var protoHolder = $("#article_form_tags");
@@ -133,6 +147,8 @@
                     }
                 });
             }
+
+
             tinymce.init({
                 selector: "textarea#article_form_body",
                 menubar: "tools table format view insert edit",

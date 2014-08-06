@@ -37,7 +37,7 @@ class ArticleController extends BaseController
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
         $article = new Article();
-        $form = $this->createForm(new ArticleType(), $article);
+        $form = $this->createForm(new ArticleType(), $article, ['em'=>$this->getEm()]);
         $form->handleRequest($request);
         if($form->isValid()){
             $tags = $article->getTags();
@@ -55,15 +55,55 @@ class ArticleController extends BaseController
                 }
             }
             $pubAction = $form->get('savePublish')->isClicked();
-            if($pubAction){
+            if($pubAction){ //TODO
                 $article->setIsDraft(false)->setIsPublished(true);
             }
-            $em->persist($article);
-            $em->flush();
-            return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
+
         }
         $tagsName = $this->getRepo('ZPBAdminBlogBundle:Tag')->findAllNamesAlphaOrdered();
         return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['form'=>$form->createView(), 'article'=>$article, 'tags'=>$tagsName]);
+    }
+
+    public function editAction($id, Request $request)
+    {
+        $article = $this->getRepo('ZPBAdminBlogBundle:Article')->find($id);
+        if(!$article){
+            throw $this->createNotFoundException();
+        }
+        $form = $this->createForm(new ArticleType(), $article, ['em'=>$this->getEm()]);
+        if(strtoupper($request->getMethod()) == "POST"){
+            $article->removeTags();
+            $form->handleRequest($request);
+            if($form->isValid()){
+                $tags = $article->getTags();
+                $em = $this->getEm();
+                foreach($tags as $tag){
+                    $test = $this->getRepo("ZPBAdminBlogBundle:Tag")->findOneByName($tag->getName());
+                    if($test){
+                        $article->removeTag($tag);
+                        $article->addTag($test);
+                        $test->addArticle($article);
+                        $em->persist($test);
+                    } else {
+                        $tag->addArticle($article);
+                        $em->persist($tag);
+                    }
+                }
+                $pubAction = $form->get('savePublish')->isClicked();
+                if($pubAction){
+                    $article->setIsDraft(false)->setIsPublished(true);
+                }
+                $em->persist($article);
+                $em->flush();
+                return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
+            }
+
+        }
+
+
+
+        $tagsName = $this->getRepo('ZPBAdminBlogBundle:Tag')->findAllNamesAlphaOrdered();
+        return $this->render('ZPBAdminBlogBundle:Article:edit.html.twig', ['tags'=>$tagsName, 'id'=>$id, 'form'=>$form->createView(), 'article'=>$article]);
     }
 
     public function setPublishedAction($id, Request $request)
