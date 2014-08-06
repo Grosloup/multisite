@@ -6,21 +6,24 @@
                     <button class="fa fa-bars" id="ssToggle"></button>
                 </div>
                 <div class="sidebar-menu">
-                    <h3>Articles</h3>
+                    <h3>Toutes les images</h3>
                     <ul>
-                        <li {% if active == "home" %}class="active"{% endif %}><a href="#">Lorem ipsum.</a></li>
+                        <li {% if active == "all_img" %}class="active"{% endif %}><a href="#">Liste</a></li>
+                        <li {% if active == "new_img" %}class="active"{% endif %}><a href="#">Upload</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-menu">
-                    <h3>Catégories</h3>
+                    <h3>Tous les pdf</h3>
                     <ul>
-                        <li><a href="#">Lorem ipsum.</a></li>
+                        <li {% if active == "all_pdf" %}class="active"{% endif %}><a href="#">Liste</a></li>
+                        <li {% if active == "new_pdf" %}class="active"{% endif %}><a href="#">Upload</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-menu">
                     <h3>Mots-clés</h3>
                     <ul>
-                        <li><a href="#">Lorem ipsum.</a></li>
+                        <li {% if active == "all_tags" %}class="active"{% endif %}><a href="#">Liste</a></li>
+                        <li {% if active == "new_tag" %}class="active"{% endif %}><a href="#">Nouveau mot-clé</a></li>
                     </ul>
                 </div>
             </div>
