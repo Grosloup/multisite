@@ -1,0 +1,7 @@
+parameters:
+#    zpb_admin_mediatek.example.class: ZPB\Admin\MediatekBundle\Example
+
+services:
+#    zpb_admin_mediatek.example:
+#        class: %zpb_admin_mediatek.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

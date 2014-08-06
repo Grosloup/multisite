@@ -10,6 +10,11 @@ zpb_admin_blog:
     prefix:   /actualites
     schemes:  [https]
 
+zpb_admin_mediatek:
+    resource: "@ZPBAdminMediatekBundle/Resources/config/routing.yml"
+    host: new.admin.zooparc.com
+    prefix:   /mediatheque
+    schemes:  [https]
 
 
 zpb_sites_zoo:

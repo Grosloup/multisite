@@ -1,0 +1,3 @@
+zpb_admin_mediatek_homepage:
+    path:     /
+    defaults: { _controller: ZPBAdminMediatekBundle:Default:index }

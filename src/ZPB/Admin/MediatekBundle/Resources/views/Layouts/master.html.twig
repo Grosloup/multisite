@@ -1,10 +1,10 @@
 {% extends "ZPBAdminCommonBundle:Layouts:master.html.twig" %}
-{% block title %}Actualités{% endblock %}
-{% set active_ms_menu = "news" %}
+{% block title %}Médiathèque{% endblock %}
+{% set active_ms_menu = "media" %}
 
 {% block main %}
     <div id="main" class="bg-default">
-        {{ render(controller("ZPBAdminBlogBundle:Navs:sidebar", {active: active_ss_menu|default("home")})) }}
+        {{ render(controller("ZPBAdminMediatekBundle:Navs:sidebar", {active: active_ss_menu|default("home")})) }}
         <div id="content">
             <div class="container-fluid">
                 <div class="row">
@@ -38,7 +38,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="page-header">
-                            <h1>Actualités</h1>
+                            <h1>Médiathèque</h1>
                         </div>
                     </div>
                 </div>
