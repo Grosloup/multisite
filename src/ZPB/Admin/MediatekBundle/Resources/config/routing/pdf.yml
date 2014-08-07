@@ -1,0 +1,25 @@
+zpb_admin_mediatek_pdf_homepage:
+    path:     /{page}
+    defaults: { _controller: ZPBAdminMediatekBundle:Pdf:index, page: 1 }
+    methods: ["GET"]
+    requirements:
+        page: \d+
+
+zpb_admin_mediatek_pdf_new:
+    path:     /upload
+    defaults: { _controller: ZPBAdminMediatekBundle:Pdf:new }
+    methods: ["GET", "POST"]
+
+zpb_admin_mediatek_pdf_edit:
+    path:     /mise-a-jour/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Pdf:edit }
+    methods: ["GET", "POST"]
+    requirements:
+        id: \d+
+
+zpb_admin_mediatek_pdf_delete:
+    path:     /supprimer/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Pdf:delete }
+    methods: ["GET"]
+    requirements:
+        id: \d+

@@ -12,4 +12,35 @@ use Doctrine\ORM\EntityRepository;
  */
 class ImageRepository extends EntityRepository
 {
+    public function countImage()
+    {
+        return $this->createQueryBuilder("i")->select("COUNT(i)")->getQuery()->getSingleScalarResult();
+    }
+
+    public function getNumPage($max = 20)
+    {
+        $numImg = $this->countImage();
+        $maxPage = 1;
+        if($numImg>0){
+            $maxPage = ceil($numImg/$max);
+        }
+        return $maxPage;
+    }
+
+    public function getAllImageAlphaOrdered($page = 1, $max = 20, $maxPage = null)
+    {
+        if(!$maxPage){
+            $maxPage = $this->getNumPage($max);
+        }
+        if($page>$maxPage){
+            $page = $maxPage;
+        }
+        $offset = (($page-1) * $max);
+        $qb = $this->createQueryBuilder('i')
+            ->orderBy('i.name', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($max)
+        ;
+        return $qb->getQuery()->getResult();
+    }
 }

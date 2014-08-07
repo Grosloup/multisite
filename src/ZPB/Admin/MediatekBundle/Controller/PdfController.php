@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Nicolas Canfrère
- * Date: 06/08/14
- * Time: 12:51
+ * Date: 07/08/14
+ * Time: 10:48
  */
   /*
            ____________________
@@ -21,13 +21,28 @@
 namespace ZPB\Admin\MediatekBundle\Controller;
 
 
+use Symfony\Component\HttpFoundation\Request;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 
-class NavsController extends BaseController
+class PdfController extends BaseController
 {
-    public function sidebarAction($active)
+    public function indexAction($page=1)
     {
-        $numImg = $this->getRepo('ZPBAdminMediatekBundle:Image')->countImage();
-        return $this->render('ZPBAdminMediatekBundle:Navs:sidebar.html.twig', ['active'=>$active, 'numImage'=>$numImg]);
+        return $this->render('ZPBAdminMediatekBundle:Pdf:index.html.twig', ['currentPage'=>$page]);
+    }
+
+    public function newAction(Request $request)
+    {
+
+    }
+
+    public function editAction($id, Request $request)
+    {
+
+    }
+
+    public function deleteAction($id, Request $request)
+    {
+
     }
 } 

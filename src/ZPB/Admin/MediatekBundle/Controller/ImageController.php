@@ -30,9 +30,10 @@ class ImageController extends BaseController
 {
     public function indexAction($page=1)
     {
-        $images = $this->getRepo('ZPBAdminMediatekBundle:Image')->findAll(); //TODO get alphaOrder
-        //TODO pagination
-        return $this->render('ZPBAdminMediatekBundle:Image:index.html.twig', ['images'=>$images]);
+        $images = $this->getRepo('ZPBAdminMediatekBundle:Image')->getAllImageAlphaOrdered($page, 10);
+        $maxPage = $this->getRepo('ZPBAdminMediatekBundle:Image')->getNumPage(10);
+
+        return $this->render('ZPBAdminMediatekBundle:Image:index.html.twig', ['images'=>$images, 'currentPage'=>$page, 'maxPage'=>$maxPage]);
     }
 
     public function newAction(Request $request)
@@ -98,6 +99,22 @@ class ImageController extends BaseController
 
     public function deleteAction($id, Request $request)
     {
+        $csrfProv = $this->getCsrfProvider();
+        $token = $request->query->get('_token', false);
+        if(!$token || !$csrfProv->isCsrfTokenValid('image_delete',$token)){
+            throw new AccessDeniedException();
+        }
+        $image = $this->getRepo('ZPBAdminMediatekBundle:Image')->find($id);
+        if(!$image){
+            throw $this->createNotFoundException();
+        }
+
+
+        $em = $this->getEm();
+        $em->remove($image);
+        $em->flush();
+
+
         $this->successMessage('Votre image a bien été supprimée.');
         return $this->redirect($this->generateUrl('zpb_admin_mediatek_homepage'));
     }

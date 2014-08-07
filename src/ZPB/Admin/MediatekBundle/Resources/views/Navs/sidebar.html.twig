@@ -8,15 +8,15 @@
                 <div class="sidebar-menu">
                     <h3>Toutes les images</h3>
                     <ul>
-                        <li {% if active == "all_img" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_homepage") }}">Liste</a></li>
+                        <li {% if active == "all_img" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_homepage") }}">Liste <small>({{numImage}})</small></a></li>
                         <li {% if active == "new_img" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_new") }}">Upload</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-menu">
                     <h3>Tous les pdf</h3>
                     <ul>
-                        <li {% if active == "all_pdf" %}class="active"{% endif %}><a href="#">Liste</a></li>
-                        <li {% if active == "new_pdf" %}class="active"{% endif %}><a href="#">Upload</a></li>
+                        <li {% if active == "all_pdf" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_pdf_homepage") }}">Liste</a></li>
+                        <li {% if active == "new_pdf" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_pdf_new") }}">Upload</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-menu">

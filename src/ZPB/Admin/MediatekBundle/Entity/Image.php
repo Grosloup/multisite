@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="zpb_media_images")
  * @ORM\Entity(repositoryClass="ZPB\Admin\MediatekBundle\Entity\ImageRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Image
 {
@@ -106,6 +107,10 @@ class Image
      */
     private $title;
 
+    private $originalPathForRemove;
+
+    private $thumbPathForRemove;
+
     /**
      * @param string $uploadDir
      * @param string $thumbDir
@@ -118,6 +123,28 @@ class Image
         $this->thumbDir = $thumbDir;
         $this->docRoot = $docRoot;
         $this->copyright = $copyright;
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storePath()
+    {
+        $this->originalPathForRemove = $this->getAbsolutePath();
+        $this->thumbPathForRemove = $this->getAbsoluteThumbnail();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function remove()
+    {
+        if($this->originalPathForRemove != null){
+            unlink($this->originalPathForRemove);
+        }
+        if($this->thumbPathForRemove != null){
+            unlink($this->thumbPathForRemove);
+        }
     }
 
     /**
@@ -175,7 +202,7 @@ class Image
         $dest = $this->docRoot . "/" . $this->uploadDir;
         $this->filename = $this->name === null ? $this->sanitizeFilename($this->file->getClientOriginalName()) : $this->name . "." . $this->extension;
         if ($this->name === null) {
-            $this->name = preg_replace('/\.(jpe?g|png|gif)$/', '', $this->filename);
+            $this->name = preg_replace('/\.(jpe?g|png|gif|JPE?G|PNG|GIF)$/', '', $this->filename);
         }
         $this->file->move($dest, $this->filename);
         $size = getimagesize($this->getAbsolutePath());
