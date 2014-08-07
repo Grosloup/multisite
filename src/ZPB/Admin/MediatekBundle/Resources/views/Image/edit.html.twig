@@ -24,8 +24,12 @@
             </div>
             <div class="form-group {% if form.title.vars.errors|length>0 %}has-error{% endif %}">
                 {{ form_label(form.title) }}
-                {{ form_widget(form.title, {"label": "Attr. title","attr":{"class":"form-control"}}) }}
+                {{ form_widget(form.title, {"attr":{"class":"form-control"}}) }}
                 {{ form_errors(form.title) }}
+            </div>
+            <div class="checkbox">
+                {{ form_widget(form.isArticleThumbnail, {"attr":{"style":"margin-left:0;"}}) }}{{ form_label(form.isArticleThumbnail) }}
+                {{ form_errors(form.isArticleThumbnail) }}
             </div>
             <div class="form-group">
                 {{ form_widget(form.save, {"label": "Mettre à jour", "attr":{"class":"btn btn-primary"}}) }}

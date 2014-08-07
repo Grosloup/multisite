@@ -45,8 +45,9 @@ class ImageController extends BaseController
         $form = $this->createFormBuilder($image)
             ->add('name')
             ->add('copyright')
-            ->add('title')
+            ->add('title',null,['label'=>'Attr. title'])
             ->add('file')
+            ->add('isArticleThumbnail',null, ['label'=>'Illustration d\'article ?'])
             ->add('save','submit')
             ->getForm();
         $form->handleRequest($request);
@@ -80,8 +81,9 @@ class ImageController extends BaseController
         }
         $form = $this->createFormBuilder($image)
             ->add('name')
-            ->add('title')
+            ->add('title',null,['label'=>'Attr. title'])
             ->add('copyright')
+            ->add('isArticleThumbnail',null, ['label'=>'Illustration d\'article ?'])
             ->add('save','submit')
             ->getForm();
         ;

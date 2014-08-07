@@ -105,6 +105,28 @@
             <div class="col-md-2"></div>
 
         </div>
+    <div class="row">
+
+            {% if imgs|length < 1 %}
+            <div class="col-md-12"></div>
+            {% else %}
+                <div class="img-holder" style="height: 300px; overflow-y: scroll; border: 1px solid #ccc; padding: 10px 0;">
+                    {% for img in imgs %}
+                        <div class="col-md-2">
+                            <div class="thumbnail">
+                                <div class="caption">
+                                    <label><input type="radio" name="test"/> choisir</label>
+                                </div>
+                                <img src="{{ img.webPath }}" alt=""/>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            {% endif %}
+
+    </div>
         {{ form_end(form) }}
 
 {% endblock %}

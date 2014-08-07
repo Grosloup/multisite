@@ -107,6 +107,11 @@ class Image
      */
     private $title;
 
+    /**
+     * @ORM\Column(name="is_article_thumbnail", type="boolean", nullable=false)
+     */
+    private $isArticleThumbnail;
+
     private $originalPathForRemove;
 
     private $thumbPathForRemove;
@@ -123,6 +128,7 @@ class Image
         $this->thumbDir = $thumbDir;
         $this->docRoot = $docRoot;
         $this->copyright = $copyright;
+        $this->isArticleThumbnail = true;
     }
 
     /**
@@ -154,8 +160,6 @@ class Image
     {
         return $this->thumbDir;
     }
-
-    //TODO remove avec unlink.
 
     /**
      * @param string $thumbDir
@@ -470,4 +474,21 @@ class Image
     {
         return $this->title;
     }
+
+    /**
+     * @param mixed $isArticleThumbnail
+     */
+    public function setIsArticleThumbnail($isArticleThumbnail)
+    {
+        $this->isArticleThumbnail = $isArticleThumbnail;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsArticleThumbnail()
+    {
+        return $this->isArticleThumbnail;
+    }
+
 }

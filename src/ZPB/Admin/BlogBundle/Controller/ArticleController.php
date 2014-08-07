@@ -37,6 +37,7 @@ class ArticleController extends BaseController
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
         $article = new Article();
+        $imgs = $this->getRepo('ZPBAdminMediatekBundle:Image')->findByIsArticleThumbnail(true);
         $form = $this->createForm(new ArticleType(), $article, ['em'=>$this->getEm()]);
         $form->handleRequest($request);
         if($form->isValid()){
@@ -81,7 +82,7 @@ class ArticleController extends BaseController
             return $this->redirect($this->generateUrl('zpb_admin_blog_homepage'));
         }
         $tagsName = $this->getRepo('ZPBAdminBlogBundle:Tag')->findAllNamesAlphaOrdered();
-        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['form'=>$form->createView(), 'article'=>$article, 'tags'=>$tagsName]);
+        return $this->render("ZPBAdminBlogBundle:Article:new.html.twig", ['form'=>$form->createView(), 'article'=>$article, 'tags'=>$tagsName, 'imgs'=>$imgs]);
     }
 
     public function editAction($id, Request $request)
