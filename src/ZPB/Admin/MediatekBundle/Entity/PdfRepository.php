@@ -12,4 +12,33 @@ use Doctrine\ORM\EntityRepository;
  */
 class PdfRepository extends EntityRepository
 {
+    public function countPdf()
+    {
+        return $this->createQueryBuilder("p")->select("COUNT(p)")->getQuery()->getSingleScalarResult();
+    }
+    public function getNumPage($max = 20)
+    {
+        $numImg = $this->countPdf();
+        $maxPage = 1;
+        if($numImg>0){
+            $maxPage = ceil($numImg/$max);
+        }
+        return $maxPage;
+    }
+    public function getAllPdfAlphaOrdered($page = 1, $max = 20, $maxPage = null)
+    {
+        if(!$maxPage){
+            $maxPage = $this->getNumPage($max);
+        }
+        if($page>$maxPage){
+            $page = $maxPage;
+        }
+        $offset = (($page-1) * $max);
+        $qb = $this->createQueryBuilder('p')
+            ->orderBy('p.name', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($max)
+        ;
+        return $qb->getQuery()->getResult();
+    }
 }

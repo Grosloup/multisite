@@ -15,7 +15,7 @@
                 <div class="sidebar-menu">
                     <h3>Tous les pdf</h3>
                     <ul>
-                        <li {% if active == "all_pdf" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_pdf_homepage") }}">Liste</a></li>
+                        <li {% if active == "all_pdf" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_pdf_homepage") }}">Liste <small>({{numPdf}})</small></a></li>
                         <li {% if active == "new_pdf" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_pdf_new") }}">Upload</a></li>
                     </ul>
                 </div>

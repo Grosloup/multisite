@@ -1,0 +1,34 @@
+{% extends "ZPBAdminMediatekBundle:Layouts:master.html.twig" %}
+
+{% set active_ss_menu = "new_pdf" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <div class="h2">Pdf <small>Upload</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+            {{ form_errors(form) }}
+            <div class="form-group {% if form.name.vars.errors|length>0 %}has-error{% endif %}">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, {"label": "Nom","attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+            <div class="form-group {% if form.file.vars.errors|length>0 %}has-error{% endif %}">
+                {{ form_label(form.file) }}
+                {{ form_widget(form.file, {"label": "Fichier"}) }}
+                {{ form_errors(form.file) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.save, {"label": "Upload", "attr":{"class":"btn btn-primary"}}) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-8"></div>
+    </div>
+{% endblock %}

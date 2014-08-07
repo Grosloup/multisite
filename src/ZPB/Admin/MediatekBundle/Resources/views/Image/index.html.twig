@@ -16,7 +16,7 @@
                 {% if currentPage == 1 %}
                     <li class="disabled"><a href="#">&laquo;</a></li>
                 {% else %}
-                    <li><a href="{{ path("zpb_admin_blog_homepage", {page:1}) }}">&laquo;</a></li>
+                    <li><a href="{{ path("zpb_admin_mediatek_homepage", {page:1}) }}">&laquo;</a></li>
                 {% endif %}
                 {% for p in 1..maxPage %}
                     {% if p==currentPage %}

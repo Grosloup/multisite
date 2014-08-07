@@ -32,7 +32,6 @@ class ImageController extends BaseController
     {
         $images = $this->getRepo('ZPBAdminMediatekBundle:Image')->getAllImageAlphaOrdered($page, 10);
         $maxPage = $this->getRepo('ZPBAdminMediatekBundle:Image')->getNumPage(10);
-
         return $this->render('ZPBAdminMediatekBundle:Image:index.html.twig', ['images'=>$images, 'currentPage'=>$page, 'maxPage'=>$maxPage]);
     }
 

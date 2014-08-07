@@ -28,6 +28,7 @@ class NavsController extends BaseController
     public function sidebarAction($active)
     {
         $numImg = $this->getRepo('ZPBAdminMediatekBundle:Image')->countImage();
-        return $this->render('ZPBAdminMediatekBundle:Navs:sidebar.html.twig', ['active'=>$active, 'numImage'=>$numImg]);
+        $numPdf = $this->getRepo('ZPBAdminMediatekBundle:Pdf')->countPdf();
+        return $this->render('ZPBAdminMediatekBundle:Navs:sidebar.html.twig', ['active'=>$active, 'numImage'=>$numImg, 'numPdf'=>$numPdf]);
     }
 } 

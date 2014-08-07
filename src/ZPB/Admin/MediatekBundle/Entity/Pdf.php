@@ -65,7 +65,7 @@ class Pdf
 
     /**
      * @var \Symfony\Component\HttpFoundation\File\UploadedFile
-     * @Assert\File(maxSize="6000000",mimeTypes ={"application/pdf"}, mimeTypesMessage="Votre fichier n'est pas un fichier pdf valide.", maxSizeMessage="Votre pdf est trop lourd.")
+     * @Assert\File(maxSize="6000000",mimeTypes={"application/pdf"}, mimeTypesMessage="Votre fichier n'est pas un fichier pdf valide.", maxSizeMessage="Votre pdf est trop lourd.")
      */
     public $file;
 
@@ -128,6 +128,14 @@ class Pdf
     public function getAbsolutePath()
     {
         return $this->filename === null ? null : $this->docRoot . "/" . $this->uploadDir . "/" . $this->filename;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getWebPath()
+    {
+        return $this->filename === null ? null : "/" . $this->uploadDir . "/" . $this->filename;
     }
 
     /**
