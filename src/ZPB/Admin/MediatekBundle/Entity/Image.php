@@ -2,6 +2,7 @@
 
 namespace ZPB\Admin\MediatekBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -112,6 +113,12 @@ class Image
      */
     private $isArticleThumbnail;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="ZPB\Admin\MediatekBundle\Entity\Tag", inversedBy="images")
+     * @ORM\JoinTable(name="zpb_media_images_tags")
+     */
+    private $tags;
+
     private $originalPathForRemove;
 
     private $thumbPathForRemove;
@@ -124,6 +131,7 @@ class Image
      */
     public function __construct($uploadDir = "uploads/medias/img", $thumbDir = 'uploads/medias/thumbs', $docRoot = "web", $copyright = "@ ZooParc de Beauval")
     {
+        $this->tags = new ArrayCollection();
         $this->uploadDir = $uploadDir;
         $this->thumbDir = $thumbDir;
         $this->docRoot = $docRoot;
@@ -491,4 +499,37 @@ class Image
         return $this->isArticleThumbnail;
     }
 
+
+    /**
+     * Add tags
+     *
+     * @param Tag $tags
+     * @return Image
+     */
+    public function addTag(Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param Tag $tags
+     */
+    public function removeTag(Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
 }

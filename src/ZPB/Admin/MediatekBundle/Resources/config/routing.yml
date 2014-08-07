@@ -4,3 +4,6 @@ zpb_admin_mediatek_image_routes:
 zpb_admin_mediatek_pdf_routes:
     resource: "@ZPBAdminMediatekBundle/Resources/config/routing/pdf.yml"
     prefix: /pdf
+zpb_admin_mediatek_tag_routes:
+    resource: "@ZPBAdminMediatekBundle/Resources/config/routing/tag.yml"
+    prefix: /tags

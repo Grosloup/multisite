@@ -2,6 +2,7 @@
 
 namespace ZPB\Admin\MediatekBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -63,6 +64,13 @@ class Pdf
      */
     private $extension;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ZPB\Admin\MediatekBundle\Entity\Tag", inversedBy="pdfs")
+     * @ORM\JoinTable(name="zpb_media_pdfs_tags")
+     */
+    private $tags;
+
     /**
      * @var \Symfony\Component\HttpFoundation\File\UploadedFile
      * @Assert\File(maxSize="6000000",mimeTypes={"application/pdf"}, mimeTypesMessage="Votre fichier n'est pas un fichier pdf valide.", maxSizeMessage="Votre pdf est trop lourd.")
@@ -75,6 +83,7 @@ class Pdf
 
     function __construct($uploadDir = "uploads/medias/pdf", $docRoot = "web")
     {
+        $this->tags = new ArrayCollection();
         $this->uploadDir = $uploadDir;
         $this->docRoot = $docRoot;
     }
@@ -284,5 +293,38 @@ class Pdf
     public function getExtension()
     {
         return $this->extension;
+    }
+
+    /**
+     * Add tags
+     *
+     * @param Tag $tags
+     * @return Pdf
+     */
+    public function addTag(Tag $tags)
+    {
+        $this->tags[] = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param Tag $tags
+     */
+    public function removeTag(Tag $tags)
+    {
+        $this->tags->removeElement($tags);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

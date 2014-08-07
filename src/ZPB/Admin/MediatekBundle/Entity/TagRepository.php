@@ -1,6 +1,6 @@
 <?php
 
-namespace ZPB\Admin\BlogBundle\Entity;
+namespace ZPB\Admin\MediatekBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

@@ -12,6 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+    public function countCategories()
+    {
+        return $this->createQueryBuilder('c')->select('COUNT(c)')->getQuery()->getSingleScalarResult();
+    }
+
     public function findAllAlphaOrdered()
     {
         $qb = $this->createQueryBuilder("c")->orderBy("c.name", "ASC");

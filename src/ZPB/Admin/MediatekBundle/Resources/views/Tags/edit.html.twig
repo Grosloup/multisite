@@ -1,0 +1,35 @@
+{% extends "ZPBAdminMediatekBundle:Layouts:master.html.twig" %}
+
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2>Mot-clé <small>édition</small></h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_start(form, {"action":path("zpb_admin_mediatek_tag_edit", {"id":id}),"attr": {novalidate: 'novalidate'}}) }}
+            {{ form_errors(form) }}
+            <div class="form-group {% if form.name.vars.errors|length>0 %}has-error{% endif %}">
+                {{ form_label(form.name) }}
+                {{ form_widget(form.name, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+            <div class="form-group  {% if form.slug.vars.errors|length>0 %}has-error{% endif %}">
+                {{ form_label(form.slug) }}
+                {{ form_widget(form.slug, {"required":false, "attr":{"class":"form-control"}}) }}
+                <span class="help-block">Si laissé vide, l'alias sera créé automatiquement.</span>
+                {{ form_errors(form.slug) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.save, {"label":"Mettre à jour","attr":{"class":"btn btn-primary"}}) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-8"></div>
+    </div>
+{% endblock %}

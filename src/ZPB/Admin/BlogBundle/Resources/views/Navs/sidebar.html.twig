@@ -17,14 +17,14 @@
                 <div class="sidebar-menu">
                     <h3>Catégories</h3>
                     <ul>
-                        <li {% if active == "all_cats" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_category_homepage") }}">Liste</a></li>
+                        <li {% if active == "all_cats" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_category_homepage") }}">Liste <small>({{numCat}})</small></a></li>
                         <li {% if active == "new_cat" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_category_new") }}">Nouvelle catégorie</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-menu">
                     <h3>Mots-clés</h3>
                     <ul>
-                        <li {% if active == "all_tags" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_tag_homepage") }}">Liste</a></li>
+                        <li {% if active == "all_tags" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_tag_homepage") }}">Liste <small>({{numTag}})</small></a></li>
                         <li {% if active == "new_tag" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_tag_new") }}">Nouveau mot-clé</a></li>
                     </ul>
                 </div>

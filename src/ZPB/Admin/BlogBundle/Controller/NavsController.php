@@ -31,7 +31,9 @@ class NavsController extends BaseController
         $numPublished = $this->getRepo('ZPBAdminBlogBundle:Article')->countPublished();
         $numArchived = $this->getRepo('ZPBAdminBlogBundle:Article')->countArchived();
         $numDropped = $this->getRepo('ZPBAdminBlogBundle:Article')->countDropped();
+        $numTags = $this->getRepo('ZPBAdminBlogBundle:Tag')->countTags();
+        $numCats = $this->getRepo('ZPBAdminBlogBundle:Category')->countCategories();
         return $this->render("ZPBAdminBlogBundle:Navs:sidebar.html.twig",
-            ["active" => $active, "pub"=>$numPublished, "draft"=>$numDraft, "arch"=>$numArchived, "drop"=>$numDropped]);
+            ["active" => $active, "pub"=>$numPublished, "draft"=>$numDraft, "arch"=>$numArchived, "drop"=>$numDropped, 'numTag'=>$numTags, 'numCat'=>$numCats]);
     }
 }

@@ -1,0 +1,23 @@
+zpb_admin_mediatek_tag_homepage:
+    path: /
+    defaults: { _controller: ZPBAdminMediatekBundle:Tag:index }
+    methods: ["GET"]
+
+zpb_admin_mediatek_tag_new:
+    path: /nouveau
+    defaults: { _controller: ZPBAdminMediatekBundle:Tag:new }
+    methods: ["GET", "POST"]
+
+zpb_admin_mediatek_tag_delete:
+    path: /supprimer/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Tag:delete }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_mediatek_tag_edit:
+    path: /mise-a-jour/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Tag:edit }
+    methods: ["GET", "POST"]
+    requirements:
+        id: \d+
