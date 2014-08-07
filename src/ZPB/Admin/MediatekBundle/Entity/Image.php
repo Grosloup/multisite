@@ -15,6 +15,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Image
 {
     /**
+     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
+     * @Assert\Image(maxSize="6000000",mimeTypes ={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Votre image n'est pas une image valide.", maxSizeMessage="Votre image est trop lourde.")
+     */
+    public $file;
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -22,13 +27,6 @@ class Image
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var \Symfony\Component\HttpFoundation\File\UploadedFile
-     * @Assert\Image(maxSize="6000000",mimeTypes ={"image/png","image/jpeg","image/gif"}, mimeTypesMessage="Votre image n'est pas une image valide.", maxSizeMessage="Votre image est trop lourde.")
-     */
-    public $file;
-
     /**
      * @var string
      * @ORM\Column(name="filename", type="string", length=255)
@@ -91,11 +89,35 @@ class Image
     private $thumbDir;
 
     /**
-     * @param string $thumbDir
+     * @var string
+     * @ORM\Column(name="copyright", type="string", length=255, nullable=true)
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,@ _-]*$/", message="Ce champ contient des caractères non autorisés.")
      */
-    public function setThumbDir($thumbDir)
+    private $copyright;
+    /**
+     * @var string
+     * @ORM\Column(name="doc_root", type="string", length=255, nullable=false)
+     */
+    private $docRoot;
+
+    /**
+     * @var string
+     * @ORM\Column(name="title", type="text", nullable=true)
+     */
+    private $title;
+
+    /**
+     * @param string $uploadDir
+     * @param string $thumbDir
+     * @param string $docRoot
+     * @param string $copyright
+     */
+    public function __construct($uploadDir = "uploads/medias/img", $thumbDir = 'uploads/medias/thumbs', $docRoot = "web", $copyright = "@ ZooParc de Beauval")
     {
+        $this->uploadDir = $uploadDir;
         $this->thumbDir = $thumbDir;
+        $this->docRoot = $docRoot;
+        $this->copyright = $copyright;
     }
 
     /**
@@ -106,52 +128,54 @@ class Image
         return $this->thumbDir;
     }
 
-    /**
-     * @var string
-     * @ORM\Column(name="doc_root", type="string", length=255, nullable=false)
-     */
-    private $docRoot;
-
     //TODO remove avec unlink.
 
-    public function __construct($uploadDir = "uploads/medias/img",$thumbDir = 'uploads/medias/thumbs', $docRoot = "web")
+    /**
+     * @param string $thumbDir
+     */
+    public function setThumbDir($thumbDir)
     {
-        $this->uploadDir = $uploadDir;
         $this->thumbDir = $thumbDir;
-        $this->docRoot = $docRoot;
     }
 
+    /**
+     * @return null|string
+     */
     public function getWebPath()
     {
         return $this->filename === null ? null : "/" . $this->uploadDir . "/" . $this->filename;
     }
 
+    /**
+     * @return null|string
+     */
     public function getWebThumbnail()
     {
         return $this->filename === null ? null : "/" . $this->thumbDir . "/" . $this->filename;
     }
 
-    public function getAbsolutePath()
-    {
-        return $this->filename === null ? null : $this->docRoot . "/" . $this->uploadDir . "/" . $this->filename;
-    }
-
+    /**
+     * @return null|string
+     */
     public function getAbsoluteThumbnail()
     {
         return $this->filename === null ? null : $this->docRoot . "/" . $this->thumbDir . "/" . $this->filename;
     }
 
+    /**
+     * @return bool
+     */
     public function upload()
     {
-        if($this->file == null){
+        if ($this->file == null) {
             return false;
         }
         $this->extension = $this->file->guessExtension();
         $this->mime = $this->file->getMimeType();
         $dest = $this->docRoot . "/" . $this->uploadDir;
         $this->filename = $this->name === null ? $this->sanitizeFilename($this->file->getClientOriginalName()) : $this->name . "." . $this->extension;
-        if($this->name === null){
-            $this->name = preg_replace('/\.(jpe?g|png|gif)$/','',$this->filename);
+        if ($this->name === null) {
+            $this->name = preg_replace('/\.(jpe?g|png|gif)$/', '', $this->filename);
         }
         $this->file->move($dest, $this->filename);
         $size = getimagesize($this->getAbsolutePath());
@@ -161,9 +185,26 @@ class Image
         return true;
     }
 
-    private function sanitizeFilename($string)
+    /**
+     * @param string $string
+     * @return string
+     */
+    private function sanitizeFilename($string="")
     {
-        return preg_replace('/[^a-zA-Z0-9._-]/','',$string);
+        return preg_replace('/[^a-zA-Z0-9._-]/', '', $string);
+    }
+
+    public function getAbsolutePath()
+    {
+        return $this->filename === null ? null : $this->docRoot . "/" . $this->uploadDir . "/" . $this->filename;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocRoot()
+    {
+        return $this->docRoot;
     }
 
     /**
@@ -177,9 +218,9 @@ class Image
     /**
      * @return string
      */
-    public function getDocRoot()
+    public function getUploadDir()
     {
-        return $this->docRoot;
+        return $this->uploadDir;
     }
 
     /**
@@ -193,18 +234,15 @@ class Image
     /**
      * @return string
      */
-    public function getUploadDir()
-    {
-        return $this->uploadDir;
-    }
-
-
-
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $name
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -223,6 +261,16 @@ class Image
     }
 
     /**
+     * Get filename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
      * Set filename
      *
      * @param string $filename
@@ -236,13 +284,13 @@ class Image
     }
 
     /**
-     * Get filename
+     * Get extension
      *
      * @return string
      */
-    public function getFilename()
+    public function getExtension()
     {
-        return $this->filename;
+        return $this->extension;
     }
 
     /**
@@ -259,13 +307,13 @@ class Image
     }
 
     /**
-     * Get extension
+     * Get width
      *
-     * @return string
+     * @return integer
      */
-    public function getExtension()
+    public function getWidth()
     {
-        return $this->extension;
+        return $this->width;
     }
 
     /**
@@ -282,13 +330,13 @@ class Image
     }
 
     /**
-     * Get width
+     * Get height
      *
      * @return integer
      */
-    public function getWidth()
+    public function getHeight()
     {
-        return $this->width;
+        return $this->height;
     }
 
     /**
@@ -305,13 +353,13 @@ class Image
     }
 
     /**
-     * Get height
+     * Get createdAt
      *
-     * @return integer
+     * @return \DateTime
      */
-    public function getHeight()
+    public function getCreatedAt()
     {
-        return $this->height;
+        return $this->createdAt;
     }
 
     /**
@@ -328,13 +376,13 @@ class Image
     }
 
     /**
-     * Get createdAt
+     * Get mime
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreatedAt()
+    public function getMime()
     {
-        return $this->createdAt;
+        return $this->mime;
     }
 
     /**
@@ -351,12 +399,48 @@ class Image
     }
 
     /**
-     * Get mime
+     * Get copyright
      *
      * @return string
      */
-    public function getMime()
+    public function getCopyright()
     {
-        return $this->mime;
+        return $this->copyright;
+    }
+
+    /**
+     * Set copyright
+     *
+     * @param string $copyright
+     * @return Image
+     */
+    public function setCopyright($copyright)
+    {
+        $this->copyright = $copyright;
+
+        return $this;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Image
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

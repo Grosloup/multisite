@@ -7,5 +7,19 @@ zpb_admin_mediatek_homepage:
 
 zpb_admin_mediatek_new:
     path:     /upload
-    defaults: { _controller: ZPBAdminMediatekBundle:Image:new}
+    defaults: { _controller: ZPBAdminMediatekBundle:Image:new }
     methods: ["GET", "POST"]
+
+zpb_admin_mediatek_edit:
+    path:     /mise-a-jour/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Image:edit }
+    methods: ["GET", "POST"]
+    requirements:
+        id: \d+
+
+zpb_admin_mediatek_delete:
+    path:     /supprimer/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Image:delete }
+    methods: ["GET"]
+    requirements:
+        id: \d+

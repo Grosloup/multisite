@@ -20,8 +20,11 @@
                         <th>Id</th>
                         <th>Vignette</th>
                         <th>Nom du fichier</th>
+                        <th>Copyright</th>
+                        <th>Contenu de l'attr. title</th>
                         <th>Largeur originale</th>
                         <th>Hauteur originale</th>
+                        <th>Editer</th>
                         <th>Supprimer</th>
                     </tr>
                     </thead>
@@ -36,8 +39,11 @@
                             <td>{{ img.id }}</td>
                             <td><a href="{{ img.webPath }}" target="_blank"><img src="{{ img.webThumbnail }}" alt="" width="50"/></a></td>
                             <td>{{ img.filename }}</td>
+                            <td>{{ img.copyright }}</td>
+                            <td>{{ img.title }}</td>
                             <td>{{ img.width }}</td>
                             <td>{{ img.height }}</td>
+                            <td><a class="btn btn-default" href="{{ path("zpb_admin_mediatek_edit", {id: img.id, _token: csrf_token("image_edit")}) }}"><i class="fa fa-edit"></i></a></td>
                             <td><a href="#" class="btn btn-default delete-alert" data-name="{{ img.name }}"><i class="fa fa-trash-o"></i></a></td>{# TODO #}
                         </tr>
                         {% endfor %}

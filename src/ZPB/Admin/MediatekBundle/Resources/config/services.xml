@@ -11,6 +11,9 @@
     <services>
         <service id="zpb.img_resizer" class="%zpb.image_transformer.resizer%">
             <argument type="service" id="service_container" />
+            <call method="setMaxSize">
+                <argument type="string">%mediatek_thumb_max_size%</argument>
+            </call>
         </service>
     </services>
 
