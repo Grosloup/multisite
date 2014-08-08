@@ -54,9 +54,25 @@ class ImageController extends BaseController
             ->getForm();
         $form->handleRequest($request);
         if($form->isValid()){
-            if($image->upload()){
 
+
+            if($image->upload()){
                 $em = $this->getEm();
+
+                $tags = $image->getTags();
+                foreach($tags as $tag){
+                    $test = $this->getRepo('ZPBAdminMediatekBundle:Tag')->findOneByName($tag->getName());
+                    if($test){
+                        $image->removeTag($tag);
+                        $image->addTag($test);
+                        $test->addImage($image);
+                        $em->persist($test);
+                    } else {
+                        $tag->addImage($image);
+                        $em->persist($tag);
+                    }
+                }
+
                 $em->persist($image);
                 $em->flush();
                 $resizer = $this->container->get('zpb.img_resizer');
@@ -85,6 +101,7 @@ class ImageController extends BaseController
             ->add('name')
             ->add('title',null,['label'=>'Attr. title'])
             ->add('copyright')
+            ->add('tags', 'collection', ['label'=>'Mots-clés','type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
             ->add('isArticleThumbnail',null, ['label'=>'Illustration d\'article ?'])
             ->add('save','submit')
             ->getForm();
@@ -92,6 +109,19 @@ class ImageController extends BaseController
         $form->handleRequest($request);
         if($form->isValid()){
             $em = $this->getEm();
+            $tags = $image->getTags();
+            foreach($tags as $tag){
+                $test = $this->getRepo('ZPBAdminMediatekBundle:Tag')->findOneByName($tag->getName());
+                if($test){
+                    $image->removeTag($tag);
+                    $image->addTag($test);
+                    $test->addImage($image);
+                    $em->persist($test);
+                } else {
+                    $tag->addImage($image);
+                    $em->persist($tag);
+                }
+            }
             $em->persist($image);
             $em->flush();
             $this->successMessage('Votre image a bien été mise à jour.');
