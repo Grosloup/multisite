@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * FCategory
  *
- * @ORM\Table()
+ * @ORM\Table(name="fototek_zoo_categories")
  * @ORM\Entity(repositoryClass="ZPB\Admin\ZooBundle\Entity\FCategoryRepository")
  * @UniqueEntity("name")
  */

@@ -165,11 +165,6 @@ class FImage
 
     /**
      * @Gedmo\SortableGroup
-     * @ORM\Column(name="sgroup", type="string", length=128)
-     */
-    private $sroup;
-
-    /**
      * @ORM\ManyToOne(targetEntity="ZPB\Admin\ZooBundle\Entity\FCategory")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      */
@@ -606,5 +601,143 @@ class FImage
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Set filename
+     *
+     * @param string $filename
+     * @return FImage
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    /**
+     * Get filename
+     *
+     * @return string 
+     */
+    public function getFilename()
+    {
+        return $this->filename;
+    }
+
+    /**
+     * Set mime
+     *
+     * @param string $mime
+     * @return FImage
+     */
+    public function setMime($mime)
+    {
+        $this->mime = $mime;
+
+        return $this;
+    }
+
+    /**
+     * Get mime
+     *
+     * @return string 
+     */
+    public function getMime()
+    {
+        return $this->mime;
+    }
+
+    /**
+     * Set uploadDir
+     *
+     * @param string $uploadDir
+     * @return FImage
+     */
+    public function setUploadDir($uploadDir)
+    {
+        $this->uploadDir = $uploadDir;
+
+        return $this;
+    }
+
+    /**
+     * Get uploadDir
+     *
+     * @return string 
+     */
+    public function getUploadDir()
+    {
+        return $this->uploadDir;
+    }
+
+    /**
+     * Set thumbDirnames
+     *
+     * @param array $thumbDirnames
+     * @return FImage
+     */
+    public function setThumbDirnames($thumbDirnames)
+    {
+        $this->thumbDirnames = $thumbDirnames;
+
+        return $this;
+    }
+
+    /**
+     * Get thumbDirnames
+     *
+     * @return array 
+     */
+    public function getThumbDirnames()
+    {
+        return $this->thumbDirnames;
+    }
+
+    /**
+     * Set docRoot
+     *
+     * @param string $docRoot
+     * @return FImage
+     */
+    public function setDocRoot($docRoot)
+    {
+        $this->docRoot = $docRoot;
+
+        return $this;
+    }
+
+    /**
+     * Get docRoot
+     *
+     * @return string 
+     */
+    public function getDocRoot()
+    {
+        return $this->docRoot;
+    }
+
+    /**
+     * Set category
+     *
+     * @param FCategory $category
+     * @return FImage
+     */
+    public function setCategory(FCategory $category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return FCategory
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }
