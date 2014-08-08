@@ -86,4 +86,32 @@ class TagController extends BaseController
         $this->successMessage("Le mot-clé " . $tag->getName() . " a bien été supprimé.");
         return $this->redirect($this->generateUrl('zpb_admin_mediatek_tag_homepage'));
     }
+
+    public function associatedImagesAction($id, Request $request)
+    {
+        $csrfProv = $this->getCsrfProvider();
+        $token = $request->query->get("_token");
+        if(!$token || !$csrfProv->isCsrfTokenValid("tag_assoc_img",$token)){
+            throw new AccessDeniedException();
+        }
+        $tag = $this->getRepo("ZPBAdminMediatekBundle:Tag")->find($id);
+        if(!$tag){
+            throw $this->createNotFoundException();
+        }
+        return $this->render('ZPBAdminMediatekBundle:Tags:associated_images.html.twig', ['tag'=>$tag]);
+    }
+
+    public function associatedPdfsAction($id, Request $request)
+    {
+        $csrfProv = $this->getCsrfProvider();
+        $token = $request->query->get("_token");
+        if(!$token || !$csrfProv->isCsrfTokenValid("tag_assoc_img",$token)){
+            throw new AccessDeniedException();
+        }
+        $tag = $this->getRepo("ZPBAdminMediatekBundle:Tag")->find($id);
+        if(!$tag){
+            throw $this->createNotFoundException();
+        }
+        return $this->render('ZPBAdminMediatekBundle:Tags:associated_images.html.twig', ['tag'=>$tag]);
+    }
 } 

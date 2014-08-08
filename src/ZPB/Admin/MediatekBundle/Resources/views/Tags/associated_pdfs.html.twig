@@ -1,0 +1,47 @@
+{% extends "ZPBAdminMediatekBundle:Layouts:master.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <div class="h2">Mot-clé <small>PDFs associées avec {{ tag.name }}</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Nom du fichier</th>
+                        <th>Mots-clés</th>
+                        <th>Editer</th>
+                        <th>Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if tag.pdfs|length < 1 %}
+                        <tr class="warning">
+                            <td>Il n'y a pas de fichiers pdf associés avec {{tag.name}}. </td>
+                        </tr>
+                    {% else %}
+                        {% for pdf in tag.pdfs %}
+                            <tr>
+                                <td>{{ pdf.id }}</td>
+                                <td><a href="{{ pdf.webPath }}" target="_blank">{{ pdf.filename }}</a></td>
+                                <td>
+                                    {% if pdf.tags|length <1 %} - {% else %}{% for tag in pdf.tags %}<a href="{{ path("zpb_admin_mediatek_tag_assoc_pdf", {id: tag.id, _token: csrf_token("tag_assoc_pdf")})}}">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}
+                                </td>
+                                <td><a class="btn btn-default" href="{{ path("zpb_admin_mediatek_pdf_edit", {id:pdf.id, _token: csrf_token("pdf_edit")}) }}"><i class="fa fa-edit"></i></a></td>
+                                <td><a class="btn btn-default delete-alert" href="{{ path("zpb_admin_mediatek_pdf_delete" , {id:pdf.id, _token: csrf_token("pdf_edit")}) }}" data-name="{{ pdf.name }}"><i class="fa fa-trash-o"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -21,3 +21,17 @@ zpb_admin_mediatek_tag_edit:
     methods: ["GET", "POST"]
     requirements:
         id: \d+
+
+zpb_admin_mediatek_tag_assoc_img:
+    path: /recherche/images_associees/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Tag:associatedImages }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+
+zpb_admin_mediatek_tag_assoc_pdf:
+    path: /recherche/pdfs_associes/{id}
+    defaults: { _controller: ZPBAdminMediatekBundle:Tag:associatedPdfs }
+    methods: ["GET"]
+    requirements:
+        id: \d+

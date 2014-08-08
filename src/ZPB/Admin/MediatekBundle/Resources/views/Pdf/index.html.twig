@@ -41,6 +41,7 @@
                     <tr>
                         <th>id</th>
                         <th>Nom du fichier</th>
+                        <th>Mots-clés</th>
                         <th>Editer</th>
                         <th>Supprimer</th>
                     </tr>
@@ -55,6 +56,9 @@
                             <tr>
                                 <td>{{ pdf.id }}</td>
                                 <td><a href="{{ pdf.webPath }}" target="_blank">{{ pdf.filename }}</a></td>
+                                <td>
+                                    {% if pdf.tags|length <1 %} - {% else %}{% for tag in pdf.tags %}<a href="{{ path("zpb_admin_mediatek_tag_assoc_img", {id: tag.id, _token: csrf_token("tag_assoc_img")})}}">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}
+                                </td>
                                 <td><a class="btn btn-default" href="{{ path("zpb_admin_mediatek_pdf_edit", {id:pdf.id, _token: csrf_token("pdf_edit")}) }}"><i class="fa fa-edit"></i></a></td>
                                 <td><a class="btn btn-default delete-alert" href="{{ path("zpb_admin_mediatek_pdf_delete" , {id:pdf.id, _token: csrf_token("pdf_edit")}) }}" data-name="{{ pdf.name }}"><i class="fa fa-trash-o"></i></a></td>
                             </tr>

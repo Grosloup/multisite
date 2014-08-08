@@ -68,7 +68,7 @@
                             <td>{{ img.width }}</td>
                             <td>{{ img.height }}</td>
                             <td>
-                                {% if img.tags|length <1 %} - {% else %}{% for tag in img.tags %}<a href="#">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}
+                                {% if img.tags|length <1 %} - {% else %}{% for tag in img.tags %}<a href="{{ path("zpb_admin_mediatek_tag_assoc_img", {id: tag.id, _token: csrf_token("tag_assoc_img")})}}">{{ tag.name}}</a> {% if loop.last != true %} - {% endif %}{% endfor %}{% endif %}
                             </td>
                             <td><a class="btn btn-default" href="{{ path("zpb_admin_mediatek_edit", {id: img.id, _token: csrf_token("image_edit")}) }}"><i class="fa fa-edit"></i></a></td>
                             <td><a href="{{ path("zpb_admin_mediatek_delete", {id: img.id, _token: csrf_token("image_delete")} )}}" class="btn btn-default delete-alert" data-name="{{ img.name }}"><i class="fa fa-trash-o"></i></a></td>{# TODO #}

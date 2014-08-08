@@ -19,6 +19,8 @@
                         <th>Id</th>
                         <th>Nom</th>
                         <th>Alias (slug)</th>
+                        <th>Images Associées</th>
+                        <th>PDFs Associés</th>
                         <th>Editer</th>
                         <th>Supprimer</th>
                     </tr>
@@ -26,7 +28,7 @@
                     <tbody>
                     {% if tags|length < 1 %}
                         <tr class="warning">
-                            <td colspan="6">Il n'y a aucun mots-clés enregistrés. <a href="{{ path("zpb_admin_mediatek_tag_new") }}">Créer <i class="fa fa-hand-o-right"></i></a></td>
+                            <td colspan="7">Il n'y a aucun mots-clés enregistrés. <a href="{{ path("zpb_admin_mediatek_tag_new") }}">Créer <i class="fa fa-hand-o-right"></i></a></td>
                         </tr>
                     {% else %}
                         {% for tag in tags %}
@@ -34,6 +36,21 @@
                                 <td>{{ tag.id }}</td>
                                 <td>{{ tag.name }}</td>
                                 <td>{{ tag.slug }}</td>
+                                <td>
+                                    {% if tag.images|length > 0 %}
+                                    <a class="btn btn-default" href="{{ path("zpb_admin_mediatek_tag_assoc_img", {id: tag.id, _token: csrf_token("tag_assoc_img")})}}"><i class="fa fa-file-image-o"></i> {{tag.images|length}}</a>
+                                    {% else %}
+                                        <a class="btn btn-default disabled" href=""><i class="fa fa-file-image-o"></i></a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if tag.pdfs|length > 0 %}
+                                        <a href="{{ path("zpb_admin_mediatek_tag_assoc_pdf", {id: tag.id, _token: csrf_token("tag_assoc_pdf")})}}" class="btn btn-default"><i class="fa fa-file-pdf-o"></i> {{tag.pdfs|length}}</a>
+                                    {% else %}
+                                        <a href="" class="btn btn-default disabled"><i class="fa fa-file-pdf-o"></i></a>
+                                    {% endif %}
+
+                                </td>
                                 <td><a href="{{ path("zpb_admin_mediatek_tag_edit", {id:tag.id})}}" class="btn btn-default"><i class="fa fa-edit"></i></a></td>
                                 <td><a href="{{ path("zpb_admin_mediatek_tag_delete", {id:tag.id, _token:csrf_token("delete_tag")})}}" class="btn btn-default delete-alert" data-name="{{ tag.name }}"><i class="fa fa-trash-o"></i></a></td>
                             </tr>
