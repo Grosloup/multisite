@@ -36,7 +36,7 @@ class FImageType extends AbstractType
             ->add('name',null)
             ->add('slug',null, ['label'=>'Alias (slug)', 'required'=>'false'])
             ->add($builder->create('category','entity', ['label'=>'Catégorie','class'=>'ZPBAdminZooBundle:FCategory', 'data_class'=>'ZPB\Admin\ZooBundle\Entity\FCategory', 'property'=>'name'])->addModelTransformer($transformer))
-            ->add('file')
+            ->add('file', null, ['label'=>'Fichier'])
             ->add('title',null, ['label'=>'Titre'])
             ->add('copyright',null, ['label'=>'Copyright'])
             ->add('legend',null, ['label'=>'Légende (label)'])
