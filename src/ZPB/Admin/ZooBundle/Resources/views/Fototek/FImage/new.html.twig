@@ -1,0 +1,22 @@
+{% extends "ZPBAdminZooBundle:Layouts:master.html.twig" %}
+{% set active_ms_menu = "zoo_foto" %}
+{% block title %}Photothèque - {{parent()}}{% endblock %}
+{% set subtitle = "Photothèque" %}
+{% set active_ss_menu = "new_img" %}
+
+{% block sidebar %}{{ render(controller("ZPBAdminZooBundle:Navs:fototekSidebar", {active: active_ss_menu|default("home")})) }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <div class="h2">Images <small>Upload</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form(form) }}
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+{% endblock %}

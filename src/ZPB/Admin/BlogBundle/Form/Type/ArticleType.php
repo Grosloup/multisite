@@ -34,7 +34,7 @@ class ArticleType extends AbstractType
         $em = $options['em'];
         $transformer = new CategoryTransformer($em);
         $builder->add('title',null, ['label'=>'Titre'])
-            ->add('slug', null, ['label'=>'Alias (slug)', 'required'=>'false'])
+            ->add('slug', null)
             ->add('body', 'textarea', ['label'=>'Corps'])
             ->add('excerpt', 'textarea', ['label'=>'Extrait'])
             ->add($builder->create('category','entity', ['label'=>'Catégorie','class'=>'ZPBAdminBlogBundle:Category', 'data_class'=>'ZPB\Admin\BlogBundle\Entity\Category', 'property'=>'name'])->addModelTransformer($transformer))

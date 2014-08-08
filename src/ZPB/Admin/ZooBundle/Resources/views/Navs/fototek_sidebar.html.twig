@@ -1,0 +1,31 @@
+<div id="secondary-sidebar">
+    <div class="nano">
+        <div class="nano-content">
+            <div id="secondary-sidebar-content">
+                <div class="controls-bar">
+                    <button class="fa fa-bars" id="ssToggle"></button>
+                </div>
+                <div class="sidebar-menu">
+                    <h3>Toutes les images</h3>
+                    <ul>
+                        <li {% if active == "all_img" %}class="active"{% endif %}><a href="">Liste <small>({{numImage}})</small></a></li>
+                        <li {% if active == "new_img" %}class="active"{% endif %}><a href="{{ path("zpb_admin_zoo_fototek_image_new") }}">Upload</a></li>
+                        <li><a href="">Deserunt, rem.</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-menu">
+                    <h3>Toutes les Catégories</h3>
+                    <ul>
+                        <li><a href="">Lorem ipsum.</a></li>
+                        <li><a href="">Ipsa, natus?</a></li>
+                        <li><a href="">Deserunt, rem.</a></li>
+                    </ul>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

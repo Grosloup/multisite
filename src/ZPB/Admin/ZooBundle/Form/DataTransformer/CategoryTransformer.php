@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Nicolas Canfrère
- * Date: 06/08/14
- * Time: 09:00
+ * Date: 08/08/14
+ * Time: 17:00
  */
   /*
            ____________________
@@ -18,15 +18,15 @@
       (__<  |mm_|mm_|  |mm_|mm_|
 */
 
-namespace ZPB\Admin\BlogBundle\Form\DataTransformer;
-
+namespace ZPB\Admin\ZooBundle\Form\DataTransformer;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class CategoryTransformer implements DataTransformerInterface{
 
+class CategoryTransformer implements DataTransformerInterface
+{
     /**
      * @var ObjectManager
      */
@@ -69,7 +69,7 @@ class CategoryTransformer implements DataTransformerInterface{
             return null;
         }
 
-        $category = $this->em->getRepository('ZPBAdminBlogBundle:Category')->findOneBy(['id'=>$value]);
+        $category = $this->em->getRepository('ZPBAdminZooBundle:FCategory')->findOneBy(['id'=>$value]);
 
         if(null === $category){
             throw new TransformationFailedException();
@@ -77,4 +77,4 @@ class CategoryTransformer implements DataTransformerInterface{
         }
         return $category;
     }
-}
+} 
