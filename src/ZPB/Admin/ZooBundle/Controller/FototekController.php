@@ -22,10 +22,10 @@ namespace ZPB\Admin\ZooBundle\Controller;
 
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 use ZPB\Admin\ZooBundle\Entity\FCategory;
 use ZPB\Admin\ZooBundle\Entity\FImage;
+use ZPB\Admin\ZooBundle\Form\Type\FCategoryType;
 use ZPB\Admin\ZooBundle\Form\Type\FImageType;
 
 class FototekController extends BaseController
@@ -63,8 +63,17 @@ class FototekController extends BaseController
     public function newCategoriesAction(Request $request)
     {
         $category = new FCategory();
+        $form = $this->createForm(new FCategoryType(), $category);
 
-        return $this->render('ZPBAdminZooBundle:Fototek/FCategory:newCategories.html.twig');
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $em = $this->getEm();
+            $em->persist($category);
+            $em->flush();
+            $this->successMessage('La catégorie ' . $category->getName() . ' a bien été enregistrée.');
+            return $this->redirect($this->generateUrl('zpb_admin_zoo_fototek_categories_homepage'));
+        }
+        return $this->render('ZPBAdminZooBundle:Fototek/FCategory:newCategories.html.twig', ['form'=>$form->createView()]);
     }
 
     public function editCategoriesAction($id,Request $request)
@@ -78,9 +87,19 @@ class FototekController extends BaseController
         if(!$category){
             throw $this->createNotFoundException();
         }
+        $form = $this->createForm(new FCategoryType(), $category);
+
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $em = $this->getEm();
+            $em->persist($category);
+            $em->flush();
+            $this->successMessage('La catégorie ' . $category->getName() . ' a bien été mise à jour.');
+            return $this->redirect($this->generateUrl('zpb_admin_zoo_fototek_categories_homepage'));
+        }
         $defaultCat = $this->getRepo('ZPBAdminZooBundle:FCategory')->findOneByIsDefault(true);
         return $this->render('ZPBAdminZooBundle:Fototek/FCategory:editCategories.html.twig',
-            ['defaultCat'=>$defaultCat]);
+            ['defaultCat'=>$defaultCat,'form'=>$form->createView()]);
     }
 
     public function deleteCategoriesAction($id,Request $request)
@@ -95,7 +114,7 @@ class FototekController extends BaseController
             throw $this->createNotFoundException();
         }
         $em = $this->getEm();
-        $em->refresh($category);
+        $em->remove($category);
         $em->flush();
         $this->successMessage('La catégorie ' . $category->getName() . ' a bien été supprimée.');
         return $this->redirect($this->generateUrl('zpb_admin_zoo_fototek_categories_homepage'));
