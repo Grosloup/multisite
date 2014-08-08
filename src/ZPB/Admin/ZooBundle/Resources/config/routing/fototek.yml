@@ -1,0 +1,4 @@
+zpb_admin_zoo_fototek_homepage:
+    path: /
+    defaults: { _controller: ZPBAdminZooBundle:Fototek:index }
+    methods: ["GET"]

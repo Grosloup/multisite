@@ -1,10 +1,10 @@
 {% extends "ZPBAdminCommonBundle:Layouts:master.html.twig" %}
 {% block title %}ZooParc{% endblock %}
-{% set active_ms_menu = "zoo" %}
+{% set active_ms_menu = active_ms_menu|default("zoo") %}
 
 {% block main %}
 
-    <div id="main" class="bg-default">
+    <div id="main" class="bg-zoo">
         {# TODO sidebar#}
         <div id="content">
             <div class="container-fluid">
@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="page-header">
-                            <h1>ZooParc de Beauval</h1>
+                            <h1>{{subtitle|default("Admin")}} <small>ZooParc de Beauval</small></h1>
                         </div>
                     </div>
                 </div>

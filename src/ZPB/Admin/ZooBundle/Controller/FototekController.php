@@ -27,6 +27,7 @@ class FototekController extends BaseController
 {
     public function indexAction()
     {
+
         return $this->render('ZPBAdminZooBundle:Fototek:index.html.twig');
     }
 } 

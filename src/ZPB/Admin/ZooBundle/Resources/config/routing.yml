@@ -1,3 +1,7 @@
 zpb_admin_zoo_homepage:
     path:     /
     defaults: { _controller: ZPBAdminZooBundle:Default:index }
+
+zpb_admin_zoo_fototek_routes:
+    prefix: /phototheque
+    resource: "@ZPBAdminZooBundle/Resources/config/routing/fototek.yml"
