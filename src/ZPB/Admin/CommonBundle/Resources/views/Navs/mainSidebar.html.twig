@@ -20,9 +20,9 @@
                 </div>
 
                 <div class="sidebar-menu bg-zoo">
-                    <h3>Le ZooParc dB.<i class="fa fa-caret-down pull-right"></i></h3>
+                    <h3 {% if active in ["zoo_foto"] %}class="open"{% endif %}>Le ZooParc dB.<i class="fa fa-caret-down pull-right"></i></h3>
                     <ul>
-                        <li><a href="#">Lorem ipsum.</a></li>
+                        <li {% if active == "zoo_foto" %}class="active"{% endif %}><a href="#">Photothèque</a></li>
                         <li><a href="#">Et, quia.</a></li>
                         <li><a href="#">Delectus, quis.</a></li>
                         <li><a href="#">Officia, voluptatum.</a></li>
