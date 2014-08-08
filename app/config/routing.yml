@@ -1,3 +1,9 @@
+zpb_admin_zoo:
+    resource: "@ZPBAdminZooBundle/Resources/config/routing.yml"
+    host: new.admin.zooparc.com
+    prefix:   /zoo
+    schemes:  [https]
+
 zpb_admin_common:
     resource: "@ZPBAdminCommonBundle/Resources/config/routing.yml"
     host: new.admin.zooparc.com
