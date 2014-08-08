@@ -18,4 +18,9 @@ class FImageRepository extends SortableRepository
         $qb = $this->createQueryBuilder('i')->orderBy('i.name', 'ASC');
         return $qb->getQuery()->getResult();
     }
+
+    public function countImages()
+    {
+        return $this->createQueryBuilder('i')->select('COUNT(i)')->getQuery()->getSingleScalarResult();
+    }
 }

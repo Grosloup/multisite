@@ -20,9 +20,29 @@
         </div>
     {% endif %}
     <div class="row">
-        <div class="col-md-6">
-
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if categories|length < 1 %}
+                        <tr class="warning">
+                            <td colspan="5">Il n'y a aucune catégories enregistrées. <a href="{{ path("zpb_admin_zoo_fototek_categories_new") }}">Créer une catégorie <i class="fa fa-hand-o-right"></i></a></td>
+                        </tr>
+                    {% else %}
+                        {% for cat in categories %}
+                            <tr>
+                                <td>{{ cat.id }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-md-6"></div>
     </div>
 {% endblock %}

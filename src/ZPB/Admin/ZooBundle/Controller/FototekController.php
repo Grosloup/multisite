@@ -29,9 +29,10 @@ use ZPB\Admin\ZooBundle\Form\Type\FCategoryType;
 use ZPB\Admin\ZooBundle\Form\Type\FImageType;
 
 class FototekController extends BaseController
-{
+{//TODO visualisation des images par categorie, simulateur de position
     public function indexAction($page = 1)
     {
+        //TODO pagination
         $cats = $this->getRepo('ZPBAdminZooBundle:FCategory')->countCategories();
         $images = $this->getRepo('ZPBAdminZooBundle:FImage')->findAllAlphaOrdered();
         return $this->render('ZPBAdminZooBundle:Fototek:index.html.twig',['numCats'=>$cats, 'images'=>$images]);
@@ -41,7 +42,6 @@ class FototekController extends BaseController
     {
         $cats = $this->getRepo('ZPBAdminZooBundle:FCategory')->countCategories();
         if($cats < 1){
-            //$this->errorMessage('Avant de pouvoir uploader des images, vous devez définir au moins une catégorie.');
             return $this->redirect($this->generateUrl('zpb_admin_zoo_fototek_homepage'));
         }
         $image = new FImage(); //TODO set value for dirs...
