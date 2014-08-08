@@ -15,11 +15,10 @@
                 <div class="sidebar-menu">
                     <h3>Toutes les Catégories</h3>
                     <ul>
-                        <li {% if active == "all_cats" %}class="active"{% endif %}><a href="">Liste <small>({{numCat}})</small></a></li>
-                        <li {% if active == "new_cat" %}class="active"{% endif %}><a href="">Nouvelle</a></li>
-                    </ul>
+                        <li {% if active == "all_cats" %}class="active"{% endif %}><a href="{{ path("zpb_admin_zoo_fototek_categories_homepage") }}">Liste <small>({{numCat}})</small></a></li>
+                        <li {% if active == "new_cat" %}class="active"{% endif %}><a href="{{ path("zpb_admin_zoo_fototek_categories_new") }}">Nouvelle</a></li>
                 </div>
-                
+
             </div>
 
         </div>

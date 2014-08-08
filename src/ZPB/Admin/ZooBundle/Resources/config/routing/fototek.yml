@@ -9,3 +9,30 @@ zpb_admin_zoo_fototek_image_new:
     path: /image/upload
     defaults: { _controller: ZPBAdminZooBundle:Fototek:newImage }
     methods: ["GET","POST"]
+
+
+
+##---------------------------------------------- categories
+zpb_admin_zoo_fototek_categories_homepage:
+    path: /categories/
+    defaults: { _controller: ZPBAdminZooBundle:Fototek:listeCategories }
+    methods: ["GET"]
+
+zpb_admin_zoo_fototek_categories_new:
+    path: /categories/nouvelle
+    defaults: { _controller: ZPBAdminZooBundle:Fototek:newCategories }
+    methods: ["GET", "POST"]
+
+zpb_admin_zoo_fototek_categories_edit:
+    path: /categories/mise-a-jour/{id}
+    defaults: { _controller: ZPBAdminZooBundle:Fototek:editCategories }
+    methods: ["GET", "POST"]
+    requirements:
+        id: \d+
+
+zpb_admin_zoo_fototek_categories_delete:
+    path: /categories/supprimer/{id}
+    defaults: { _controller: ZPBAdminZooBundle:Fototek:deleteCategories }
+    methods: ["GET"]
+    requirements:
+        id: \d+

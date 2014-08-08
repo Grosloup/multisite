@@ -13,5 +13,9 @@ use Gedmo\Sortable\Entity\Repository\SortableRepository;
  */
 class FImageRepository extends SortableRepository
 {
-
+    public function findAllAlphaOrdered()
+    {
+        $qb = $this->createQueryBuilder('i')->orderBy('i.name', 'ASC');
+        return $qb->getQuery()->getResult();
+    }
 }

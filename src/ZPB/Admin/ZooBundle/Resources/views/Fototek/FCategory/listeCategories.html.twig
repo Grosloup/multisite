@@ -1,0 +1,28 @@
+{% extends "ZPBAdminZooBundle:Layouts:master.html.twig" %}
+{% set active_ms_menu = "zoo_foto" %}
+{% block title %}Photothèque - {{parent()}}{% endblock %}
+{% set subtitle = "Photothèque" %}
+{% set active_ss_menu = "all_cats" %}
+{% block sidebar %}{{ render(controller("ZPBAdminZooBundle:Navs:fototekSidebar", {active: active_ss_menu|default("home")})) }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <div class="h2">Catégories <small>Liste</small></div>
+            </div>
+        </div>
+    </div>
+    {% if defaultCat is empty %}
+        <div class="row">
+            <div class="alert alert-danger">
+                <strong>Attention ! </strong> Il n'y a pas de catégorie choisie comme catégorie par défaut. Vous devez en créer en désigner une.
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+{% endblock %}
