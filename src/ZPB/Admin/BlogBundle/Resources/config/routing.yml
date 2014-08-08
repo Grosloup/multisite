@@ -1,6 +1,7 @@
 zpb_admin_blog_homepage:
     path:     /{page}
     defaults: { _controller: ZPBAdminBlogBundle:Default:index, page: 1 }
+    methods: ["GET"]
     requirements:
         page: \d+
 

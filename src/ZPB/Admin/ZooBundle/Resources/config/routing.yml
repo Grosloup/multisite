@@ -1,6 +1,7 @@
 zpb_admin_zoo_homepage:
     path:     /
     defaults: { _controller: ZPBAdminZooBundle:Default:index }
+    methods: ["GET"]
 
 zpb_admin_zoo_fototek_routes:
     prefix: /phototheque

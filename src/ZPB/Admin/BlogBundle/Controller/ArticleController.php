@@ -29,8 +29,10 @@ use ZPB\Admin\CommonBundle\Controller\BaseController;
 
 class ArticleController extends BaseController
 {
+    //TODO article delayed
+
     public function newAction(Request $request)
-    {
+    { //TODO image de l'article + image none
         $cats = $this->getRepo("ZPBAdminBlogBundle:Category")->findAllAlphaOrdered();
         if(!$cats){
             $this->errorMessage("Avant de pouvoir écrire un article, vous devez définir au moins une catégorie.");
@@ -86,11 +88,17 @@ class ArticleController extends BaseController
     }
 
     public function editAction($id, Request $request)
-    {
+    { //TODO image de l'article + image none + image de l'article
+        $csrfProv = $this->getCsrfProvider();
+        $token = $request->query->get('_token', false);
+        if(!$token || !$csrfProv->isCsrfTokenValid('article_edit', $token)){
+            throw new AccessDeniedException();
+        }
         $article = $this->getRepo('ZPBAdminBlogBundle:Article')->find($id);
         if(!$article){
             throw $this->createNotFoundException();
         }
+        $imgs = $this->getRepo('ZPBAdminMediatekBundle:Image')->findByIsArticleThumbnail(true);
         $form = $this->createForm(new ArticleType(), $article, ['em'=>$this->getEm()]);
         if(strtoupper($request->getMethod()) == "POST"){
             $article->removeTags();
@@ -139,7 +147,7 @@ class ArticleController extends BaseController
             }
         }
         $tagsName = $this->getRepo('ZPBAdminBlogBundle:Tag')->findAllNamesAlphaOrdered();
-        return $this->render('ZPBAdminBlogBundle:Article:edit.html.twig', ['tags'=>$tagsName, 'id'=>$id, 'form'=>$form->createView(), 'article'=>$article]);
+        return $this->render('ZPBAdminBlogBundle:Article:edit.html.twig', ['tags'=>$tagsName, 'id'=>$id, 'form'=>$form->createView(), 'article'=>$article, 'imgs'=>$imgs]);
     }
 
     public function setPublishedAction($id, Request $request)
