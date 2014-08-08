@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 use ZPB\Admin\MediatekBundle\Entity\Pdf;
+use ZPB\Admin\MediatekBundle\Form\Type\SimpleTagType;
 
 class PdfController extends BaseController
 {
@@ -42,6 +43,7 @@ class PdfController extends BaseController
         $form = $this->createFormBuilder($pdf)
             ->add('name')
             ->add('file')
+            ->add('tags', 'collection', ['label'=>'Mots-clés','type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
             ->add('save', 'submit')
             ->getForm()
         ;
@@ -51,6 +53,19 @@ class PdfController extends BaseController
         if($form->isValid()){
             if($pdf->upload()){
                 $em = $this->getEm();
+                $tags = $pdf->getTags();
+                foreach($tags as $tag){
+                    $test = $this->getRepo('ZPBAdminMediatekBundle:Tag')->findOneByName($tag->getName());
+                    if($test){
+                        $pdf->removeTag($tag);
+                        $pdf->addTag($test);
+                        $test->addPdf($pdf);
+                        $em->persist($test);
+                    } else {
+                        $tag->addPdf($pdf);
+                        $em->persist($tag);
+                    }
+                }
                 $em->persist($pdf);
                 $em->flush();
                 $this->successMessage('Votre pdf a bien été uploadé.');
@@ -76,12 +91,26 @@ class PdfController extends BaseController
         }
         $form = $this->createFormBuilder($pdf)
             ->add('name')
+            ->add('tags', 'collection', ['label'=>'Mots-clés','type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
             ->add('save', 'submit')
             ->getForm()
         ;
         $form->handleRequest($request);
         if($form->isValid()){
             $em = $this->getEm();
+            $tags = $pdf->getTags();
+            foreach($tags as $tag){
+                $test = $this->getRepo('ZPBAdminMediatekBundle:Tag')->findOneByName($tag->getName());
+                if($test){
+                    $pdf->removeTag($tag);
+                    $pdf->addTag($test);
+                    $test->addPdf($pdf);
+                    $em->persist($test);
+                } else {
+                    $tag->addPdf($pdf);
+                    $em->persist($tag);
+                }
+            }
             $em->persist($pdf);
             $em->flush();
             $this->successMessage('Votre pdf a bien été mis à jour.');

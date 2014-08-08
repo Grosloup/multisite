@@ -105,13 +105,13 @@ class TagController extends BaseController
     {
         $csrfProv = $this->getCsrfProvider();
         $token = $request->query->get("_token");
-        if(!$token || !$csrfProv->isCsrfTokenValid("tag_assoc_img",$token)){
+        if(!$token || !$csrfProv->isCsrfTokenValid("tag_assoc_pdf",$token)){
             throw new AccessDeniedException();
         }
         $tag = $this->getRepo("ZPBAdminMediatekBundle:Tag")->find($id);
         if(!$tag){
             throw $this->createNotFoundException();
         }
-        return $this->render('ZPBAdminMediatekBundle:Tags:associated_images.html.twig', ['tag'=>$tag]);
+        return $this->render('ZPBAdminMediatekBundle:Tags:associated_pdfs.html.twig', ['tag'=>$tag]);
     }
 } 
