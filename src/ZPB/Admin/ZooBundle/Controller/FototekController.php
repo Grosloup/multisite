@@ -28,7 +28,7 @@ use ZPB\Admin\ZooBundle\Form\Type\FImageType;
 
 class FototekController extends BaseController
 {
-    public function indexAction()
+    public function indexAction($page = 1)
     {
 
         //TODO alert no categorie, par defaut

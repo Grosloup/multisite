@@ -1,7 +1,9 @@
 zpb_admin_zoo_fototek_homepage:
-    path: /
-    defaults: { _controller: ZPBAdminZooBundle:Fototek:index }
+    path: /image/{page}
+    defaults: { _controller: ZPBAdminZooBundle:Fototek:index, page: 1 }
     methods: ["GET"]
+    requirements:
+        page: \d+
 
 zpb_admin_zoo_fototek_image_new:
     path: /image/upload
