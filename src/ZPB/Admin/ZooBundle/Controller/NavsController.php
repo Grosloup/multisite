@@ -28,6 +28,7 @@ class NavsController extends BaseController
     public function fototekSidebarAction($active = "")
     {
         $numImage = 0; //TODO countImage
-        return $this->render('ZPBAdminZooBundle:Navs:fototek_sidebar.html.twig', ['active'=>$active, 'numImage'=>$numImage]);
+        $numCat = 0; //TODO countCat
+        return $this->render('ZPBAdminZooBundle:Navs:fototek_sidebar.html.twig', ['active'=>$active, 'numImage'=>$numImage, 'numCat'=>$numCat]);
     }
 } 

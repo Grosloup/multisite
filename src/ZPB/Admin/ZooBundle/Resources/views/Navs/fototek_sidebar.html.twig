@@ -10,15 +10,13 @@
                     <ul>
                         <li {% if active == "all_img" %}class="active"{% endif %}><a href="">Liste <small>({{numImage}})</small></a></li>
                         <li {% if active == "new_img" %}class="active"{% endif %}><a href="{{ path("zpb_admin_zoo_fototek_image_new") }}">Upload</a></li>
-                        <li><a href="">Deserunt, rem.</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-menu">
                     <h3>Toutes les Catégories</h3>
                     <ul>
-                        <li><a href="">Lorem ipsum.</a></li>
-                        <li><a href="">Ipsa, natus?</a></li>
-                        <li><a href="">Deserunt, rem.</a></li>
+                        <li {% if active == "all_cats" %}class="active"{% endif %}><a href="">Liste <small>({{numCat}})</small></a></li>
+                        <li {% if active == "new_cat" %}class="active"{% endif %}><a href="">Nouvelle</a></li>
                     </ul>
                 </div>
                 
