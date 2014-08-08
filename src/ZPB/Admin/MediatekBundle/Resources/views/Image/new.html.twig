@@ -34,6 +34,12 @@
                 {{ form_widget(form.file, {"label": "Fichier"}) }}
                 {{ form_errors(form.file) }}
             </div>
+            <div class="form-group">
+                {{ form_label(form.tags) }}
+                {{ form_widget(form.tags) }}
+                <div class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}"></div>
+                {{ form_errors(form.tags) }}
+            </div>
             <div class="checkbox">
                 {{ form_widget(form.isArticleThumbnail, {"attr":{"style":"margin-left:0;"}}) }}{{ form_label(form.isArticleThumbnail) }}
                 {{ form_errors(form.isArticleThumbnail) }}

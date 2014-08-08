@@ -25,6 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 use ZPB\Admin\MediatekBundle\Entity\Image;
+use ZPB\Admin\MediatekBundle\Form\Type\SimpleTagType;
 
 class ImageController extends BaseController
 {
@@ -47,6 +48,7 @@ class ImageController extends BaseController
             ->add('copyright')
             ->add('title',null,['label'=>'Attr. title'])
             ->add('file')
+            ->add('tags', 'collection', ['label'=>'Mots-clés','type'=>new SimpleTagType(),'allow_add'=>true, 'by_reference'=>false])
             ->add('isArticleThumbnail',null, ['label'=>'Illustration d\'article ?'])
             ->add('save','submit')
             ->getForm();
