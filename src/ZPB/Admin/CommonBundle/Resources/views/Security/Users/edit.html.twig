@@ -1,0 +1,18 @@
+{% extends "ZPBAdminCommonBundle:Layouts:common.html.twig" %}
+{% set subtitle = "Générale" %}
+{% set active_ss_menu = "edit_users" %}
+{% block sidebar%}{{ render(controller("ZPBAdminCommonBundle:Navs:usersSidebar", {active: active_ss_menu|default("home")})) }}{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <div class="h2">Utilisateurs <small>Edition</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+{% endblock %}

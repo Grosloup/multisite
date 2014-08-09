@@ -12,8 +12,39 @@ zpb_admin_common_logout:
     methods: ["GET"]
 
 zpb_admin_common_security_my_account:
-    path: /utilisateur/mon-compte/{canonic}
+    path: /mon-compte/{canonic}
     defaults: { _controller: ZPBAdminCommonBundle:Security:myAccount }
     methods: ["GET"]
     requirements:
         canonic: "^[a-zA-Z0-9_-]+$"
+
+zpb_admin_common_security_user_list:
+   path: /utilisateurs
+   defaults: { _controller: ZPBAdminCommonBundle:Security:listUsers }
+   methods: ["GET"]
+
+zpb_admin_common_security_user_new:
+   path: /utilisateur/nouveau
+   defaults: { _controller: ZPBAdminCommonBundle:Security:newUser }
+   methods: ["GET","POST"]
+
+zpb_admin_common_security_user_edit:
+   path: /utilisateur/mise-a-jour/{id}
+   defaults: { _controller: ZPBAdminCommonBundle:Security:editUser }
+   methods: ["GET","POST"]
+   requirements:
+       id: \d+
+
+zpb_admin_common_security_user_delete:
+   path: /utilisateur/supprimer/{id}
+   defaults: { _controller: ZPBAdminCommonBundle:Security:deleteUser }
+   methods: ["GET"]
+   requirements:
+       id: \d+
+
+zpb_admin_common_security_user_lock:
+   path: /utilisateur/bloquer/{id}
+   defaults: { _controller: ZPBAdminCommonBundle:Security:lockUser }
+   methods: ["GET"]
+   requirements:
+       id: \d+

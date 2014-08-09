@@ -16,6 +16,17 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  */
 class UserRepository extends EntityRepository implements UserProviderInterface
 {
+    public function countUsers()
+    {
+        return $this->createQueryBuilder('u')->select('COUNT(u)')->getQuery()->getSingleScalarResult();
+    }
+
+    public function findAllAlphaOrdered()
+    {
+        $qb = $this->createQueryBuilder("u")->orderBy("u.lastname", "ASC");
+        return $qb->getQuery()->getResult();
+    }
+
     public function findOneByUsernameOrEmail($field = "")
     {
         $qb = $this->createQueryBuilder('u')->andWhere('u.username=:username OR u.primaryEmail=:email')

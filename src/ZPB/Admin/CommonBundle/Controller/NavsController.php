@@ -33,4 +33,10 @@ class NavsController extends BaseController
     {
         return $this->render("ZPBAdminCommonBundle:Navs:mainSidebar.html.twig", ["active" => $active]);
     }
+
+    public function usersSidebarAction($active)
+    {
+        $numUsers = $this->getRepo('ZPBAdminCommonBundle:User')->countUsers();
+        return $this->render("ZPBAdminCommonBundle:Navs:usersSidebar.html.twig", ["active" => $active, 'numUsers'=>$numUsers]);
+    }
 }

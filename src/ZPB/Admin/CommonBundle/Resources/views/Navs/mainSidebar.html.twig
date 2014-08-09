@@ -8,13 +8,13 @@
                     <button class="fa fa-expand" id="msExpand"></button>
                 </div>
                 <div class="sidebar-menu bg-default">
-                    <h3 {% if active in ["home", "news", "media"] %}class="open"{% endif %}>Générale<i class="fa fa-caret-down pull-right"></i></h3>
+                    <h3 {% if active in ["home", "news", "media", "user"] %}class="open"{% endif %}>Générale<i class="fa fa-caret-down pull-right"></i></h3>
                     <ul>
                         <li {% if active == "home" %}class="active"{% endif %}><a href="{{ path("zpb_admin_common_homepage") }}">Accueil</a></li>
                         <li {% if active == "news" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_homepage") }}">Actualités</a></li>
                         <li {% if active == "media" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_homepage") }}">Médiathèque</a></li>
                         <li><a href="#">Delectus, quis.</a></li>
-                        <li><a href="#">Utilisateurs</a></li>
+                        <li {% if active == "user" %}class="active"{% endif %}><a href="{{ path("zpb_admin_common_security_user_list") }}">Utilisateurs</a></li>
 
                     </ul>
                 </div>

@@ -15,18 +15,18 @@ class DefaultController extends BaseController
         $encodedPassword = $encoder->encodePassword("adminpass", $user->getSalt());
         $user->setUsername("admin");
         $user->setPassword($encodedPassword);
-        $user->setRoles(["ROLE_ADMIN"]);
+        $user->setRoles(["ROLE_SUPERADMIN"]);
         $user->setIsActive(true);
-        $user->setFirstname('Nicolas');
+        $user->setFirstname('Frederic');
         $user->setLastname('Canfrère');
         $em = $this->getEm();
         $email1 = new Email();
-        $email1->setName('nico.canfrere@gmail.com');
+        $email1->setName('fred.canfrere@gmail.com');
         $email1->setUser($user);
         $email1->setIsDefault(true);
         $em->persist($email1);
         $email2 = new Email();
-        $email2->setName('canfrere.nicolas@orange.fr');
+        $email2->setName('canfrere.frederic@orange.fr');
         $email2->setUser($user);
         $em->persist($email2);
 

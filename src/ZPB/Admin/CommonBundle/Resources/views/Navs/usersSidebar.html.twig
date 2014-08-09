@@ -1,0 +1,22 @@
+<div id="secondary-sidebar">
+    <div class="nano">
+        <div class="nano-content">
+            <div id="secondary-sidebar-content">
+                <div class="controls-bar">
+                    <button class="fa fa-bars" id="ssToggle"></button>
+                </div>
+                <div class="sidebar-menu">
+                    <h3>Les utilisateurs</h3>
+                    <ul>
+                        <li {% if active == "all_users" %}class="active"{% endif %}><a href="{{ path("zpb_admin_common_security_user_list") }}">Liste <small>({{numUsers}})</small></a></li>
+                        <li {% if active == "new_user" %}class="active"{% endif %}><a href="{{ path("zpb_admin_common_security_user_new") }}">Nouveau</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

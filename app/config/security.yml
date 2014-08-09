@@ -17,6 +17,8 @@ security:
     access_control:
         #- { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/, requires_channel: https, roles: [IS_AUTHENTICATED_ANONYMOUSLY]}
         #- { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/, requires_channel: https, roles: [ROLE_USER]}
+        - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/utilisateurs, requires_channel: https, roles: ROLE_SUPERADMIN }
+        - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/utilisateur/.+, requires_channel: https, roles: ROLE_SUPERADMIN }
         - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/(?!(login|login_check|logout)/?$), requires_channel: https, roles: ROLE_USER }
 
     firewalls:

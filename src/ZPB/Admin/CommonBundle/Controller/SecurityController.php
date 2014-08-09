@@ -48,10 +48,41 @@ class SecurityController extends BaseController
     public function myAccountAction($canonic)
     {
         //TODO formulaire
-        $user = $this->getRepo("ZPBAdminCommonBundle:User")->findOneByCanonicalName($canonic);
+        $activeUser = $this->getUser();
+        if(!$activeUser || $activeUser->getCanonicalName() != $canonic){
+            throw $this->createAccessDeniedException();
+        }
+        $user = $this->getRepo('ZPBAdminCommonBundle:User')->findOneByCanonicalName($canonic);
         if(!$user){
             throw $this->createNotFoundException();
         }
         return $this->render('ZPBAdminCommonBundle:Security:my_account.html.twig', ['userdata'=>$user]);
+    }
+
+    public function listUsersAction()
+    {
+        $users = $this->getRepo('ZPBAdminCommonBundle:User')->findAll();
+
+        return $this->render('ZPBAdminCommonBundle:Security/Users:list.html.twig');
+    }
+
+    public function newUserAction(Request $request)
+    {
+        return $this->render('ZPBAdminCommonBundle:Security/Users:new.html.twig');
+    }
+
+    public function editUserAction($id,Request $request)
+    {
+        return $this->render('ZPBAdminCommonBundle:Security/Users:edit.html.twig');
+    }
+
+    public function deleteUserAction($id,Request $request)
+    {
+
+    }
+
+    public function lockUserAction($id,Request $request)
+    {
+
     }
 }

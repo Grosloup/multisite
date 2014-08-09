@@ -299,7 +299,7 @@ class User implements AdvancedUserInterface, Serializable
      */
     public function isAccountNonLocked()
     {
-        return true;
+        return $this->isActive;
     }
 
     /**
