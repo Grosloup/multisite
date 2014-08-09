@@ -22,6 +22,7 @@
                         <th>Nom</th>
                         <th>Pseudo</th>
                         <th>Emails</th>
+                        <th>Téléphones</th>
                         <th>Bloquer</th>
                         <th>Editer</th>
                         <th>Supprimer</th>
@@ -50,6 +51,18 @@
 
                                     {% else %}
                                     -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if user.phones|length > 1%}
+                                        <ul class="list-unstyled">
+                                            {% for phone in user.phones %}
+                                                <li {% if phone.isDefault %}class="bg-info"{% endif %}>{{ phone.number }}</li>
+                                            {% endfor %}
+                                        </ul>
+
+                                    {% else %}
+                                        -
                                     {% endif %}
                                 </td>
 
