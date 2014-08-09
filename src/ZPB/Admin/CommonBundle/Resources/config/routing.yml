@@ -3,15 +3,5 @@ zpb_admin_common_homepage:
     defaults: { _controller: ZPBAdminCommonBundle:Default:index }
     methods: ["GET"]
 
-zpb_admin_common_login:
-    path: /login
-    defaults: { _controller: ZPBAdminCommonBundle:Security:login }
-    methods: ["GET"]
-
-zpb_admin_common_login_check:
-    path: /login_check
-    methods: ["POST"]
-
-zpb_admin_common_logout:
-    path: /logout
-    methods: ["GET"]
+zpb_admin_common_security_routes:
+    resource: "@ZPBAdminCommonBundle/Resources/config/routing/security.yml"

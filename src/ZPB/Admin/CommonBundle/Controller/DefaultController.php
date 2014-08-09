@@ -17,6 +17,8 @@ class DefaultController extends BaseController
         $user->setPassword($encodedPassword);
         $user->setRoles(["ROLE_ADMIN"]);
         $user->setIsActive(true);
+        $user->setFirstname('Nicolas');
+        $user->setLastname('Canfrère');
         $em = $this->getEm();
         $email1 = new Email();
         $email1->setName('nico.canfrere@gmail.com');

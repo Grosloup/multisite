@@ -10,10 +10,16 @@
             <a class="navbar-brand" href="{{ path("zpb_admin_common_homepage") }}">Admin</a>
         </div>
         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <p class="navbar-text">{{ app.user.firstname|capitalize }} {{ app.user.lastname|capitalize }}</p>
+                <li></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path("zpb_admin_common_homepage") }}"><i class="fa fa-tachometer"></i> Dashboard</a></li>
+                <li><a href="{{ path("zpb_admin_common_security_my_account", {canonic: app.user.canonicalName }) }}"><i class="fa fa-user"></i> Mon compte</a></li>
                 <li><a href="{{ path("zpb_admin_common_logout") }}"><i class="fa fa-sign-out"></i> Déconnexion</a></li>
             </ul>
         </div>
     </div>
 </div>
+

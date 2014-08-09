@@ -44,4 +44,14 @@ class SecurityController extends BaseController
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
         return $this->render('ZPBAdminCommonBundle:Security:login.html.twig', ['error'=>$error, 'last_username'=>$lastUsername]);
     }
+
+    public function myAccountAction($canonic)
+    {
+        //TODO formulaire
+        $user = $this->getRepo("ZPBAdminCommonBundle:User")->findOneByCanonicalName($canonic);
+        if(!$user){
+            throw $this->createNotFoundException();
+        }
+        return $this->render('ZPBAdminCommonBundle:Security:my_account.html.twig', ['userdata'=>$user]);
+    }
 }

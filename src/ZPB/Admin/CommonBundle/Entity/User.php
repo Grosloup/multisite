@@ -2,11 +2,12 @@
 
 namespace ZPB\Admin\CommonBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Serializable;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -27,42 +28,54 @@ class User implements AdvancedUserInterface, Serializable
 
     /**
      * @var string
+     * @ORM\Column(name="firstname", type="string", length=100, nullable=false)
+     */
+    private $firstname;
+
+    /**
+     * @var string
+     * @ORM\Column(name="lastname", type="string", length=100, nullable=false)
+     */
+    private $lastname;
+
+    /**
+     * @var string
+     * @ORM\Column(name="canonical_name", type="string", nullable=false, length=255, unique=true)
+     * @Gedmo\Slug(fields={"firstname","lastname"}, unique=true)
+     */
+    private $canonicalName;
+    /**
+     * @var string
      *
      * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
-
     /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
-
     /**
      * @var string
      *
      * @ORM\Column(name="salt", type="string", length=255)
      */
     private $salt;
-
     /**
      * @var array
      * @ORM\Column(name="roles", type="array")
      */
     private $roles;
-
     /**
      * @var boolean
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
-
     /**
      * @ORM\OneToMany(targetEntity="ZPB\Admin\CommonBundle\Entity\Email", mappedBy="user")
      */
     private $emails;
-
     /**
      * @var string
      * @ORM\Column(name="primary_email", type="string", length=255, nullable=true)
@@ -77,15 +90,62 @@ class User implements AdvancedUserInterface, Serializable
         $this->emails = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
+    public function getCanonicalName()
+    {
+        return $this->canonicalName;
+    }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * @param string $canonicalName
      */
-    public function getId()
+    public function setCanonicalName($canonicalName)
     {
-        return $this->id;
+        $this->canonicalName = $canonicalName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * @param string $firstname
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * @param string $lastname
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
     }
 
     /**
@@ -102,13 +162,13 @@ class User implements AdvancedUserInterface, Serializable
     }
 
     /**
-     * Get username
+     * Get password
      *
      * @return string
      */
-    public function getUsername()
+    public function getPassword()
     {
-        return $this->username;
+        return $this->password;
     }
 
     /**
@@ -125,13 +185,13 @@ class User implements AdvancedUserInterface, Serializable
     }
 
     /**
-     * Get password
+     * Get salt
      *
      * @return string
      */
-    public function getPassword()
+    public function getSalt()
     {
-        return $this->password;
+        return $this->salt;
     }
 
     /**
@@ -145,16 +205,6 @@ class User implements AdvancedUserInterface, Serializable
         $this->salt = $salt;
 
         return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
     }
 
     /**
@@ -193,13 +243,22 @@ class User implements AdvancedUserInterface, Serializable
     }
 
     /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
      * @param boolean $isActive
      */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
     }
-
 
 
     /**
@@ -281,7 +340,17 @@ class User implements AdvancedUserInterface, Serializable
      */
     public function serialize()
     {
-        return serialize(['id'=>$this->getId()]);
+        return serialize(['id' => $this->getId()]);
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -300,16 +369,6 @@ class User implements AdvancedUserInterface, Serializable
     }
 
     /**
-     * Get isActive
-     *
-     * @return boolean
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-
-    /**
      * Add emails
      *
      * @param Email $emails
@@ -318,7 +377,7 @@ class User implements AdvancedUserInterface, Serializable
     public function addEmail(Email $emails)
     {
         $this->emails[] = $emails;
-        if($emails->getIsDefault()){
+        if ($emails->getIsDefault()) {
             $this->primaryEmail = $emails->getName();
         }
         return $this;
