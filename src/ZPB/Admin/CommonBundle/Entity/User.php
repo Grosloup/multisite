@@ -6,10 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Serializable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * User
  *
@@ -83,6 +84,15 @@ class User implements AdvancedUserInterface, Serializable
      * @ORM\Column(name="primary_email", type="string", length=255, nullable=true)
      */
     private $primaryEmail;
+    /**
+     * @ORM\OneToMany(targetEntity="ZPB\Admin\CommonBundle\Entity\PhoneNumber", mappedBy="user")
+     */
+    private $phones;
+
+    /**
+     * @ORM\Column(name="primary_phone", type="string", length=20, nullable=true)
+     */
+    private $primaryPhone;
 
     function __construct()
     {
@@ -90,6 +100,23 @@ class User implements AdvancedUserInterface, Serializable
         $this->roles = ['ROLE_USER'];
         $this->isActive = false;
         $this->emails = new ArrayCollection();
+        $this->phones = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPrimaryPhone()
+    {
+        return $this->primaryPhone;
+    }
+
+    /**
+     * @param mixed $primaryPhone
+     */
+    public function setPrimaryPhone($primaryPhone)
+    {
+        $this->primaryPhone = $primaryPhone;
     }
 
     /**
@@ -423,10 +450,10 @@ class User implements AdvancedUserInterface, Serializable
 
     public function getMaxRole()
     {
-        if(in_array('ROLE_SUPERADMIN', $this->roles)){
+        if (in_array('ROLE_SUPERADMIN', $this->roles)) {
             return 'Super Administrateur';
         }
-        if(in_array('ROLE_ADMIN', $this->roles)){
+        if (in_array('ROLE_ADMIN', $this->roles)) {
             return 'Administrateur';
         }
         return 'Utilisateur';
@@ -440,5 +467,38 @@ class User implements AdvancedUserInterface, Serializable
     public function isAdmin()
     {
         return in_array('ROLE_ADMIN', $this->roles);
+    }
+
+    /**
+     * Add phones
+     *
+     * @param PhoneNumber $phones
+     * @return User
+     */
+    public function addPhone(PhoneNumber $phones)
+    {
+        $this->phones[] = $phones;
+
+        return $this;
+    }
+
+    /**
+     * Remove phones
+     *
+     * @param PhoneNumber $phones
+     */
+    public function removePhone(PhoneNumber $phones)
+    {
+        $this->phones->removeElement($phones);
+    }
+
+    /**
+     * Get phones
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhones()
+    {
+        return $this->phones;
     }
 }
