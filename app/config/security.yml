@@ -1,7 +1,23 @@
 security:
+    encoders:
+        ZPB\Admin\CommonBundle\Entity\User:
+            algorithm: sha512
+            encode_as_base64: true
+            iterations: 7000
     providers:
-        in_memory:
-            memory: ~
+        admin_provider:
+            entity:
+                class: ZPBAdminCommonBundle:User
+                #property: username
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPERADMIN: [ROLE_USER, ROLE_ADMIN]
+
+    access_control:
+        #- { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/, requires_channel: https, roles: [IS_AUTHENTICATED_ANONYMOUSLY]}
+        #- { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/, requires_channel: https, roles: [ROLE_USER]}
+        - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/(?!(login|login_check|logout)/?$), requires_channel: https, roles: ROLE_USER }
 
     firewalls:
         dev:
@@ -9,8 +25,18 @@ security:
             security: false
 
         admin:
+            host: ^(new\.|www\.)?admin\.zooparc\.com$
             pattern: ^/
-            security: false
+            security: true
+            provider: admin_provider
+            anonymous: ~
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                csrf_provider: form.csrf_provider
+            logout:
+                path: /logout
+                target: /
 
         default:
             anonymous: ~
