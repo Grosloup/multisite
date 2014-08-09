@@ -14,8 +14,9 @@
                         <li {% if active == "news" %}class="active"{% endif %}><a href="{{ path("zpb_admin_blog_homepage") }}">Actualités</a></li>
                         <li {% if active == "media" %}class="active"{% endif %}><a href="{{ path("zpb_admin_mediatek_homepage") }}">Médiathèque</a></li>
                         <li><a href="#">Delectus, quis.</a></li>
+                        {% if is_granted("ROLE_SUPERADMIN") %}
                         <li {% if active == "user" %}class="active"{% endif %}><a href="{{ path("zpb_admin_common_security_user_list") }}">Utilisateurs</a></li>
-
+                        {% endif %}
                     </ul>
                 </div>
 

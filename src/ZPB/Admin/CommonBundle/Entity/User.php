@@ -8,12 +8,14 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Serializable;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * User
  *
  * @ORM\Table(name="zpb_admin_users")
  * @ORM\Entity(repositoryClass="ZPB\Admin\CommonBundle\Entity\UserRepository")
+ * @UniqueEntity("username")
  */
 class User implements AdvancedUserInterface, Serializable
 {
@@ -417,5 +419,26 @@ class User implements AdvancedUserInterface, Serializable
     public function setPrimaryEmail($primaryEmail)
     {
         $this->primaryEmail = $primaryEmail;
+    }
+
+    public function getMaxRole()
+    {
+        if(in_array('ROLE_SUPERADMIN', $this->roles)){
+            return 'Super Administrateur';
+        }
+        if(in_array('ROLE_ADMIN', $this->roles)){
+            return 'Administrateur';
+        }
+        return 'Utilisateur';
+    }
+
+    public function isSuperAdmin()
+    {
+        return in_array('ROLE_SUPERADMIN', $this->roles);
+    }
+
+    public function isAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->roles);
     }
 }

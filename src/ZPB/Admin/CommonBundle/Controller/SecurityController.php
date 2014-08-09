@@ -61,9 +61,9 @@ class SecurityController extends BaseController
 
     public function listUsersAction()
     {
-        $users = $this->getRepo('ZPBAdminCommonBundle:User')->findAll();
+        $users = $this->getRepo('ZPBAdminCommonBundle:User')->findAllAlphaOrdered();
 
-        return $this->render('ZPBAdminCommonBundle:Security/Users:list.html.twig');
+        return $this->render('ZPBAdminCommonBundle:Security/Users:list.html.twig', ['users'=>$users]);
     }
 
     public function newUserAction(Request $request)

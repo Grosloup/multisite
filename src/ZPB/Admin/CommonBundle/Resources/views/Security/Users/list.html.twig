@@ -11,8 +11,73 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Niveau max</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Pseudo</th>
+                        <th>Emails</th>
+                        <th>Bloquer</th>
+                        <th>Editer</th>
+                        <th>Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if users|length <1 %}
+                    <tr class="warning">
+                        <td>Il n'y a aucun utikisateurs enregistrés ?!</td>
+                    </tr>
+                    {% else %}
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.maxRole }}</td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>
+                                    {% if user.emails|length > 1%}
+                                        <ul class="list-unstyled">
+                                            {% for email in user.emails %}
+                                            <li {% if email.isDefault %}class="bg-info"{% endif %}><a href="mailto:{{ email.name }}" >{{ email.name }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+
+                                    {% else %}
+                                    -
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if user.isSuperAdmin == false %}
+                                        {% if user.isAccountNonLocked == true %}
+                                            <a href="" class="btn btn-default"><i class="fa fa-square-o"></i></a>
+                                        {% else %}
+                                            <a href="" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
+                                        {% endif %}
+                                    {% else %}-{% endif %}
+                                </td>
+                                <td>
+                                    {% if user.isSuperAdmin == false %}
+                                        <a class="btn btn-default" href=""><i class="fa fa-edit"></i></a>
+                                    {% else %}-{% endif %}
+                                </td>
+                                <td>
+                                    {% if user.isSuperAdmin == false %}
+                                        <a class="btn btn-default" href=""><i class="fa fa-trash-o"></i></a>
+                                    {% else %}-{% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="col-md-6"></div>
     </div>
 {% endblock %}
