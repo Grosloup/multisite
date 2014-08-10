@@ -74,10 +74,10 @@ class SecurityController extends BaseController
         $form = $this->createForm(new UserType(), $user);
         $form->handleRequest($request);
         if($form->isValid()){
-            /*$em = $this->getEm();
+            $em = $this->getEm();
             $em->persist($user);
             $em->flush();
-            return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));*/
+            return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
         }
         return $this->render('ZPBAdminCommonBundle:Security/Users:new.html.twig', ['form'=>$form->createView(), 'user'=>$user]);
     }

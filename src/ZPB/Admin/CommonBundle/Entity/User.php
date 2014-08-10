@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="zpb_admin_users")
  * @ORM\Entity(repositoryClass="ZPB\Admin\CommonBundle\Entity\UserRepository")
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity("username")
+ * @UniqueEntity("username", message="Ce pseudo est déjà utilisé.")
  */
 class User implements AdvancedUserInterface, Serializable
 {
@@ -68,7 +68,7 @@ class User implements AdvancedUserInterface, Serializable
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\Length(min="8", minMessage="Le mot de passe doit contenir au moins 8 caractères alphanumérique")
+     * @Assert\Length(min="8", minMessage="Le mot de passe doit contenir au moins 8 caractères alphanumériques")
      *
      */
     private $plainPassword;
@@ -329,7 +329,7 @@ class User implements AdvancedUserInterface, Serializable
      */
     public function eraseCredentials()
     {
-        $this->setPlainPassword(null);
+        $this->plainPassword = null;
     }
 
     /**
