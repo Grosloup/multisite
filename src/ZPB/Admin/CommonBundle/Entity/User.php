@@ -484,7 +484,9 @@ class User implements AdvancedUserInterface, Serializable
     public function addPhone(PhoneNumber $phones)
     {
         $this->phones[] = $phones;
-
+        if($phones->getIsDefault()){
+            $this->primaryPhone = $phones->getNumber();
+        }
         return $this;
     }
 

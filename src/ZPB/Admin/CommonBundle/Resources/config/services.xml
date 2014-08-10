@@ -6,6 +6,12 @@
 
     <parameters>
         <parameter key="zpb.form.type.phone_type.class">ZPB\Admin\CommonBundle\Form\Type\PhoneTypeType</parameter>
+        <parameter key="zpb.form.type.admin_roles_type.class">ZPB\Admin\CommonBundle\Form\Type\AdminRolesTypeType</parameter>
+        <parameter key="zpb.admin_roles" type="collection">
+            <parameter key="ROLE_USER">utilisateur basique</parameter>
+            <parameter key="ROLE_ADMIN">administrateur</parameter>
+            <parameter key="ROLE_SUPERADMIN">super administrateur</parameter>
+        </parameter>
         <parameter key="zpb.phones" type="collection">
             <parameter key="fixe perso">Fixe personnel</parameter>
             <parameter key="fixe pro">Fixe professionnel</parameter>
@@ -15,6 +21,10 @@
     </parameters>
 
     <services>
+        <service id="zpb.form.type.admin_roles" class="%zpb.form.type.admin_roles_type.class%">
+            <argument type="string">%zpb.admin_roles%</argument>
+            <tag name="form.type" alias="admin_roles_type" />
+        </service>
         <service id="zpb.form.type.phone" class="%zpb.form.type.phone_type.class%">
             <argument type="string">%zpb.phones%</argument>
             <tag name="form.type" alias="phone_type" />
