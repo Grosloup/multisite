@@ -64,7 +64,6 @@ class SecurityController extends BaseController
     public function listUsersAction()
     {
         $users = $this->getRepo('ZPBAdminCommonBundle:User')->findAllAlphaOrdered();
-
         return $this->render('ZPBAdminCommonBundle:Security/Users:list.html.twig', ['users'=>$users]);
     }
 
@@ -72,18 +71,14 @@ class SecurityController extends BaseController
     public function newUserAction(Request $request)
     {
         $user = new User();
-
         $form = $this->createForm(new UserType(), $user);
-
         $form->handleRequest($request);
-
         if($form->isValid()){
-            $em = $this->getEm();
+            /*$em = $this->getEm();
             $em->persist($user);
             $em->flush();
-            return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
+            return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));*/
         }
-
         return $this->render('ZPBAdminCommonBundle:Security/Users:new.html.twig', ['form'=>$form->createView(), 'user'=>$user]);
     }
 

@@ -34,7 +34,6 @@
             <argument type="service" id="security.encoder_factory" />
             <tag name="doctrine.event_listener" event="prePersist"/>
             <tag name="doctrine.event_listener" event="preUpdate"/>
-
         </service>
     </services>
 
