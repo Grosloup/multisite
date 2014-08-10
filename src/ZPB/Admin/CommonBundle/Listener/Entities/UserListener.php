@@ -39,7 +39,10 @@ class UserListener
     {
         $entity = $args->getEntity();
         if($entity instanceof User){
-            $this->handleEvent($entity);
+            $password = $this->handleEvent($entity);
+            if($password){
+                $entity->setPassword($password);
+            }
         }
     }
 
@@ -47,17 +50,12 @@ class UserListener
     {
         $entity = $args->getEntity();
         if($entity instanceof User){
-
-               /*$em = $args->getEntityManager();
-               $classMetas = $em->getClassMetadata(get_class($entity));
-               $em->getUnitOfWork()->recomputeSingleEntityChangeSet($classMetas, $entity);*/
-               if($args->hasChangedField('password')){
-                   //$this->handleEvent($entity);
-                   $encoder = $this->encoder->getEncoder($entity);
-                   $password = $encoder->encodePassword($entity->getPlainPassword(), $entity->getSalt());
+           if($args->hasChangedField('password')){
+               $password = $this->handleEvent($entity);
+               if($password){
                    $args->setNewValue('password', $password);
                }
-
+           }
         }
     }
 
@@ -68,8 +66,6 @@ class UserListener
         }
         $encoder = $this->encoder->getEncoder($user);
         $password = $encoder->encodePassword($user->getPlainPassword(), $user->getSalt());
-        $user->setPassword($password);
-
-        return true;
+        return $password;
     }
 }

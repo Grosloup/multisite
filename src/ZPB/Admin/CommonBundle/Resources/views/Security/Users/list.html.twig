@@ -69,9 +69,9 @@
                                 <td>
                                     {% if user.isSuperAdmin == false %}
                                         {% if user.isAccountNonLocked == true %}
-                                            <a href="" class="btn btn-default"><i class="fa fa-square-o"></i></a>
+                                            <a href="{{ path("zpb_admin_common_security_user_lock", {id: user.id, _token: csrf_token("user_lock")}) }}" class="btn btn-default"><i class="fa fa-square-o"></i></a>
                                         {% else %}
-                                            <a href="" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
+                                            <a href="{{ path("zpb_admin_common_security_user_unlock", {id: user.id, _token: csrf_token("user_unlock")}) }}" class="btn btn-default"><i class="fa fa-check-square-o"></i></a>
                                         {% endif %}
                                     {% else %}-{% endif %}
                                 </td>

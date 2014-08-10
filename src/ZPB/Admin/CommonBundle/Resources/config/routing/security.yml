@@ -48,3 +48,9 @@ zpb_admin_common_security_user_lock:
    methods: ["GET"]
    requirements:
        id: \d+
+zpb_admin_common_security_user_unlock:
+   path: /utilisateur/debloquer/{id}
+   defaults: { _controller: ZPBAdminCommonBundle:Security:unlockUser }
+   methods: ["GET"]
+   requirements:
+       id: \d+

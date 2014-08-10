@@ -94,6 +94,39 @@ class SecurityController extends BaseController
 
     public function lockUserAction($id,Request $request)
     {
+        $csrfProv = $this->getCsrfProvider();
+        $token = $request->query->get('_token', false);
+        if(!$token || !$csrfProv->isCsrfTokenValid('user_lock', $token)){
+            throw $this->createAccessDeniedException();
+        }
+        $user = $this->getRepo('ZPBAdminCommonBundle:User')->find($id);
+        if(!$user){
+            throw $this->createNotFoundException();
+        }
+        $user->setIsActive(false);
+        $em = $this->getEm();
+        $em->persist($user);
+        $em->flush();
+        $this->successMessage('L\'utilisateur est maintenant bloqué.');
+        return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
+    }
 
+    public function unlockUserAction($id,Request $request)
+    {
+        $csrfProv = $this->getCsrfProvider();
+        $token = $request->query->get('_token', false);
+        if(!$token || !$csrfProv->isCsrfTokenValid('user_unlock', $token)){
+            throw $this->createAccessDeniedException();
+        }
+        $user = $this->getRepo('ZPBAdminCommonBundle:User')->find($id);
+        if(!$user){
+            throw $this->createNotFoundException();
+        }
+        $user->setIsActive(true);
+        $em = $this->getEm();
+        $em->persist($user);
+        $em->flush();
+        $this->successMessage('L\'utilisateur est maintenant débloqué.');
+        return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
     }
 }
