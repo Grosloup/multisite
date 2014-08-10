@@ -12,7 +12,56 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+            {{ form_errors(form) }}
+            <div class="form-group {% if form.firstname.vars.errors|length>0 %}has-error{% endif %}">
+                {{ form_label(form.firstname) }}
+                {{ form_widget(form.firstname, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.firstname) }}
+            </div>
+
+            <div class="form-group {% if form.lastname.vars.errors|length>0 %}has-error{% endif %}">
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.lastname) }}
+            </div>
+
+            <div class="form-group {% if form.username.vars.errors|length>0 %}has-error{% endif %}">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.username) }}
+            </div>
+
+            <div class="form-group {% if form.password.vars.errors|length>0 %}has-error{% endif %}">
+                {{ form_label(form.password) }}
+                {{ form_widget(form.password, {"attr":{"class":"form-control"}}) }}
+                {{ form_errors(form.password) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.emails) }}
+                {{ form_widget(form.emails) }}
+                <div class="emails" data-prototype="{{ form_widget(form.emails.vars.prototype)|e }}"></div>
+                {{ form_errors(form.emails) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.phones) }}
+                {{ form_widget(form.phones) }}
+                <div class="phones" data-prototype="{{ form_widget(form.phones.vars.prototype)|e }}"></div>
+                {{ form_errors(form.phones) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.save, {"attr":{"class":"btn btn-primary"}})  }}
+            </div>
+            {{ form_end(form) }}
         </div>
         <div class="col-md-6"></div>
     </div>
+{% endblock %}
+{% block footScripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+
+        });
+    </script>
 {% endblock %}

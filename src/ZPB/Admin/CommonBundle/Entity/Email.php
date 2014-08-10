@@ -3,7 +3,7 @@
 namespace ZPB\Admin\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Email
  *
@@ -23,7 +23,7 @@ class Email
 
     /**
      * @var string
-     *
+     * @Assert\Email(message="Ce n'est pas une adresse email valide", checkMX=true, checkHost=true)
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;

@@ -32,12 +32,16 @@ class User implements AdvancedUserInterface, Serializable
     /**
      * @var string
      * @ORM\Column(name="firstname", type="string", length=100, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
      */
     private $firstname;
 
     /**
      * @var string
      * @ORM\Column(name="lastname", type="string", length=100, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
      */
     private $lastname;
 
@@ -45,17 +49,19 @@ class User implements AdvancedUserInterface, Serializable
      * @var string
      * @ORM\Column(name="canonical_name", type="string", nullable=false, length=255, unique=true)
      * @Gedmo\Slug(fields={"firstname","lastname"}, unique=true)
+     *
      */
     private $canonicalName;
     /**
      * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @Assert\NotBlank()
+     * @ORM\Column(name="username", type="string", length=255, nullable=false, unique=true)
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'., _-]+$/", message="Ce champ contient des caractères non autorisés.")
      */
     private $username;
     /**
      * @var string
-     *
+     * @Assert\Length(min="8", minMessage="Le mot de passe doit contenir au moins 8 caractères alphanumérique")
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;

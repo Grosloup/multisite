@@ -23,6 +23,8 @@ namespace ZPB\Admin\CommonBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use ZPB\Admin\CommonBundle\Entity\User;
+use ZPB\Admin\CommonBundle\Form\Type\UserType;
 
 class SecurityController extends BaseController
 {
@@ -66,9 +68,20 @@ class SecurityController extends BaseController
         return $this->render('ZPBAdminCommonBundle:Security/Users:list.html.twig', ['users'=>$users]);
     }
 
+
     public function newUserAction(Request $request)
     {
-        return $this->render('ZPBAdminCommonBundle:Security/Users:new.html.twig');
+        $user = new User();
+
+        $form = $this->createForm(new UserType(), $user);
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+
+        }
+
+        return $this->render('ZPBAdminCommonBundle:Security/Users:new.html.twig', ['form'=>$form->createView()]);
     }
 
     public function editUserAction($id,Request $request)
