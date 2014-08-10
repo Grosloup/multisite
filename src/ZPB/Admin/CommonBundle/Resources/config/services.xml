@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="zpb.form.type.phone_type.class">ZPB\Admin\CommonBundle\Form\Type\PhoneTypeType</parameter>
         <parameter key="zpb.form.type.admin_roles_type.class">ZPB\Admin\CommonBundle\Form\Type\AdminRolesTypeType</parameter>
+        <parameter key="zpb.listener.entity.user_listener.class">ZPB\Admin\CommonBundle\Listener\Entities\UserListener</parameter>
         <parameter key="zpb.admin_roles" type="collection">
             <parameter key="ROLE_USER">utilisateur basique</parameter>
             <parameter key="ROLE_ADMIN">administrateur</parameter>
@@ -28,6 +29,12 @@
         <service id="zpb.form.type.phone" class="%zpb.form.type.phone_type.class%">
             <argument type="string">%zpb.phones%</argument>
             <tag name="form.type" alias="phone_type" />
+        </service>
+        <service id="zpb.listener.entity.user_listener" class="%zpb.listener.entity.user_listener.class%">
+            <argument type="service" id="security.encoder_factory" />
+            <tag name="doctrine.event_listener" event="prePersist"/>
+            <tag name="doctrine.event_listener" event="preUpdate"/>
+
         </service>
     </services>
 

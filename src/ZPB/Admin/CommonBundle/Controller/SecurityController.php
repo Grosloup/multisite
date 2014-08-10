@@ -78,10 +78,13 @@ class SecurityController extends BaseController
         $form->handleRequest($request);
 
         if($form->isValid()){
-
+            $em = $this->getEm();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
         }
 
-        return $this->render('ZPBAdminCommonBundle:Security/Users:new.html.twig', ['form'=>$form->createView()]);
+        return $this->render('ZPBAdminCommonBundle:Security/Users:new.html.twig', ['form'=>$form->createView(), 'user'=>$user]);
     }
 
     public function editUserAction($id,Request $request)

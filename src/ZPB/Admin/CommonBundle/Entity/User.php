@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="zpb_admin_users")
  * @ORM\Entity(repositoryClass="ZPB\Admin\CommonBundle\Entity\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("username")
  */
 class User implements AdvancedUserInterface, Serializable
@@ -61,10 +62,16 @@ class User implements AdvancedUserInterface, Serializable
     private $username;
     /**
      * @var string
-     * @Assert\Length(min="8", minMessage="Le mot de passe doit contenir au moins 8 caractères alphanumérique")
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="string", length=255,nullable=false)
      */
     private $password;
+    /**
+     * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min="8", minMessage="Le mot de passe doit contenir au moins 8 caractères alphanumérique")
+     *
+     */
+    private $plainPassword;
     /**
      * @var string
      *
@@ -108,6 +115,24 @@ class User implements AdvancedUserInterface, Serializable
         $this->emails = new ArrayCollection();
         $this->phones = new ArrayCollection();
     }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+        $this->password = null;
+    }
+
 
     /**
      * @return mixed
@@ -304,7 +329,7 @@ class User implements AdvancedUserInterface, Serializable
      */
     public function eraseCredentials()
     {
-        //return true;
+        $this->setPlainPassword(null);
     }
 
     /**

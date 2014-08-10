@@ -33,7 +33,7 @@ class UserType extends AbstractType{
             ->add('firstname', null, ['label'=>'Prénom'])
             ->add('lastname', null, ['label'=>'Nom'])
             ->add('username', null, ['label'=>'Pseudo'])
-            ->add('password', 'password', ['label'=>'Mot de passe'])
+            ->add('plainPassword', 'repeated', ['type'=>'password'])
             ->add('roles', 'collection', ['label'=>'Roles','type'=>'admin_roles_type',  'allow_add'=>true, 'by_reference'=>false])
             ->add('emails', 'collection', ['label'=>'Emails','type'=>new SimpleEmailType(),  'allow_add'=>true, 'by_reference'=>false])
             ->add('phones', 'collection', ['label'=>'Téléphones','type'=>new PhoneType(), 'allow_add'=>true, 'by_reference'=>false])
