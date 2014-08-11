@@ -1,0 +1,33 @@
+zpb_admin_common_user_phone_set_primary:
+    path: /utilisateur/{userid}/valide-telephone-principal/{phoneid}
+    defaults: { _controller: ZPBAdminCommonBundle:Phone:userSetPrimaryPhone }
+    methods: ["GET"]
+    requirements:
+        userid: \d+
+        phoneid: \d+
+zpb_admin_common_user_phone_unset_primary:
+    path: /utilisateur/{userid}/invalide-telephone-principal/{phoneid}
+    defaults: { _controller: ZPBAdminCommonBundle:Phone:userUnsetPrimaryPhone }
+    methods: ["GET"]
+    requirements:
+        userid: \d+
+        phoneid: \d+
+zpb_admin_common_user_phone_edit:
+    path: /utilisateur/modifier-telephone/{id}
+    defaults: { _controller: ZPBAdminCommonBundle:Phone:edit }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+zpb_admin_common_user_phone_add:
+    path: /utilisateur/{userid}/ajouter-telephone
+    defaults: { _controller: ZPBAdminCommonBundle:Phone:userAddPhone }
+    methods: ["GET","POST"]
+    requirements:
+        userid: \d+
+zpb_admin_common_user_phone_remove:
+    path: /utilisateur/{userid}/supprimer-telephone/{phoneid}
+    defaults: { _controller: ZPBAdminCommonBundle:Phone:userRemovePhone }
+    methods: ["GET","POST"]
+    requirements:
+        userid: \d+
+        phoneid: \d+

@@ -5,3 +5,9 @@ zpb_admin_common_homepage:
 
 zpb_admin_common_security_routes:
     resource: "@ZPBAdminCommonBundle/Resources/config/routing/security.yml"
+
+zpb_admin_common_security_phone_routes:
+    resource: "@ZPBAdminCommonBundle/Resources/config/routing/phone.yml"
+
+zpb_admin_common_security_email_routes:
+    resource: "@ZPBAdminCommonBundle/Resources/config/routing/email.yml"

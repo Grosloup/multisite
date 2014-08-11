@@ -104,12 +104,13 @@ class SecurityController extends BaseController
 
     public function editUserAction($id,Request $request)
     {
+        //TODO
         return $this->render('ZPBAdminCommonBundle:Security/Users:edit.html.twig');
     }
 
     public function deleteUserAction($id,Request $request)
     {
-
+        //TODO
     }
 
     public function lockUserAction($id,Request $request)

@@ -1,0 +1,33 @@
+zpb_admin_common_user_email_set_primary:
+    path: /utilisateur/{userid}/valide-teleemail-principal/{emailid}
+    defaults: { _controller: ZPBAdminCommonBundle:Email:userSetPrimaryEmail }
+    methods: ["GET"]
+    requirements:
+        userid: \d+
+        emailid: \d+
+zpb_admin_common_user_email_unset_primary:
+    path: /utilisateur/{userid}/invalide-teleemail-principal/{emailid}
+    defaults: { _controller: ZPBAdminCommonBundle:Email:userUnsetPrimaryEmail }
+    methods: ["GET"]
+    requirements:
+        userid: \d+
+        emailid: \d+
+zpb_admin_common_user_email_edit:
+    path: /utilisateur/modifier-teleemail/{id}
+    defaults: { _controller: ZPBAdminCommonBundle:Email:edit }
+    methods: ["GET"]
+    requirements:
+        id: \d+
+zpb_admin_common_user_email_add:
+    path: /utilisateur/{userid}/ajouter-teleemail
+    defaults: { _controller: ZPBAdminCommonBundle:Email:userAddEmail }
+    methods: ["GET","POST"]
+    requirements:
+        userid: \d+
+zpb_admin_common_user_email_remove:
+    path: /utilisateur/{userid}/supprimer-teleemail/{emailid}
+    defaults: { _controller: ZPBAdminCommonBundle:Email:userRemoveEmail }
+    methods: ["GET","POST"]
+    requirements:
+        userid: \d+
+        emailid: \d+
