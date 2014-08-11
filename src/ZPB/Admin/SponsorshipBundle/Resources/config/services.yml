@@ -1,0 +1,7 @@
+parameters:
+#    zpb_admin_sponsorship.example.class: ZPB\Admin\SponsorshipBundle\Example
+
+services:
+#    zpb_admin_sponsorship.example:
+#        class: %zpb_admin_sponsorship.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,3 @@
+zpb_admin_sponsorship_homepage:
+    path:     /
+    defaults: { _controller: ZPBAdminSponsorshipBundle:Default:index }
