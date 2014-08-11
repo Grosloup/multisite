@@ -50,11 +50,12 @@
                                             <li>
                                                 <a href="mailto:{{ email.name }}" >{{ email.name }}</a>
                                                 |
-                                                {% if email.isDefault %}<a href="#"><i class="fa fa-star"></i></a>{% else %}<a href="#"><i class="fa fa-star-o"></i></a>{% endif %}
+                                                {% if email.isDefault %}<a href="{{ path('zpb_admin_common_user_email_unset_primary',{userid: user.id, emailid: email.id, _token: csrf_token('user_unsetprimary_email')}) }}"><i class="fa fa-star"></i></a>
+                                                {% else %}<a href="{{ path('zpb_admin_common_user_email_set_primary',{userid: user.id, emailid: email.id, _token: csrf_token('user_setprimary_email')}) }}"><i class="fa fa-star-o"></i></a>{% endif %}
                                                 |
-                                                <a href="#"><i class="fa fa-edit"></i></a>
+                                                <a href="{{ path("zpb_admin_common_user_email_edit",{id: email.id, _token: csrf_token('email_edit')} ) }}"><i class="fa fa-edit"></i></a>
                                                 |
-                                                <a href="#"><i class="fa fa-trash-o"></i></a>
+                                                <a href="{{ path("zpb_admin_common_user_email_remove", {userid: user.id, emailid: email.id, _token: csrf_token('user_remove_email')}) }}"><i class="fa fa-trash-o"></i></a>
                                             </li>
                                             {% endfor %}
                                         </ul>
@@ -64,7 +65,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-default"><i class="fa fa-plus-square-o"></i></a>
+                                    <a href="{{ path("zpb_admin_common_user_email_add", {userid: user.id, _token: csrf_token("user_add_email")}) }}" class="btn btn-default"><i class="fa fa-plus-square-o"></i></a>
                                 </td>
                                 <td>
                                     {% if user.phones|length > 0%}
@@ -72,11 +73,12 @@
                                             {% for phone in user.phones %}
                                                 <li >{{ phone.number }} ({{ phone.type }})
                                                     |
-                                                    {% if phone.isDefault %}<a href="#"><i class="fa fa-star"></i></a>{% else %}<a href="#"><i class="fa fa-star-o"></i></a>{% endif %}
+                                                    {% if phone.isDefault %}<a href="{{ path("zpb_admin_common_user_phone_set_primary", {userid: user.id, phoneid: phone.id, _token: csrf_token("user_set_primary_phone")}) }}"><i class="fa fa-star"></i></a>
+                                                    {% else %}<a href="{{ path("zpb_admin_common_user_phone_unset_primary", {userid: user.id, phoneid: phone.id, _token: csrf_token("user_unset_primary_phone")}) }}"><i class="fa fa-star-o"></i></a>{% endif %}
                                                     |
-                                                    <a href="#"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{ path("zpb_admin_common_user_phone_edit", {id: phone.id, _token: csrf_token("user_edit_phone")}) }}"><i class="fa fa-edit"></i></a>
                                                     |
-                                                    <a href="#"><i class="fa fa-trash-o"></i></a>
+                                                    <a href="{{ path("zpb_admin_common_user_phone_remove", {userid: user.id, phoneid: phone.id, _token: csrf_token("user_remove_phone")}) }}"><i class="fa fa-trash-o"></i></a>
                                                 </li>
                                             {% endfor %}
                                         </ul>
@@ -86,7 +88,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-default"><i class="fa fa-plus-square-o"></i></a>
+                                    <a href="{{ path("zpb_admin_common_user_phone_add", {userid: user.id, _token: csrf_token("user_add_phone")}) }}" class="btn btn-default"><i class="fa fa-plus-square-o"></i></a>
                                 </td>
                                 <td>
                                     {% if user.isSuperAdmin == false %}
