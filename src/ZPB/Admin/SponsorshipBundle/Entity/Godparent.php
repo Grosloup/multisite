@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Role\Role;
  * @ORM\Entity(repositoryClass="ZPB\Admin\SponsorshipBundle\Entity\GodparentRepository")
  * @UniqueEntity("username", message="Ce pseudo est déjà utilisé.")
  */
-class Godparent implements AdvancedUserInterface
+class Godparent implements AdvancedUserInterface, Serializable
 {
     /**
      * @var integer
@@ -162,6 +162,40 @@ class Godparent implements AdvancedUserInterface
     {
         $this->plainPassword = $plainPassword;
     }
+
+    /**
+     * @return string
+     */
+    public function getCanonicalName()
+    {
+        return $this->canonicalName;
+    }
+
+    /**
+     * @param string $canonicalName
+     */
+    public function setCanonicalName($canonicalName)
+    {
+        $this->canonicalName = $canonicalName;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param boolean $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
+
+
 
     /**
      * @return array
@@ -526,5 +560,14 @@ class Godparent implements AdvancedUserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
+    public function serialize()
+    {
+        return serialize(['id' => $this->getId()]);
+    }
 
+    public function unserialize($serialized)
+    {
+        $datas = unserialize($serialized);
+        $this->id = $datas['id'];
+    }
 }
