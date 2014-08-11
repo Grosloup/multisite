@@ -74,7 +74,27 @@ class SecurityController extends BaseController
         $form = $this->createForm(new UserType(), $user);
         $form->handleRequest($request);
         if($form->isValid()){
+            //var_dump($form->getData());die();
+
             $em = $this->getEm();
+            $countEmail = count($user->getEmails());
+            foreach($user->getEmails() as $email){
+                $email->setUser($user);
+                if($countEmail === 1){
+                    $email->setIsDefault(true);
+                    $user->setPrimaryEmail($email);
+                }
+                $em->persist($email);
+            }
+            $countPhone = count($user->getPhones());
+            foreach($user->getPhones() as $phone){
+                $phone->setUser($user);
+                if($countPhone === 1){
+                    $phone->setIsDefault(true);
+                    $user->setPrimaryPhone($phone);
+                }
+                $em->persist($phone);
+            }
             $em->persist($user);
             $em->flush();
             return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));

@@ -12,7 +12,8 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
             {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
             {{ form_errors(form) }}
 
@@ -78,8 +79,108 @@
 {% block footScripts %}
     {{ parent() }}
     <script>
+        var $emailProtoHolder, $emailsCollectionHolder, $emailAddBtn, $emailNewFormGroup;
+        var $phoneProtoHolder, $phonesCollectionHolder, $phoneAddBtn, $phoneNewFormGroup;
+
+        $emailProtoHolder = $("#user_form_emails");
+        $emailsCollectionHolder = $(".emails");
+        $emailAddBtn = $("<a class='btn btn-default' href='#'>Ajouter une adresse email</a>");
+        $emailNewFormGroup = $("<div class='form-group'></div>").append($emailAddBtn);
+
+        $phoneProtoHolder = $("#user_form_phones");
+        $phonesCollectionHolder = $(".phones");
+        $phoneAddBtn = $("<a class='btn btn-default' href='#'>Ajouter un numéro de téléphone</a>");
+        $phoneNewFormGroup = $("<div class='form-group'></div>").append($phoneAddBtn);
+
+
+        function addEmail(collHolder, protoHolder, btn){
+            var proto = protoHolder.attr('data-prototype');
+            var form = proto.replace(/<label class="required">__name__label__<\/label>/g, '');
+            form = form.replace(/__name__/g, collHolder.children().length + protoHolder.children().length);
+            var $form = $(form);
+            var $label = $form.find('label');
+            var $parent = $label.parent();
+            $parent.addClass('form-group');
+            var $ipt = $form.find('input');
+            $ipt.addClass('form-control');
+            collHolder.append($form);
+            console.log(form);
+        }
+        function addPhone(collHolder, protoHolder, btn){
+            var proto = protoHolder.attr('data-prototype');
+            var form = proto.replace(/<label class="required">__name__label__<\/label>/g, '');
+            form = form.replace(/__name__/g, collHolder.children().length + protoHolder.children().length);
+            var $form = $(form);
+            var $label = $form.find('label');
+            var $parent = $label.parent();
+            $parent.addClass('form-group');
+            var $ipt = $form.find('input');
+            var $sel = $form.find('select');
+            $ipt.addClass('form-control');
+            $sel.addClass('form-control');
+            collHolder.append($form);
+            console.log(form);
+        }
         $(function(){
+
+            $emailsCollectionHolder.after($emailNewFormGroup);
+            $phonesCollectionHolder.after($phoneNewFormGroup);
+
+            $emailAddBtn.on('click', function(e){
+                e.preventDefault();
+                addEmail($emailsCollectionHolder, $emailProtoHolder, $emailAddBtn);
+            });
+
+            $phoneAddBtn.on('click', function(e){
+                e.preventDefault();
+                addPhone($phonesCollectionHolder, $phoneProtoHolder, $phoneAddBtn);
+            });
 
         });
     </script>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

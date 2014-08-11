@@ -48,6 +48,11 @@ class PhoneNumber
      */
     private $user;
 
+    function __construct()
+    {
+        $this->isDefault = false;
+    }
+
 
     /**
      * Get id

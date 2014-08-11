@@ -22,7 +22,9 @@
                         <th>Nom</th>
                         <th>Pseudo</th>
                         <th>Emails</th>
+                        <th>Ajouter email</th>
                         <th>Téléphones</th>
+                        <th>Ajouter tél.</th>
                         <th>Bloquer</th>
                         <th>Editer</th>
                         <th>Supprimer</th>
@@ -42,10 +44,18 @@
                                 <td>{{ user.lastname }}</td>
                                 <td>{{ user.username }}</td>
                                 <td>
-                                    {% if user.emails|length > 1%}
+                                    {% if user.emails|length > 0%}
                                         <ul class="list-unstyled">
                                             {% for email in user.emails %}
-                                            <li {% if email.isDefault %}class="bg-info"{% endif %}><a href="mailto:{{ email.name }}" >{{ email.name }}</a></li>
+                                            <li>
+                                                <a href="mailto:{{ email.name }}" >{{ email.name }}</a>
+                                                |
+                                                {% if email.isDefault %}<a href="#"><i class="fa fa-star"></i></a>{% else %}<a href="#"><i class="fa fa-star-o"></i></a>{% endif %}
+                                                |
+                                                <a href="#"><i class="fa fa-edit"></i></a>
+                                                |
+                                                <a href="#"><i class="fa fa-trash-o"></i></a>
+                                            </li>
                                             {% endfor %}
                                         </ul>
 
@@ -54,10 +64,20 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if user.phones|length > 1%}
+                                    <a href="#" class="btn btn-default"><i class="fa fa-plus-square-o"></i></a>
+                                </td>
+                                <td>
+                                    {% if user.phones|length > 0%}
                                         <ul class="list-unstyled">
                                             {% for phone in user.phones %}
-                                                <li {% if phone.isDefault %}class="bg-info"{% endif %}>{{ phone.number }}</li>
+                                                <li >{{ phone.number }} ({{ phone.type }})
+                                                    |
+                                                    {% if phone.isDefault %}<a href="#"><i class="fa fa-star"></i></a>{% else %}<a href="#"><i class="fa fa-star-o"></i></a>{% endif %}
+                                                    |
+                                                    <a href="#"><i class="fa fa-edit"></i></a>
+                                                    |
+                                                    <a href="#"><i class="fa fa-trash-o"></i></a>
+                                                </li>
                                             {% endfor %}
                                         </ul>
 
@@ -65,7 +85,9 @@
                                         -
                                     {% endif %}
                                 </td>
-
+                                <td>
+                                    <a href="#" class="btn btn-default"><i class="fa fa-plus-square-o"></i></a>
+                                </td>
                                 <td>
                                     {% if user.isSuperAdmin == false %}
                                         {% if user.isAccountNonLocked == true %}

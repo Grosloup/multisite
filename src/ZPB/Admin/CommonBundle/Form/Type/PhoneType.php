@@ -17,7 +17,7 @@ class PhoneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number', null, [])
+            ->add('number', null, ['label'=>'n°'])
             ->add('type','phone_type', [])
         ;
     }
