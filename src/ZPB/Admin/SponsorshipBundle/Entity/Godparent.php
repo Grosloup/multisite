@@ -120,7 +120,6 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     private $createdAt;
 
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="8", minMessage="Le mot de passe doit contenir au moins 8 caractères alphanumériques")
