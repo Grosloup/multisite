@@ -90,7 +90,7 @@ class EmailController extends BaseController
         if(!$user){
             throw $this->createNotFoundException();
         }
-        //TODO
+        $this->getRepo('ZPBAdminCommonBundle:Email')->setDefault($email, $user);
         return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
     }
 
@@ -109,7 +109,12 @@ class EmailController extends BaseController
         if(!$user){
             throw $this->createNotFoundException();
         }
-        //TODO
+        $em = $this->getEm();
+        $email->setIsDefault(false);
+        $user->setPrimaryEmail(null);
+        $em->persist($email);
+        $em->persist($user);
+        $em->flush();
         return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
     }
 }

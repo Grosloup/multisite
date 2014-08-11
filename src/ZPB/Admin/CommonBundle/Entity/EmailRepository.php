@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class EmailRepository extends EntityRepository
 {
+    public function setDefault(Email $email, User $user)
+    {
+        $emails = $user->getEmails();
+        foreach($emails as $e){
+            if($e->getIsDefault()){
+                $e->setIsDefault(false);
+
+                $this->_em->persist($e);
+            }
+        }
+        $email->setIsDefault(true);
+        $this->_em->persist($email);
+        $user->setPrimaryEmail($email->getName());
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
 }

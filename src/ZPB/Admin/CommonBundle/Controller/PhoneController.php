@@ -91,8 +91,9 @@ class PhoneController extends BaseController
         if(!$user){
             throw $this->createNotFoundException();
         }
+        $this->getRepo('ZPBAdminCommonBundle:PhoneNumber')->setDefault($phone, $user);
+
         return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
-        //TODO
     }
 
     public function userUnsetPrimaryPhoneAction($userid, $phoneid, Request $request)
@@ -110,7 +111,12 @@ class PhoneController extends BaseController
         if(!$user){
             throw $this->createNotFoundException();
         }
+        $em = $this->getEm();
+        $phone->setIsDefault(false);
+        $user->setPrimaryPhone(null);
+        $em->persist($phone);
+        $em->persist($user);
+        $em->flush();
         return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
-        //TODO
     }
 }

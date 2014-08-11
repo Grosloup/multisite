@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class PhoneNumberRepository extends EntityRepository
 {
+    public function setDefault(PhoneNumber $phone, User $user)
+    {
+        $phones = $user->getPhones();
+        foreach($phones as $p){
+            if($p->getIsDefault()){
+                $p->setIsDefault(false);
+
+                $this->_em->persist($p);
+            }
+        }
+        $phone->setIsDefault(true);
+        $this->_em->persist($phone);
+        $user->setPrimaryPhone($phone->getNumber());
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
 }

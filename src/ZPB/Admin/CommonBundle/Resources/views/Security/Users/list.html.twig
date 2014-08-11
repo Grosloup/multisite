@@ -50,7 +50,7 @@
                                             <li>
                                                 <a href="mailto:{{ email.name }}" >{{ email.name }}</a>
                                                 |
-                                                {% if email.isDefault %}<a href="{{ path('zpb_admin_common_user_email_unset_primary',{userid: user.id, emailid: email.id, _token: csrf_token('user_unsetprimary_email')}) }}"><i class="fa fa-star"></i></a>
+                                                {% if email.isDefault == true %}<a href="{{ path('zpb_admin_common_user_email_unset_primary',{userid: user.id, emailid: email.id, _token: csrf_token('user_unsetprimary_email')}) }}"><i class="fa fa-star"></i></a>
                                                 {% else %}<a href="{{ path('zpb_admin_common_user_email_set_primary',{userid: user.id, emailid: email.id, _token: csrf_token('user_setprimary_email')}) }}"><i class="fa fa-star-o"></i></a>{% endif %}
                                                 |
                                                 <a href="{{ path("zpb_admin_common_user_email_edit",{id: email.id, _token: csrf_token('email_edit')} ) }}"><i class="fa fa-edit"></i></a>
@@ -73,8 +73,8 @@
                                             {% for phone in user.phones %}
                                                 <li >{{ phone.number }} ({{ phone.type }})
                                                     |
-                                                    {% if phone.isDefault %}<a href="{{ path("zpb_admin_common_user_phone_set_primary", {userid: user.id, phoneid: phone.id, _token: csrf_token("user_set_primary_phone")}) }}"><i class="fa fa-star"></i></a>
-                                                    {% else %}<a href="{{ path("zpb_admin_common_user_phone_unset_primary", {userid: user.id, phoneid: phone.id, _token: csrf_token("user_unset_primary_phone")}) }}"><i class="fa fa-star-o"></i></a>{% endif %}
+                                                    {% if phone.isDefault == false %}<a href="{{ path("zpb_admin_common_user_phone_set_primary", {userid: user.id, phoneid: phone.id, _token: csrf_token("user_setprimary_phone")}) }}"><i class="fa fa-star-o"></i></a>
+                                                    {% else %}<a href="{{ path("zpb_admin_common_user_phone_unset_primary", {userid: user.id, phoneid: phone.id, _token: csrf_token("user_unsetprimary_phone")}) }}"><i class="fa fa-star"></i></a>{% endif %}
                                                     |
                                                     <a href="{{ path("zpb_admin_common_user_phone_edit", {id: phone.id, _token: csrf_token("user_edit_phone")}) }}"><i class="fa fa-edit"></i></a>
                                                     |
@@ -82,7 +82,6 @@
                                                 </li>
                                             {% endfor %}
                                         </ul>
-
                                     {% else %}
                                         -
                                     {% endif %}

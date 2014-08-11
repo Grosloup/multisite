@@ -82,7 +82,7 @@ class SecurityController extends BaseController
                 $email->setUser($user);
                 if($countEmail === 1){
                     $email->setIsDefault(true);
-                    $user->setPrimaryEmail($email);
+                    $user->setPrimaryEmail($email->getName());
                 }
                 $em->persist($email);
             }
@@ -91,12 +91,19 @@ class SecurityController extends BaseController
                 $phone->setUser($user);
                 if($countPhone === 1){
                     $phone->setIsDefault(true);
-                    $user->setPrimaryPhone($phone);
+                    $user->setPrimaryPhone($phone->getNumber());
                 }
                 $em->persist($phone);
             }
             $em->persist($user);
             $em->flush();
+            $this->successMessage('Le nouvel utilisateur a bien été enregistré.');
+            if($countPhone !== 1){
+                $this->warningMessage('Le nouvel utilisateur n\'a pas de numéro de téléphone principal');
+            }
+            if($countEmail !== 1){
+                $this->warningMessage('Le nouvel utilisateur n\'a pas d\'adresse email principale');
+            }
             return $this->redirect($this->generateUrl('zpb_admin_common_security_user_list'));
         }
         return $this->render('ZPBAdminCommonBundle:Security/Users:new.html.twig', ['form'=>$form->createView(), 'user'=>$user]);
