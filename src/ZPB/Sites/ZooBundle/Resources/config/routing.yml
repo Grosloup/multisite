@@ -1,4 +1,11 @@
+
+
 zpb_sites_zoo_homepage:
     path:     /
     defaults: { _controller: ZPBSitesZooBundle:Default:index }
     methods: ["GET"]
+
+zpb_sites_zoo_parrainage_routes:
+    prefix: /parrainage
+    resource: "@ZPBSitesZooBundle/Resources/config/routing/parrainage.yml"
+
