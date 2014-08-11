@@ -26,11 +26,11 @@ security:
     access_control:
         #- { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/, requires_channel: https, roles: [IS_AUTHENTICATED_ANONYMOUSLY]}
         #- { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/, requires_channel: https, roles: [ROLE_USER]}
-        - { host: ^(new\.|www\.)admin\.zooparc\.com$, path: ^/utilisateurs, requires_channel: https, roles: ROLE_SUPERADMIN }
-        - { host: ^(new\.|www\.)admin\.zooparc\.com$, path: ^/utilisateur/.+, requires_channel: https, roles: ROLE_SUPERADMIN }
-        - { host: ^(new\.|www\.)admin\.zooparc\.com$, path: ^/(?!(login|login_check|logout)/?$), requires_channel: https, roles: ROLE_USER }
+        - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/utilisateurs, requires_channel: https, roles: ROLE_SUPERADMIN }
+        - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/utilisateur/.+, requires_channel: https, roles: ROLE_SUPERADMIN }
+        - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/(?!(login|login_check|logout)/?$), requires_channel: https, roles: ROLE_USER }
 
-        - { host: ^(new\.|www\.)zoobeauval\.com$, path: ^/parrainage/mon-compte, requires_channel: https, roles: ROLE_GODPARENT }
+        - { host: ^(new\.|www\.)?zoobeauval\.com$, path: ^/parrainage/mon-compte, requires_channel: https, roles: ROLE_GODPARENT }
 
     firewalls:
         dev:
@@ -38,7 +38,7 @@ security:
             security: false
 
         admin:
-            host: ^(new\.|www\.)admin\.zooparc\.com$
+            host: ^(new\.|www\.)?admin\.zooparc\.com$
             pattern: ^/
             security: true
             provider: admin_provider
@@ -53,7 +53,7 @@ security:
                 target: /
 
         sponsorship:
-            host: ^(new\.|www\.)zoobeauval\.com$
+            host: ^(new\.|www\.)?zoobeauval\.com$
             pattern: ^/parrainage
             security: true
             provider: sponsorship_provider

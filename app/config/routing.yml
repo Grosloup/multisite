@@ -1,37 +1,60 @@
 zpb_admin_sponsorship:
     resource: "@ZPBAdminSponsorshipBundle/Resources/config/routing.yml"
-    host: new.admin.zooparc.com
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
     prefix:   /parrainage
     schemes:  [https]
 
 zpb_admin_zoo:
     resource: "@ZPBAdminZooBundle/Resources/config/routing.yml"
-    host: new.admin.zooparc.com
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
     prefix:   /zoo
     schemes:  [https]
 
 zpb_admin_common:
     resource: "@ZPBAdminCommonBundle/Resources/config/routing.yml"
-    host: new.admin.zooparc.com
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
     prefix:   /
     schemes:  [https]
 
 zpb_admin_blog:
     resource: "@ZPBAdminBlogBundle/Resources/config/routing.yml"
-    host: new.admin.zooparc.com
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
     prefix:   /actualites
     schemes:  [https]
 
 zpb_admin_mediatek:
     resource: "@ZPBAdminMediatekBundle/Resources/config/routing.yml"
-    host: new.admin.zooparc.com
+    host: "{subdomain}admin.zooparc.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
     prefix:   /mediatheque
     schemes:  [https]
 
 
 zpb_sites_zoo:
     resource: "@ZPBSitesZooBundle/Resources/config/routing.yml"
-    host: new.zoobeauval.com
+    host: "{subdomain}zoobeauval.com"
+    defaults: { subdomain: %default_subdommain% }
+    requirements: { subdomain: "www\.|new\.|" }
     prefix:   /
     schemes:  [https]
+
+
+
+
+
+
+
+
+
+
+
 
