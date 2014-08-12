@@ -72,6 +72,6 @@ class LoadPhoneNumbers extends AbstractFixture implements OrderedFixtureInterfac
 
     public function getOrder()
     {
-        return 1;
+        return 20;
     }
 }

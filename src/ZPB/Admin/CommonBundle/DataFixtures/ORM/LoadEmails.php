@@ -68,6 +68,6 @@ class LoadEmails extends AbstractFixture implements OrderedFixtureInterface, Con
 
     public function getOrder()
     {
-        return 2;
+        return 21;
     }
 }
