@@ -80,7 +80,7 @@ class Godparent implements AdvancedUserInterface, Serializable
      * @var string
      * @Assert\Length(min="8", max="22", maxMessage="Le numéro de téléphone a trop de chiffres.", minMessage="Le numéro de téléphone n'a pas assez de chiffres.")
      * @Assert\Regex("/^[0-9. \/+-]+$/")
-     * @ORM\Column(name="phone", type="string", length=20)
+     * @ORM\Column(name="phone", type="string", length=22)
      */
     private $phone;
 
@@ -578,7 +578,7 @@ class Godparent implements AdvancedUserInterface, Serializable
     /**
      * Get isActive
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsActive()
     {
@@ -611,7 +611,7 @@ class Godparent implements AdvancedUserInterface, Serializable
     /**
      * Get sponsorships
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSponsorships()
     {

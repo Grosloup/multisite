@@ -3,7 +3,7 @@
 namespace ZPB\Admin\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * PhoneNumber
  *
@@ -23,7 +23,8 @@ class PhoneNumber
 
     /**
      * @var string
-     *
+     * @Assert\Length(min="8", max="22", maxMessage="Le numéro de téléphone a trop de chiffres.", minMessage="Le numéro de téléphone n'a pas assez de chiffres.")
+     * @Assert\Regex("/^[0-9. \/+-]+$/")
      * @ORM\Column(name="number", type="string", length=20)
      */
     private $number;
