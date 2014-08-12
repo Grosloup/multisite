@@ -2,9 +2,30 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
+    {% block headLinks %}
+        <link rel="stylesheet" href="/zoo/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/zoo/css/font-awesome.min.css"/>
+    {% endblock %}
+    {% block headStyles %}
+        <style>
+            body{
+                padding: 60px;
+            }
+        </style>
+    {% endblock %}
 </head>
 <body>
+{{ render(controller('ZPBSitesZooBundle:Navs:mainbar', {active: active_section|default('home')})) }}
 {% block main %}{% endblock %}
+
+{% block footScripts %}
+    <script src="/zoo/js/vendor/jquery-2.1.1.min.js"></script>
+    <script src="/zoo/js/vendor/bootstrap.min.js"></script>
+{% endblock %}
 </body>
 </html>
