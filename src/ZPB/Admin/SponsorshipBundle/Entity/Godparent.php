@@ -139,6 +139,11 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     private $isActive;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ZPB\Admin\SponsorshipBundle\Entity\Sponsorship", mappedBy="godparent")
+     */
+    private $sponsorships;
+
     public function __construct()
     {
         $this->roles = ["ROLE_GODFATHER"];
@@ -568,5 +573,48 @@ class Godparent implements AdvancedUserInterface, Serializable
     {
         $datas = unserialize($serialized);
         $this->id = $datas['id'];
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Add sponsorships
+     *
+     * @param \ZPB\Admin\SponsorshipBundle\Entity\Sponsorship $sponsorships
+     * @return Godparent
+     */
+    public function addSponsorship(\ZPB\Admin\SponsorshipBundle\Entity\Sponsorship $sponsorships)
+    {
+        $this->sponsorships[] = $sponsorships;
+
+        return $this;
+    }
+
+    /**
+     * Remove sponsorships
+     *
+     * @param \ZPB\Admin\SponsorshipBundle\Entity\Sponsorship $sponsorships
+     */
+    public function removeSponsorship(\ZPB\Admin\SponsorshipBundle\Entity\Sponsorship $sponsorships)
+    {
+        $this->sponsorships->removeElement($sponsorships);
+    }
+
+    /**
+     * Get sponsorships
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSponsorships()
+    {
+        return $this->sponsorships;
     }
 }
