@@ -130,7 +130,7 @@ class Animal
 
     /**
      * @ORM\ManyToOne(targetEntity="ZPB\Admin\SponsorshipBundle\Entity\Species")
-     * @ORM\JoinColumn(name="species_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="species_id", referencedColumnName="id", nullable=false)
      */
     private $species;
 
