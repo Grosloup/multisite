@@ -2,6 +2,7 @@
 
 namespace ZPB\Admin\SponsorshipBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -167,16 +168,16 @@ class GiftDesc
      */
     public function __construct()
     {
-        $this->sponsorshipDesc = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sponsorshipDesc = new ArrayCollection();
     }
 
     /**
      * Add sponsorshipDesc
      *
-     * @param \ZPB\Admin\SponsorshipBundle\Entity\SponsorshipDesc $sponsorshipDesc
+     * @param SponsorshipDesc $sponsorshipDesc
      * @return GiftDesc
      */
-    public function addSponsorshipDesc(\ZPB\Admin\SponsorshipBundle\Entity\SponsorshipDesc $sponsorshipDesc)
+    public function addSponsorshipDesc(SponsorshipDesc $sponsorshipDesc)
     {
         $this->sponsorshipDesc[] = $sponsorshipDesc;
 
@@ -186,9 +187,9 @@ class GiftDesc
     /**
      * Remove sponsorshipDesc
      *
-     * @param \ZPB\Admin\SponsorshipBundle\Entity\SponsorshipDesc $sponsorshipDesc
+     * @param SponsorshipDesc $sponsorshipDesc
      */
-    public function removeSponsorshipDesc(\ZPB\Admin\SponsorshipBundle\Entity\SponsorshipDesc $sponsorshipDesc)
+    public function removeSponsorshipDesc(SponsorshipDesc $sponsorshipDesc)
     {
         $this->sponsorshipDesc->removeElement($sponsorshipDesc);
     }

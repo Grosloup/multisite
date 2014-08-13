@@ -15,6 +15,65 @@
             -o-column-gap: 15px;
             column-gap: 15px;
         }
+        .offers{
+            padding: 15px 0;
+            background-color: #d9d9d9;
+        }
+        .offer{
+            padding: 0 16px;
+            background-color: #f2f2f2;
+            /*border: 1px solid #cdcdcd;*/
+            height: 50px;
+            line-height: 50px;
+            margin-bottom: 1px;
+            position: relative;
+        }
+        .offer:last-child{
+            margin-bottom: 0;
+        }
+        .offer.active{
+            background-color: #fff;
+        }
+        .offer.active:after{
+            position: absolute;
+            content: "";
+            border-right: none;
+            border-left: #fff 12px solid;
+            border-top: transparent 25px solid;
+            border-bottom: transparent 25px solid;
+            top:0;
+            left: 100%;
+
+        }
+
+        .offer label{
+            display: block;
+
+        }
+        .offer input[type=radio]{
+            margin: 0 15px 0 0;
+        }
+
+        .gift{
+            padding: 5px 16px;
+            margin-bottom: 1px;
+            background-color: #fff;
+        }
+
+        .gift:last-child{
+            margin-bottom: 0;
+        }
+
+        .isCheked{
+            display: inline-block;
+            padding-right: 16px;
+            color: #fff;
+        }
+        .isCheked.inPack{
+            color: #409c70;
+        }
+
+
     </style>
 {% endblock %}
 {% block main %}
@@ -22,7 +81,6 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="thumbnail">
-                    {#<img data-src="holder.js/100%x500" alt=""/>#}
                     <img src="http://lorempicsum.com/simpsons/1000/500/{{ random(5)+1 }}" alt="" width="100%"/>
                 </div>
             </div>
@@ -51,9 +109,9 @@
                 </div>
 
                 <div class="thumbnail">
-                    {#<img data-src="holder.js/100%x300" alt=""/>#}
                     <img src="http://lorempicsum.com/simpsons/900/300/{{ random(5)+1 }}" alt="" width="100%"/>
                 </div>
+
                 <div class="page-header">
                     <h2 id="je-parraine">Je parraine !</h2>
                 </div>
@@ -73,7 +131,29 @@
                     </ul>
                 </div>
 
+                {% if offers|length > 0 %}
+                <div class="row offers">
+                    <div class="col-md-6">
+                        <div>
+                            {% for offer in offers %}
+                                <div class="offer{% if loop.first == true %} active{% endif %}">
+                                    <label for="sponsorship_{{ offer.id }}"><input type="radio" name="sponsorship_form[pack]" id="sponsorship_{{ offer.id }}" value="{{ offer.id }}" {% if loop.first == true %}checked="checked"{% endif %}/>{{ offer.price }}€ {{ offer.name }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        {% for gift in gifts %}
+                            <div class="gift">
+                                <span class="isCheked" id="mark-{{ gift.id }}"><i class="fa fa-check"></i></span>{{ gift.name }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
             </div>
+
+            <!-- ------------------------------------------ sidebar ------------------------------------------ -->
             <div class="col-md-3">
                 <a href="#je-parraine" class="btn btn-success btn-lg btn-block">Je parraine {{ animal.name }}</a>
                 <hr/>
@@ -93,5 +173,9 @@
 
 {% block footScripts %}
     {{ parent() }}
-    <script src="/zoo/js/vendor/dev/holder.js"></script>
+    <script>
+        $(function(){
+
+        });
+    </script>
 {% endblock %}

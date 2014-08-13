@@ -29,6 +29,7 @@ class ParrainageController extends BaseController
     public function indexAction()
     {
         $animals = $this->getRepo('ZPBAdminSponsorshipBundle:Animal')->findAll();
+
         return $this->render('ZPBSitesZooBundle:Parrainage:index.html.twig', ['animals'=>$animals]);
     }
 
@@ -38,7 +39,9 @@ class ParrainageController extends BaseController
         if(!$animal){
             throw $this->createNotFoundException();
         }
-        return $this->render('ZPBSitesZooBundle:Parrainage:showAnimal.html.twig', ['animal'=>$animal]);
+        $offers = $this->getRepo('ZPBAdminSponsorshipBundle:SponsorshipDesc')->findByIsCurrentOffer(true);
+        $gifts  = $this->getRepo('ZPBAdminSponsorshipBundle:GiftDesc')->findAll();
+        return $this->render('ZPBSitesZooBundle:Parrainage:showAnimal.html.twig', ['animal'=>$animal,'offers'=>$offers,'gifts'=>$gifts]);
     }
 
     public function myAccountAction(Request $request)
