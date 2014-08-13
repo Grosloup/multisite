@@ -82,11 +82,32 @@ class LoadSpecies extends AbstractFixture implements OrderedFixtureInterface, Co
         $manager->persist($species2);
 
 
+        $species3 = new Species();
+        $species3->setName("girafe");
+        $species3->setLongName('La girafe d\'Afrique du sud');
+        $species3->setShortDesc('<p>Nulla consequat ullamcorper sem, vitae pulvinar arcu gravida ac. Nullam aliquet, nisi sed ultricies rutrum, dui lectus varius risus, sit amet vulputate dolor quam in arcu. Duis arcu lorem, feugiat sit amet tortor eu, iaculis suscipit turpis.</p>');
+        $species3->setLongDesc('<p>Aliquam malesuada est ligula, sed auctor enim fringilla et. Cras ut velit non eros laoreet malesuada. Donec fermentum sed nibh et malesuada. Aenean et erat accumsan, venenatis odio nec, pretium orci. Curabitur a pellentesque urna. In sit amet nulla ac magna placerat mollis nec eu urna. Donec sit amet nunc sollicitudin, congue velit sit amet, pharetra nisl. Curabitur malesuada massa pharetra est imperdiet, et ultrices libero semper. Sed dui sem, auctor vel purus eu, dictum dictum lorem. Sed consequat quam lectus, quis viverra turpis condimentum id. </p><p>Fusce at ante ac ligula volutpat malesuada. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer ultrices sapien ipsum, sit amet rutrum nisl pharetra facilisis. Vivamus massa turpis, laoreet non libero vitae, pretium rutrum massa. Etiam eleifend faucibus felis, ac laoreet nisi dictum id. Curabitur gravida sit amet nisl sit amet blandit. Vestibulum at lectus venenatis, pretium risus a, eleifend sapien. Cras leo nibh, ullamcorper sit amet iaculis id, sodales ut tortor. Aenean semper porta tempus.</p>');
+        $species3->setLifespan('20 à 30 ans');
+        $species3->setGenus('Giraffa camelopardalis');
+        $species3->setAnimalOrder('Artiodactyle');
+        $species3->setClass('Mammifère');
+        $species3->setFamily('Giraffidé');
+        $species3->setGeoDistribution('Afrique centrale et du sud');
+        $species3->setGestation('entre 400 et 460 jours, 1 girafon');
+        $species3->setDiet('Folivore');
+        $species3->setSize('De 4.5 à 5.8m.');
+        $species3->setWeight('entre 800kg et 1500kg');
+        $species3->setHabitat('Savane');
+        $species3->setStatusIUCN('Préoccupation mineure (LC)');
+
+        $manager->persist($species3);
+
 
         $manager->flush();
 
         $this->addReference('sponsor-species-1', $species1);
         $this->addReference('sponsor-species-2', $species2);
+        $this->addReference('sponsor-species-3', $species3);
 
 
     }

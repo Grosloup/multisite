@@ -69,10 +69,25 @@ class LoadAnimals extends AbstractFixture implements OrderedFixtureInterface, Co
 
         $manager->persist($animal2);
 
+        $animal3 = new Animal();
+        $animal3->setName("Joseph");
+        $animal3->setBirthdate(\DateTime::createFromFormat('d-m-Y H:i:s', '01-01-1996 12:00:00', new \DateTimeZone('Europe/Paris')));
+        $animal3->setShortDesc('<p>Maecenas et odio bibendum, ornare metus sed, vehicula odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.</p>');
+        $animal3->setLongDesc('<p>Integer imperdiet placerat hendrerit. Fusce eu neque ut felis faucibus euismod a id urna. Morbi ut mauris a leo accumsan semper vel non purus. Duis porttitor tortor a enim rutrum, at porta leo consequat. Ut mattis eget sapien et fermentum. Donec ac ligula mollis, venenatis massa quis, accumsan risus. Maecenas tristique sapien eu diam cursus elementum. Proin quis dolor ac nisl laoreet laoreet a eget ante. Nam ultrices fermentum lectus, vel feugiat arcu porttitor sed. In eu adipiscing justo. Mauris porttitor tempor nunc et dignissim. Morbi a lectus sit amet nibh eleifend aliquet vel at sapien. Praesent tempor felis id semper bibendum. Nam mattis eu ipsum in elementum. </p><p>Maecenas vestibulum, orci eget venenatis venenatis, risus ante commodo nibh, non tristique nunc nunc eget felis. Fusce dolor arcu, dictum sit amet diam quis, vestibulum rhoncus ligula. Aliquam in mi faucibus, adipiscing dolor vel, sodales massa. Quisque nec vestibulum turpis. Integer convallis faucibus consequat.</p>');
+        $animal3->setLongName('Joseph, le mâle girafe');
+        $animal3->setBirthPlace('Afrique du sud');
+        $animal3->setSexe('mâle');
+        $animal3->setHistory('<p>Pellentesque eu venenatis massa. Etiam tempus ipsum odio, quis venenatis mi blandit et. Suspendisse dapibus urna eu pharetra elementum. Quisque tempus feugiat magna ac condimentum. In dolor enim, posuere ut pharetra sit amet, malesuada vitae augue. Nulla id nisl vulputate, scelerisque mauris et, suscipit dolor. Curabitur rhoncus porta eros, eu tempor tortor tincidunt vitae. Curabitur blandit porta quam. Donec aliquet, enim id lobortis sagittis, odio orci tincidunt libero, vitae placerat magna elit sed magna. Vestibulum placerat nec massa nec luctus. Morbi quis convallis augue, eu hendrerit elit. Fusce ac nibh faucibus tortor molestie ultricies eget faucibus turpis. </p>');
+        $animal3->setIsAvailable(true);
+        $animal3->setSpecies($this->getReference('sponsor-species-3'));
+
+        $manager->persist($animal3);
+
         $manager->flush();
 
         $this->addReference('sponsor-animal-1',$animal1);
         $this->addReference('sponsor-animal-2',$animal2);
+        $this->addReference('sponsor-animal-3',$animal3);
 
 
     }

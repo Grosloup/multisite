@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="thumbnail">
-                    <img src="http://lorempicsum.com/simpsons/900/300/{{ random(5)+1 }}" alt="" width="100%"/>
+                    <img src="http://lorempicsum.com/simpsons/900/500/{{ random(5)+1 }}" alt="" width="100%"/>
                 </div>
 
                 <div class="page-header">
@@ -178,12 +178,10 @@
         $offers = $(".offer");
         $radios = $offers.find("input[type='radio']");
         $(function(){
-
             $offers.on("click", function(e){
                 e.preventDefault();
                 var $el = $(e.currentTarget);
                 $offers.removeClass("active");
-
                 $radios.prop("checked", null);
                 var radio = $el.find("input[type='radio']");
                 radio.prop("checked", "checked");
