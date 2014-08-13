@@ -28,7 +28,8 @@ class ParrainageController extends BaseController
 {
     public function indexAction()
     {
-        return $this->render('ZPBSitesZooBundle:Parrainage:index.html.twig');
+        $animals = $this->getRepo('ZPBAdminSponsorshipBundle:Animal')->findAll();
+        return $this->render('ZPBSitesZooBundle:Parrainage:index.html.twig', ['animals'=>$animals]);
     }
 
     public function myAccountAction(Request $request)
