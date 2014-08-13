@@ -46,6 +46,6 @@ class LoadSponsorships  extends AbstractFixture implements OrderedFixtureInterfa
 
     public function getOrder()
     {
-        return 43;
+        return 47;
     }
 }

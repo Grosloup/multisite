@@ -11,8 +11,9 @@
             <parameter key="DD">Données insuffisantes</parameter>
             <parameter key="LC">Préoccupation mineure</parameter>
             <parameter key="NT">Espèce quasi menacée</parameter>
+            <parameter key="VU">Espèce vulnérable</parameter>
             <parameter key="EN">Espèce en danger</parameter>
-            <parameter key="CR">Espèce en danger critiquue d'extinction</parameter>
+            <parameter key="CR">Espèce en danger critique d'extinction</parameter>
             <parameter key="EW">Espèce éteinte à l'état sauvage</parameter>
             <parameter key="EX">Espèce éteinte</parameter>
         </parameter>

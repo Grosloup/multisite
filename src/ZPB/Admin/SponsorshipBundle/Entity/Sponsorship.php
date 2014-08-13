@@ -77,6 +77,12 @@ class Sponsorship
     private $price;
 
     /**
+     * @ORM\ManyToOne(targetEntity="ZPB\Admin\SponsorshipBundle\Entity\Animal")
+     * @ORM\JoinColumn(name="animal_id", referencedColumnName="id", nullable=false)
+     */
+    private $animal;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -291,5 +297,28 @@ class Sponsorship
         $this->godparent = $godparent;
 
         return $this;
+    }
+
+    /**
+     * Set animal
+     *
+     * @param Animal $animal
+     * @return Sponsorship
+     */
+    public function setAnimal(Animal $animal)
+    {
+        $this->animal = $animal;
+
+        return $this;
+    }
+
+    /**
+     * Get animal
+     *
+     * @return Animal
+     */
+    public function getAnimal()
+    {
+        return $this->animal;
     }
 }
