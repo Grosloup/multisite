@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="zpb.form.type.iucn_status.class">ZPB\Admin\SponsorshipBundle\Form\Type\IUCNStatusType</parameter>
+        <parameter key="zpb.iucn_status" type="collection">
+            <parameter key="NE">Non-évalué</parameter>
+            <parameter key="DD">Données insuffisantes</parameter>
+            <parameter key="LC">Préoccupation mineure</parameter>
+            <parameter key="NT">Espèce quasi menacée</parameter>
+            <parameter key="EN">Espèce en danger</parameter>
+            <parameter key="CR">Espèce en danger critiquue d'extinction</parameter>
+            <parameter key="EW">Espèce éteinte à l'état sauvage</parameter>
+            <parameter key="EX">Espèce éteinte</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="zpb.form.type.iucn_status" class="%zpb.form.type.iucn_status.class%">
+            <argument type="string">%zpb.iucn_status%</argument>
+            <tag name="form.type" alias="iucn_status_type" />
+        </service>
+    </services>
+
+</container>
