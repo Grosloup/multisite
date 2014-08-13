@@ -10,7 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Animal
  *
- * @ORM\Table(zpb_sponsorship_animals)
+ * @ORM\Table(name="zpb_sponsorship_animals")
  * @ORM\Entity(repositoryClass="ZPB\Admin\SponsorshipBundle\Entity\AnimalRepository")
  * @UniqueEntity("name", message="Un animal porte déjà ce nom.")
  */
