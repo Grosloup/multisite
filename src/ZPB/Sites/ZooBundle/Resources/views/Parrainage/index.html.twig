@@ -24,7 +24,7 @@
                                     <li><i class="fa fa-map-marker"></i> {{ animal.species.getGeoDistribution }}</li>
                                 </ul>
                                 {{ animal.shortDesc|raw }}
-                                <p class="text-center"><a class="btn btn-success" href="#">Plus d'infos</a></p>
+                                <p class="text-center"><a class="btn btn-success" href="{{ path("zpb_sites_zoo_parrainage_show_animal", {name: animal.canonicalLongName}) }}">Plus d'infos</a></p>
                             </div>
                         </div>
                     </div>

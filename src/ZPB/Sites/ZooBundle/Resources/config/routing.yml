@@ -6,6 +6,6 @@ zpb_sites_zoo_homepage:
     methods: ["GET"]
 
 zpb_sites_zoo_parrainage_routes:
-    prefix: /parrainage
+    prefix: /parrainages
     resource: "@ZPBSitesZooBundle/Resources/config/routing/parrainage.yml"
 

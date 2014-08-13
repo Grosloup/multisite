@@ -489,4 +489,19 @@ class Animal
     {
         return $this->species;
     }
+
+    public function getAge()
+    {
+        $today = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $todayYear = $today->format("Y");
+        $birthYear = $this->getBirthdate()->format("Y");
+        $years = $todayYear - $birthYear;
+        if($years < 1){
+            return 'Moins d\'un an';
+        }
+        if($years == 1){
+            return '1 an';
+        }
+        return $years . ' ans';
+    }
 }

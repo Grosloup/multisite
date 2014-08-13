@@ -43,6 +43,7 @@ class LoadSpecies extends AbstractFixture implements OrderedFixtureInterface, Co
     {
         $species1 = new Species();
         $species1->setName("chimpanzé");
+        $species1->setLongName('Le chimpanzé d\'Afrique centrale');
         $species1->setShortDesc('<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>');
         $species1->setLongDesc('<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>');
         $species1->setLifespan('50 à 60 ans en captivité');
@@ -62,6 +63,7 @@ class LoadSpecies extends AbstractFixture implements OrderedFixtureInterface, Co
 
         $species2 = new Species();
         $species2->setName("lion");
+        $species2->setLongName('Le lion du Kruger');
         $species2->setShortDesc('<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>');
         $species2->setLongDesc('<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>');
         $species2->setLifespan('10 à 15 ans dans la nature, 20 ans en captivité');

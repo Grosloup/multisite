@@ -32,6 +32,15 @@ class ParrainageController extends BaseController
         return $this->render('ZPBSitesZooBundle:Parrainage:index.html.twig', ['animals'=>$animals]);
     }
 
+    public function showAnimalAction($name, Request $request)
+    {
+        $animal = $this->getRepo('ZPBAdminSponsorshipBundle:Animal')->findOneByCanonicalLongName($name);
+        if(!$animal){
+            throw $this->createNotFoundException();
+        }
+        return $this->render('ZPBSitesZooBundle:Parrainage:showAnimal.html.twig', ['animal'=>$animal]);
+    }
+
     public function myAccountAction(Request $request)
     {
         $user = $this->getUser();

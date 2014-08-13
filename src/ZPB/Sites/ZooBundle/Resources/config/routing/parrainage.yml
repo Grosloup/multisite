@@ -3,6 +3,13 @@ zpb_sites_zoo_parrainage_homepage:
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:index }
     methods: ["GET"]
 
+zpb_sites_zoo_parrainage_show_animal:
+    path: /voir/{name}
+    defaults: { _controller: ZPBSitesZooBundle:Parrainage:showAnimal }
+    methods: ["GET"]
+    requirements:
+        name: "[a-zA-Z0-9_-]+"
+
 zpb_sites_zoo_parrainage_login:
     path: /login
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:login }

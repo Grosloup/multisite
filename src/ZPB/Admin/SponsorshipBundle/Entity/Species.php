@@ -34,6 +34,19 @@ class Species
     private $name;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[a-zA-Zéèêëàûôç',;.)(: -]+$/", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="longName", type="string", length=255, nullable=false)
+     */
+    private $longName;
+
+    /**
+     * @ORM\Column(name="canonicalLongName", type="string", length=255, nullable=false)
+     * @Gedmo\Slug(fields={"longName"}, unique=true)
+     */
+    private $canonicalLongName;
+
+    /**
      * @ORM\Column(name="slug", type="string", length=255, nullable=false, unique=true)
      * @Assert\Regex("/^[a-zA-Z0-9_-]+$/", message="Ce champ contient des caractères non autorisés.")
      * @Gedmo\Slug(fields={"name"})
@@ -186,6 +199,40 @@ class Species
     {
         return $this->id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCanonicalLongName()
+    {
+        return $this->canonicalLongName;
+    }
+
+    /**
+     * @param mixed $canonicalLongName
+     */
+    public function setCanonicalLongName($canonicalLongName)
+    {
+        $this->canonicalLongName = $canonicalLongName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLongName()
+    {
+        return $this->longName;
+    }
+
+    /**
+     * @param mixed $longName
+     */
+    public function setLongName($longName)
+    {
+        $this->longName = $longName;
+    }
+
+
 
     /**
      * Set diet

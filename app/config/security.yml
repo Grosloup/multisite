@@ -30,7 +30,7 @@ security:
         - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/utilisateur/.+, requires_channel: https, roles: ROLE_SUPERADMIN }
         - { host: ^(new\.|www\.)?admin\.zooparc\.com$, path: ^/(?!(login|login_check|logout)/?$), requires_channel: https, roles: ROLE_USER }
 
-        - { host: ^(new\.|www\.)?zoobeauval\.com$, path: ^/parrainage/mon-compte, requires_channel: https, roles: ROLE_GODPARENT }
+        - { host: ^(new\.|www\.)?zoobeauval\.com$, path: ^/parrainages/mon-compte, requires_channel: https, roles: ROLE_GODPARENT }
 
     firewalls:
         dev:
@@ -54,17 +54,17 @@ security:
 
         sponsorship:
             host: ^(new\.|www\.)?zoobeauval\.com$
-            pattern: ^/parrainage
+            pattern: ^/parrainages
             security: true
             provider: sponsorship_provider
             access_denied_url: /
             anonymous: ~
             form_login:
-                login_path: /parrainage/login
-                check_path: /parrainage/login_check
+                login_path: /parrainages/login
+                check_path: /parrainages/login_check
                 csrf_provider: form.csrf_provider
             logout:
-                path: /parrainage/logout
+                path: /parrainages/logout
                 target: /
 
         default:
