@@ -45,7 +45,6 @@
             left: 100%;
 
         }
-
         .offer label{
             display: block;
 
@@ -53,17 +52,14 @@
         .offer input[type=radio]{
             margin: 0 15px 0 0;
         }
-
         .gift{
             padding: 5px 16px;
             margin-bottom: 1px;
             background-color: #fff;
         }
-
         .gift:last-child{
             margin-bottom: 0;
         }
-
         .isCheked{
             display: inline-block;
             padding-right: 16px;
@@ -72,8 +68,6 @@
         .isCheked.inPack{
             color: #409c70;
         }
-
-
     </style>
 {% endblock %}
 {% block main %}
@@ -87,35 +81,26 @@
         </div>
         <div class="row">
             <div class="col-md-9">
-
                 <div class="jumbotron">
                     <h2>{{ animal.longName }}</h2>
                     {{ animal.shortDesc|raw }}
                 </div>
-
                 <div class="two-column">
                     <h4>Description</h4>
                     {{ animal.longDesc|raw }}
                     <h4>Identité</h4>
                     <p><strong>Date de naissance</strong> : {{ animal.birthdate|date("d-m-y") }}, {{ animal.birthPlace }}</p>
-
                     <p><strong>Age</strong> : {{ animal.age }}</p>
-
                     <p><strong>Sexe</strong> : {{ animal.sexe }}</p>
-
                     <h4>Histoire</h4>
-
                     {{ animal.history|raw }}
                 </div>
-
                 <div class="thumbnail">
                     <img src="http://lorempicsum.com/simpsons/900/500/{{ random(5)+1 }}" alt="" width="100%"/>
                 </div>
-
                 <div class="page-header">
                     <h2 id="je-parraine">Je parraine !</h2>
                 </div>
-
                 <div class="jumbotron">
                     <h4>Comment parrainer ?</h4>
                     <ul>
@@ -130,7 +115,6 @@
                         </li>
                     </ul>
                 </div>
-
                 {% if offers|length > 0 %}
                 <div class="row offers">
                     <div class="col-md-6">
@@ -152,14 +136,12 @@
                 </div>
                 {% endif %}
             </div>
-
             <!-- ------------------------------------------ sidebar ------------------------------------------ -->
             <div class="col-md-3">
                 <a href="#je-parraine" class="btn btn-success btn-lg btn-block">Je parraine {{ animal.name }}</a>
                 <hr/>
                 <h3>{{ animal.species.longName }}</h3>
                 <div class="thumbnail">
-                    {#<img data-src="holder.js/100%x150" alt=""/>#}
                     <img src="http://lorempicsum.com/simpsons/400/150/{{ random(5)+1 }}" alt="" width="100%"/>
                     <div class="caption">
                         <p class="text-center">en savoir plus sur <em>{{ animal.species.genus }}</em></p>
@@ -170,7 +152,6 @@
         </div>
     </div>
 {% endblock %}
-
 {% block footScripts %}
     {{ parent() }}
     <script>
