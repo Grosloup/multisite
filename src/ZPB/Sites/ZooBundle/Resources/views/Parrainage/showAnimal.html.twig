@@ -174,8 +174,21 @@
 {% block footScripts %}
     {{ parent() }}
     <script>
+        var $offers, $radios;
+        $offers = $(".offer");
+        $radios = $offers.find("input[type='radio']");
         $(function(){
 
+            $offers.on("click", function(e){
+                e.preventDefault();
+                var $el = $(e.currentTarget);
+                $offers.removeClass("active");
+
+                $radios.prop("checked", null);
+                var radio = $el.find("input[type='radio']");
+                radio.prop("checked", "checked");
+                $el.addClass("active");
+            });
         });
     </script>
 {% endblock %}
