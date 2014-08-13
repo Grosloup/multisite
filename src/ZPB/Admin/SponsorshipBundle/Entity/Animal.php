@@ -34,6 +34,13 @@ class Animal
     private $name;
 
     /**
+     * @Assert\Regex("/^[a-zA-Z0-9_-]+$/", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="canonicalName", type="string", length=255, nullable=false, unique=true)
+     * @Gedmo\Slug(fields={"name"}, unique=true)
+     */
+    private $canonicalName;
+
+    /**
      * @var \DateTime
      * @Assert\NotBlank()
      * @ORM\Column(name="birthdate", type="datetime", nullable=false)
@@ -65,13 +72,14 @@ class Animal
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Zéèêëàûôç',;.)(: -]+$/", message="Ce champ contient des caractères non autorisés.")
      * @ORM\Column(name="longName", type="string", length=255, nullable=false, unique=true)
      */
     private $longName;
 
     /**
      * @ORM\Column(name="canonicalLongName", type="string", length=255, nullable=false, unique=true)
+     * @Assert\Regex("/^[a-zA-Z0-9_-]+$/", message="Ce champ contient des caractères non autorisés.")
      * @Gedmo\Slug(fields={"longName"})
      */
     private $canonicalLongName;
@@ -79,7 +87,7 @@ class Animal
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Zéèêëàûôç',;.)(: -]+$/", message="Ce champ contient des caractères non autorisés.")
      * @ORM\Column(name="birthPlace", type="string", length=255, nullable=false)
      */
     private $birthPlace;
@@ -91,41 +99,6 @@ class Animal
      * @ORM\Column(name="sexe", type="string", length=15, nullable=false)
      */
     private $sexe;
-
-    /**
-     * @var string
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
-     * @ORM\Column(name="genus", type="string", length=255, nullable=false)
-     */
-    private $genus;
-
-    /**
-     * @var string
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
-     * @ORM\Column(name="genusLatin", type="string", length=255, nullable=false)
-     */
-    private $genusLatin;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
-     * @ORM\Column(name="animalOrder", type="string", length=255, nullable=false)
-     */
-    private $animalOrder;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
-     * @ORM\Column(name="family", type="string", length=255, nullable=false)
-     */
-    private $family;
-
-    /**
-     * @ORM\Column(name="class", type="string", length=255, nullable=false)
-     */
-    private $class;
 
     /**
      * @var string
@@ -156,31 +129,34 @@ class Animal
     private $isDropped;
 
     /**
-     * @var string
-     * @Assert\NotBlank()
-     * @ORM\Column(name="statusIUCN", type="string", length=255, nullable=false)
+     * @ORM\ManyToOne(targetEntity="ZPB\Admin\SponsorshipBundle\Entity\Species")
+     * @ORM\JoinColumn(name="species_id", referencedColumnName="id")
      */
-    private $statusIUCN;
+    private $species;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
-     * @ORM\Column(name="geoDistribution", type="string", length=255, nullable=false)
-     */
-    private $geoDistribution;
 
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
-     * @ORM\Column(name="habitat", type="string", length=255, nullable=false)
-     */
-    private $habitat;
 
     public function __construct()
     {
         $this->isAvailable = false;
         $this->isArchived = false;
         $this->isDropped = false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCanonicalName()
+    {
+        return $this->canonicalName;
+    }
+
+    /**
+     * @param mixed $canonicalName
+     */
+    public function setCanonicalName($canonicalName)
+    {
+        $this->canonicalName = $canonicalName;
     }
 
 
@@ -378,51 +354,6 @@ class Animal
         return $this->sexe;
     }
 
-    /**
-     * Set species
-     *
-     * @param string $genus
-     * @return Animal
-     */
-    public function setGenus($genus)
-    {
-        $this->genus = $genus;
-
-        return $this;
-    }
-
-    /**
-     * Get genus
-     *
-     * @return string
-     */
-    public function getGenus()
-    {
-        return $this->genus;
-    }
-
-    /**
-     * Set genusLatin
-     *
-     * @param string $genusLatin
-     * @return Animal
-     */
-    public function setGenusLatin($genusLatin)
-    {
-        $this->genusLatin = $genusLatin;
-
-        return $this;
-    }
-
-    /**
-     * Get genusLatin
-     *
-     * @return string
-     */
-    public function getGenusLatin()
-    {
-        return $this->genusLatin;
-    }
 
     /**
      * Set history
@@ -516,108 +447,7 @@ class Animal
         return $this->isDropped;
     }
 
-    /**
-     * Set statusIUCN
-     *
-     * @param string $statusIUCN
-     * @return Animal
-     */
-    public function setStatusIUCN($statusIUCN)
-    {
-        $this->statusIUCN = $statusIUCN;
 
-        return $this;
-    }
-
-    /**
-     * Get statusIUCN
-     *
-     * @return string
-     */
-    public function getStatusIUCN()
-    {
-        return $this->statusIUCN;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAnimalOrder()
-    {
-        return $this->animalOrder;
-    }
-
-    /**
-     * @param mixed $animalOrder
-     */
-    public function setAnimalOrder($animalOrder)
-    {
-        $this->animalOrder = $animalOrder;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getClass()
-    {
-        return $this->class;
-    }
-
-    /**
-     * @param mixed $class
-     */
-    public function setClass($class)
-    {
-        $this->class = $class;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFamily()
-    {
-        return $this->family;
-    }
-
-    /**
-     * @param mixed $family
-     */
-    public function setFamily($family)
-    {
-        $this->family = $family;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGeoDistribution()
-    {
-        return $this->geoDistribution;
-    }
-
-    /**
-     * @param mixed $geoDistribution
-     */
-    public function setGeoDistribution($geoDistribution)
-    {
-        $this->geoDistribution = $geoDistribution;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getHabitat()
-    {
-        return $this->habitat;
-    }
-
-    /**
-     * @param mixed $habitat
-     */
-    public function setHabitat($habitat)
-    {
-        $this->habitat = $habitat;
-    }
 
     /**
      * @return mixed
@@ -636,4 +466,27 @@ class Animal
     }
 
 
+
+    /**
+     * Set species
+     *
+     * @param Species $species
+     * @return Animal
+     */
+    public function setSpecies(Species $species = null)
+    {
+        $this->species = $species;
+
+        return $this;
+    }
+
+    /**
+     * Get species
+     *
+     * @return Species
+     */
+    public function getSpecies()
+    {
+        return $this->species;
+    }
 }
