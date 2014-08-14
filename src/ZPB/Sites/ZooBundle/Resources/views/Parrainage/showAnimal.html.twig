@@ -60,13 +60,19 @@
         .gift:last-child{
             margin-bottom: 0;
         }
-        .isCheked{
+        .giftName{
+            color: #bbb;
+        }
+        .isChecked{
             display: inline-block;
             padding-right: 16px;
             color: #fff;
         }
-        .isCheked.inPack{
+        .isChecked.inPack{
             color: #409c70;
+        }
+        .isChecked.inPack + .giftName{
+            color: #000;
         }
     </style>
 {% endblock %}
@@ -120,7 +126,7 @@
                     <div class="col-md-6">
                         <div>
                             {% for offer in offers %}
-                                <div class="offer{% if loop.first == true %} active{% endif %}">
+                                <div class="offer{% if loop.first == true %} active{% endif %}" id="{{ offer.slug }}">
                                     <label for="sponsorship_{{ offer.id }}"><input type="radio" name="sponsorship_form[pack]" id="sponsorship_{{ offer.id }}" value="{{ offer.id }}" {% if loop.first == true %}checked="checked"{% endif %}/>{{ offer.price }}€ {{ offer.name }}</label>
                                 </div>
                             {% endfor %}
@@ -129,7 +135,7 @@
                     <div class="col-md-6">
                         {% for gift in gifts %}
                             <div class="gift">
-                                <span class="isCheked" id="mark-{{ gift.id }}"><i class="fa fa-check"></i></span>{{ gift.name }}
+                                <span class="isChecked" id="mark-{{ gift.id }}"><i class="fa fa-check"></i></span><span class="giftName">{{ gift.name }}</span>
                             </div>
                         {% endfor %}
                     </div>
@@ -155,18 +161,43 @@
 {% block footScripts %}
     {{ parent() }}
     <script>
-        var $offers, $radios;
+        var $offers, $radios,$isChecked, giftsByOffer;
+        giftsByOffer = {
+        {% for offer in offers %}
+        "{{ offer.slug }}" : [
+            {% for g in offer.giftDesc %}
+            "mark-{{ g.id }}"{% if loop.last != true %},{% endif %}
+            {% endfor %}
+        ]{% if loop.last != true %},{% endif %}
+        {% endfor %}
+        };
         $offers = $(".offer");
+        $isChecked = $(".isChecked");
         $radios = $offers.find("input[type='radio']");
+        $offers.removeClass("active");
+        $radios.prop("checked", null);
+        function markFormula($el){
+            $offers.removeClass("active");
+            $radios.prop("checked", null);
+            $isChecked.removeClass("inPack");
+            var radio = $el.find("input[type='radio']");
+            radio.prop("checked", "checked");
+            $el.addClass("active");
+            console.log($el.attr("id"));
+            console.log(giftsByOffer[$el.attr("id")]);
+            var marked = giftsByOffer[$el.attr("id")];
+            if(marked.length){
+                $.each(marked,function(i,e){
+                    $("#"+e).addClass("inPack");
+                });
+            }
+        }
+        markFormula($offers.first());
         $(function(){
             $offers.on("click", function(e){
                 e.preventDefault();
                 var $el = $(e.currentTarget);
-                $offers.removeClass("active");
-                $radios.prop("checked", null);
-                var radio = $el.find("input[type='radio']");
-                radio.prop("checked", "checked");
-                $el.addClass("active");
+                markFormula($el);
             });
         });
     </script>
