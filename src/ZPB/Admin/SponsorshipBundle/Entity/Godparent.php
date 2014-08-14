@@ -86,15 +86,54 @@ class Godparent implements AdvancedUserInterface, Serializable
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="address", type="string", length=255, nullable=false)
      */
     private $address;
 
     /**
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="address_two", type="string", nullable=true, length=255)
+     */
+    private $address2;
+
+    /**
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="batiment", type="string", nullable=true, length=255)
+     */
+    private $batiment;
+
+    /**
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="door", type="string", nullable=true, length=255)
+     */
+    private $door;
+
+    /**
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="floor", type="string", nullable=true, length=255)
+     */
+    private $floor;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^((2A|2a|2B|2b|0[1-9]|[1-8][0-9]|9[0-5])[0-9]{3})|((97[1-8]|984|98[6-9])[0-9]{2})$/", message="Le code postal n'est pas valide")
+     * @ORM\Column(name="postalCode", type="string", nullable=false, length=255)
+     */
+    private $postalCode;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="city", type="string", nullable=false, length=255)
+     */
+    private $city;
+
+    /**
      * @var string
-     *
-     * @ORM\Column(name="country", type="string", length=255)
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$", message="Ce champ contient des caractères non autorisés.")
+     * @ORM\Column(name="country", type="string", length=255, nullable=false)
      */
     private $country;
 
@@ -107,7 +146,8 @@ class Godparent implements AdvancedUserInterface, Serializable
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Choice(choices={"Madame","Mademoiselle","Monsieur"}, message="Vous devez choisir entre Madame, Mademoiselle et Monsieur")
      * @ORM\Column(name="civilite", type="string", length=20)
      */
     private $civilite;
@@ -149,6 +189,7 @@ class Godparent implements AdvancedUserInterface, Serializable
         $this->roles = ["ROLE_GODFATHER"];
         $this->isActive = false;
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->sponsorships = new ArrayCollection();
     }
 
     /**
@@ -588,10 +629,10 @@ class Godparent implements AdvancedUserInterface, Serializable
     /**
      * Add sponsorships
      *
-     * @param \ZPB\Admin\SponsorshipBundle\Entity\Sponsorship $sponsorships
+     * @param Sponsorship $sponsorships
      * @return Godparent
      */
-    public function addSponsorship(\ZPB\Admin\SponsorshipBundle\Entity\Sponsorship $sponsorships)
+    public function addSponsorship(Sponsorship $sponsorships)
     {
         $this->sponsorships[] = $sponsorships;
 
@@ -601,9 +642,9 @@ class Godparent implements AdvancedUserInterface, Serializable
     /**
      * Remove sponsorships
      *
-     * @param \ZPB\Admin\SponsorshipBundle\Entity\Sponsorship $sponsorships
+     * @param Sponsorship $sponsorships
      */
-    public function removeSponsorship(\ZPB\Admin\SponsorshipBundle\Entity\Sponsorship $sponsorships)
+    public function removeSponsorship(Sponsorship $sponsorships)
     {
         $this->sponsorships->removeElement($sponsorships);
     }
@@ -616,5 +657,143 @@ class Godparent implements AdvancedUserInterface, Serializable
     public function getSponsorships()
     {
         return $this->sponsorships;
+    }
+
+    /**
+     * Set address2
+     *
+     * @param string $address2
+     * @return Godparent
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return string
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * Set batiment
+     *
+     * @param string $batiment
+     * @return Godparent
+     */
+    public function setBatiment($batiment)
+    {
+        $this->batiment = $batiment;
+
+        return $this;
+    }
+
+    /**
+     * Get batiment
+     *
+     * @return string
+     */
+    public function getBatiment()
+    {
+        return $this->batiment;
+    }
+
+    /**
+     * Set door
+     *
+     * @param string $door
+     * @return Godparent
+     */
+    public function setDoor($door)
+    {
+        $this->door = $door;
+
+        return $this;
+    }
+
+    /**
+     * Get door
+     *
+     * @return string
+     */
+    public function getDoor()
+    {
+        return $this->door;
+    }
+
+    /**
+     * Set floor
+     *
+     * @param string $floor
+     * @return Godparent
+     */
+    public function setFloor($floor)
+    {
+        $this->floor = $floor;
+
+        return $this;
+    }
+
+    /**
+     * Get floor
+     *
+     * @return string
+     */
+    public function getFloor()
+    {
+        return $this->floor;
+    }
+
+    /**
+     * Set postalCode
+     *
+     * @param string $postalCode
+     * @return Godparent
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    /**
+     * Get postalCode
+     *
+     * @return string
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Godparent
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 }

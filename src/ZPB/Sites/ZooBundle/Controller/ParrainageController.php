@@ -106,6 +106,16 @@ class ParrainageController extends BaseController
 
     }
 
+    public function loginOrRegisterAction()
+    {
+        $user = $this->getUser();
+
+        if($user && true === $this->get('security.context')->isGranted('ROLE_GODFATHER')){
+            return $this->render('ZPBSitesZooBundle:Parrainage/Payment:recapOrder.html.twig');
+        }
+        return $this->render('ZPBSitesZooBundle:Parrainage/Payment:loginOrRegister.html.twig');
+    }
+
     public function myAccountAction(Request $request)
     {
         $user = $this->getUser();

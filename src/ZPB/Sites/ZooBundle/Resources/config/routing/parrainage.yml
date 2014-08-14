@@ -9,10 +9,12 @@ zpb_sites_zoo_parrainage_show_animal:
     methods: ["GET"]
     requirements:
         name: "[a-zA-Z0-9_-]+"
+
 zpb_sites_zoo_parrainage_add_to_basket:
     path: /ajouter-au-panier
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:addSponsorshipToBasket }
     methods: ["POST"]
+
 zpb_sites_zoo_parrainage_remove_from_basket:
     path: /supprimer-du-panier/{id}
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:removeSponsorshipToBasket }
@@ -20,7 +22,10 @@ zpb_sites_zoo_parrainage_remove_from_basket:
     requirements:
         id: "[0-9-]+"
 
-
+zpb_sites_zoo_parrainage_payment_login_register:
+    path: /identification
+    defaults: { _controller: ZPBSitesZooBundle:Parrainage:loginOrRegister }
+    methods: ["GET"]
 
 zpb_sites_zoo_parrainage_show_basket:
     path: /mon-panier

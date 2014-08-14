@@ -1,0 +1,33 @@
+{% extends "ZPBSitesZooBundle:Layouts:master.html.twig" %}
+{% set active_section = "parrainage" %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>J'ai déjà un compte</h3>
+                <form action="{{ path('zpb_sites_zoo_parrainage_login_check') }}" method="post">
+                    <div class="form-group">
+                        <label for="username">Pseudo ou adresse email</label>
+                        <input type="text" id="username" name="_username" value="{#{{ last_username }}#}" class="form-control"/>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" name="_password" class="form-control"/>
+
+                    </div>
+                    <input type="hidden" name="_target_path" value="/parrainage/mon-compte" />
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">login</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h3>Je n'ai pas de compte</h3>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
