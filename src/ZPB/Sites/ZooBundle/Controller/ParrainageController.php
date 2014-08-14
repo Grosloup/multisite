@@ -23,6 +23,8 @@ namespace ZPB\Sites\ZooBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
+use ZPB\Admin\SponsorshipBundle\Entity\Godparent;
+use ZPB\Sites\ZooBundle\Form\Type\GodparentType;
 
 class ParrainageController extends BaseController
 {
@@ -113,7 +115,10 @@ class ParrainageController extends BaseController
         if($user && true === $this->get('security.context')->isGranted('ROLE_GODFATHER')){
             return $this->render('ZPBSitesZooBundle:Parrainage/Payment:recapOrder.html.twig');
         }
-        return $this->render('ZPBSitesZooBundle:Parrainage/Payment:loginOrRegister.html.twig');
+        $godparent = new Godparent();
+        $form = $this->createForm(new GodparentType(), $godparent);
+
+        return $this->render('ZPBSitesZooBundle:Parrainage/Payment:loginOrRegister.html.twig', ['form'=>$form->createView()]);
     }
 
     public function myAccountAction(Request $request)

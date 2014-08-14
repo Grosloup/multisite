@@ -30,8 +30,10 @@ class GodparentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('civilite', 'civility_type', ['label'=>'Civilité'])
             ->add('firstname', null, ['label'=>'Prénom*'])
             ->add('lastname', null, ['label'=>'Nom*'])
+            ->add('birthdate', 'date', ['label'=>'Date de naissance (jj/mm/aaaa)*','input'=>'datetime','widget'=>'single_text','format'=>'dd/MM/yyyy'])
             ->add('username', null, ['label'=>'pseudo*'])
             ->add('email','email',['label'=>'Adresse email*'])
             ->add('phone',null,['label'=>'Numéro de téléphone*'])
@@ -43,8 +45,6 @@ class GodparentType extends AbstractType
             ->add('postalCode', null, ['label'=>'Code postal*'])
             ->add('city', null, ['label'=>'Ville*'])
             ->add('country', null, ['label'=>'Pays*'])
-            ->add('birthdate', null, ['label'=>'Date de naissance (jj/mm/yyyy)*'])
-            ->add('civilite', 'collection', ['label'=>'Civilité', 'type'=>'civility_type', 'allow_add'=>false, 'by_reference'=>false])
             ->add('save', 'submit', ['label'=>'Enregistrer'])
         ;
     }
