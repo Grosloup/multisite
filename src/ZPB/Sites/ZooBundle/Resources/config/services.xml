@@ -7,12 +7,28 @@
     <parameters>
         <parameter key="zpb.zoo.sponsor_basket.class">ZPB\Sites\ZooBundle\Service\SponsorBasket</parameter>
         <parameter key="zpb.zoo.sponsor_basket_item.class">ZPB\Sites\ZooBundle\Service\SponsorBasketItem</parameter>
+        <parameter key="zpb.zoo.listener.entity.godparent_listener.class">ZPB\Sites\ZooBundle\Listener\Entities\GodparentListener</parameter>
+        <parameter key="zpb.zoo.form.type.civility.class">ZPB\Sites\ZooBundle\Form\Type\CivilityType</parameter>
+        <parameter key="zpb.zoo.civility" type="collection">
+            <parameter key="Mm">Madame</parameter>
+            <parameter key="Mlle">Mademoiselle</parameter>
+            <parameter key="Mr">Monsieur</parameter>
+        </parameter>
     </parameters>
 
     <services>
         <service id="zpb.zoo.sponsor_basket" class="%zpb.zoo.sponsor_basket.class%">
             <argument type="service" id="session" />
             <argument>%zpb.zoo.sponsor_basket_item.class%</argument>
+        </service>
+        <service id="zpb.zoo.listener.entity.godparent_listener" class="%zpb.zoo.listener.entity.godparent_listener.class%">
+            <argument type="service" id="security.encoder_factory"/>
+            <tag name="doctrine.event_listener" event="prePersist"/>
+            <tag name="doctrine.event_listener" event="preUpdate"/>
+        </service>
+        <service id="zpb.zoo.form.type.civility" class="%zpb.zoo.form.type.civility.class%">
+            <argument type="string">%zpb.zoo.civility%</argument>
+            <tag name="form.type" alias="civility_type"/>
         </service>
     </services>
 

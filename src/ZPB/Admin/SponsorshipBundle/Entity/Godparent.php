@@ -10,11 +10,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\Role\Role;
+
 /**
  * Godparent
  *
  * @ORM\Table(name="zpb_sponsorship_godfathers")
  * @ORM\Entity(repositoryClass="ZPB\Admin\SponsorshipBundle\Entity\GodparentRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("username", message="Ce pseudo est déjà utilisé.")
  */
 class Godparent implements AdvancedUserInterface, Serializable
@@ -206,6 +208,7 @@ class Godparent implements AdvancedUserInterface, Serializable
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+        $this->password = null;
     }
 
     /**
@@ -602,7 +605,7 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        $this->plainPassword = null;
     }
 
     public function serialize()
