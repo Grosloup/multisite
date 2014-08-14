@@ -73,29 +73,36 @@ class ParrainageController extends BaseController
         return $this->redirect($this->generateUrl('zpb_sites_zoo_parrainage_show_basket'));
     }
 
+    public function removeSponsorshipToBasketAction($id, Request $request)
+    {
+        $csrfProv = $this->getCsrfProvider();
+        $token = $request->query->get('_token', false);
+        if(!$token || !$csrfProv->isCsrfTokenValid('delete_from_basket',$token)){
+            throw $this->createAccessDeniedException();
+        }
+        $sb = $this->container->get('zpb.zoo.sponsor_basket');
+        $sb->removeItem($id);
+        return $this->redirect($this->generateUrl('zpb_sites_zoo_parrainage_show_basket'));
+    }
+
     public function showSponsorshipToBasketAction(Request $request)
     {
         $sb = $this->container->get('zpb.zoo.sponsor_basket');
-        if($sb->isEmpty()){
-            throw $this->createAccessDeniedException();
-        }
-        $em = $this->getEm();
         $items = [];
-        foreach($sb->getItems() as $k=>$v){
-            $animalId = $v->getAnimal()->getId();
-            $packId = $v->getPack()->getId();
-            $animal = $em->find(get_class($v->getAnimal()),$animalId);
-            $pack = $em->find(get_class($v->getPack()), $packId);
-            $items[$v->getId()] = ["pack"=>$pack, "animal"=>$animal];
+
+        if(!$sb->isEmpty()){
+            $em = $this->getEm();
+            foreach($sb->getItems() as $k=>$v){
+                $animalId = $v->getAnimal()->getId();
+                $packId = $v->getPack()->getId();
+                $animal = $em->find(get_class($v->getAnimal()),$animalId);
+                $pack = $em->find(get_class($v->getPack()), $packId);
+                $items[$v->getId()] = ["pack"=>$pack, "animal"=>$animal];
+            }
         }
+
 
         return $this->render('ZPBSitesZooBundle:Parrainage:sponsorshipBasket.html.twig',['packs'=>$items]);
-
-
-
-
-
-
 
     }
 

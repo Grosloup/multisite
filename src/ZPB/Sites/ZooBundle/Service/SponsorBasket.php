@@ -63,6 +63,16 @@ class SponsorBasket
         $this->session->set($this->key, $this->basket);
     }
 
+    public function removeItem($itemId)
+    {
+        if(array_key_exists($itemId, $this->basket)){
+            unset($this->basket[$itemId]);
+            $this->session->set($this->key, $this->basket);
+            return true;
+        }
+        return false;
+    }
+
     public function getItems()
     {
         return $this->session->get($this->key, null);

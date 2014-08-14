@@ -27,7 +27,7 @@
                     {% for id,pack in packs %}
 
                         <div class="row pack">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="thumbnail">
@@ -47,6 +47,9 @@
                             <div class="col-md-3">
                                 <h4 class="text-center">Montant</h4>
                                 <p class="text-center"><strong>{{ pack.pack.price }}</strong></p>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-danger" href="{{ path("zpb_sites_zoo_parrainage_remove_from_basket", {id: id, _token: csrf_token("delete_from_basket")}) }}"><i class="fa fa-trash-o"></i></a>
                             </div>
                         </div>
 
@@ -70,8 +73,11 @@
                         </div>
 
                 {% else  %}
-
+                        <p>Votre panier est vide.</p>
                 {% endif %}
+                <hr/>
+                <a class="btn btn-success btn-lg" href="{{ path("zpb_sites_zoo_parrainage_homepage") }}">Ajouter des parrainages</a>
+                <a class="btn btn-success btn-lg" href="{{ path("zpb_sites_zoo_parrainage_homepage") }}">Regler votre commande</a>
             </div>
         </div>
     </div>

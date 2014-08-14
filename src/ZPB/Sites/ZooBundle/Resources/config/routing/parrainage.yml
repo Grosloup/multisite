@@ -13,6 +13,14 @@ zpb_sites_zoo_parrainage_add_to_basket:
     path: /ajouter-au-panier
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:addSponsorshipToBasket }
     methods: ["POST"]
+zpb_sites_zoo_parrainage_remove_from_basket:
+    path: /supprimer-du-panier/{id}
+    defaults: { _controller: ZPBSitesZooBundle:Parrainage:removeSponsorshipToBasket }
+    methods: ["GET"]
+    requirements:
+        id: "[0-9-]+"
+
+
 
 zpb_sites_zoo_parrainage_show_basket:
     path: /mon-panier
