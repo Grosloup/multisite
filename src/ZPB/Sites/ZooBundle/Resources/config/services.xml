@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="zpb.zoo.sponsor_basket.class">ZPB\Sites\ZooBundle\Service\SponsorBasket</parameter>
+        <parameter key="zpb.zoo.sponsor_basket_item.class">ZPB\Sites\ZooBundle\Service\SponsorBasketItem</parameter>
+    </parameters>
+
+    <services>
+        <service id="zpb.zoo.sponsor_basket" class="%zpb.zoo.sponsor_basket.class%">
+            <argument type="service" id="session" />
+            <argument>%zpb.zoo.sponsor_basket_item.class%</argument>
+        </service>
+    </services>
+
+</container>

@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="ZPB\Admin\SponsorshipBundle\Entity\AnimalRepository")
  * @UniqueEntity("name", message="Un animal porte déjà ce nom.")
  */
-class Animal
+class Animal implements  \Serializable
 {
     /**
      * @var integer
@@ -503,5 +503,31 @@ class Animal
             return '1 an';
         }
         return $years . ' ans';
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * String representation of object
+     * @link http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     */
+    public function serialize()
+    {
+        return serialize(['id'=>$this->getId()]);
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * Constructs the object
+     * @link http://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        $datas = unserialize($serialized);
+        $this->id = $datas['id'];
     }
 }

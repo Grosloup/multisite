@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="ZPB\Admin\SponsorshipBundle\Entity\SponsorshipDescRepository")
  * @UniqueEntity("name", message="Ce nom d'offre est déjà utilisé.")
  */
-class SponsorshipDesc
+class SponsorshipDesc implements \Serializable
 {
     /**
      * @var integer
@@ -384,5 +384,31 @@ class SponsorshipDesc
     public function getGiftDesc()
     {
         return $this->giftDesc;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * String representation of object
+     * @link http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     */
+    public function serialize()
+    {
+        return serialize(['id'=>$this->getId()]);
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * Constructs the object
+     * @link http://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        $datas = unserialize($serialized);
+        $this->id = $datas['id'];
     }
 }

@@ -122,6 +122,7 @@
                     </ul>
                 </div>
                 {% if offers|length > 0 %}
+                    <form action="{{ path("zpb_sites_zoo_parrainage_add_to_basket") }}" method="post">
                     <div class="row offers">
                         <div class="col-md-6">
                             <div id="in-offers">
@@ -147,9 +148,13 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <input name="sponsorship_form[animal]" type="hidden" value="{{ animal.id }}"/>
+                            <input name="sponsorship_form[_token]" type="hidden" value="{{ csrf_token("add_sponsorship") }}"/>
                             <button type="submit" class="btn btn-success btn-lg btn-block">Validation</button>
+
                         </div>
                     </div>
+                    </form>
                 {% endif %}
             </div>
             <!-- ------------------------------------------ sidebar ------------------------------------------ -->

@@ -9,6 +9,15 @@ zpb_sites_zoo_parrainage_show_animal:
     methods: ["GET"]
     requirements:
         name: "[a-zA-Z0-9_-]+"
+zpb_sites_zoo_parrainage_add_to_basket:
+    path: /ajouter-au-panier
+    defaults: { _controller: ZPBSitesZooBundle:Parrainage:addSponsorshipToBasket }
+    methods: ["POST"]
+
+zpb_sites_zoo_parrainage_show_basket:
+    path: /mon-panier
+    defaults: { _controller: ZPBSitesZooBundle:Parrainage:showSponsorshipToBasket }
+    methods: ["GET"]
 
 zpb_sites_zoo_parrainage_login:
     path: /login

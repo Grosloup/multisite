@@ -1,0 +1,79 @@
+{% extends "ZPBSitesZooBundle:Layouts:master.html.twig" %}
+{% set active_section = "parrainage" %}
+{% block headStyles %}
+    {{ parent() }}
+    <style>
+        .pack{
+            background-color: #abbabe;
+            padding-top: 16px;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            -ms-border-radius: 5px;
+            -o-border-radius: 5px;
+            border-radius: 5px;
+        }
+        .pack .thumbnail{
+            margin-bottom: 0;
+        }
+    </style>
+{% endblock %}
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% if packs|length > 0 %}
+                    {% for id,pack in packs %}
+
+                        <div class="row pack">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="thumbnail">
+                                            <img src="http://lorempicsum.com/rio/180/120/{{ random(5)+1 }}" alt=""/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        {{ pack.animal.longName }}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-center">Formule</h4>
+                                <p class="text-center"><strong>{{ pack.pack.name }}</strong></p>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="text-center">Montant</h4>
+                                <p class="text-center"><strong>{{ pack.pack.price }}</strong></p>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                        <div class="row pack">
+                            <div class="col-md-6">
+                                <p class="text-center"><strong>Montant Total</strong></p>
+                            </div>
+                            <div class="col-md-3">
+                                {% set price = 0 %}
+                                {% set priceRedux = 0 %}
+                                {% for pack in packs %}
+                                    {% set price = price + pack.pack.price %}
+                                    {% set priceRedux = priceRedux + pack.pack.taxFreePrice %}
+                                {% endfor %}
+                                <p class="text-center"><strong>{{ price|number_format(2,',','.') }}€</strong></p>
+                            </div>
+                            <div class="col-md-3">
+                                <p>soit <strong>{{ priceRedux|number_format(2,',','.') }}€</strong> après rection fiscale</p>
+                            </div>
+                        </div>
+
+                {% else  %}
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

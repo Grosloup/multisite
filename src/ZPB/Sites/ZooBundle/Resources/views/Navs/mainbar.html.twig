@@ -15,6 +15,9 @@
                 <li {% if active_section == "parrainage" %}class="active"{% endif %}><a href="{{ path("zpb_sites_zoo_parrainage_homepage") }}">Parrainage</a></li>
                 <li {% if active_section == "contact" %}class="active"{% endif %}><a href="#contact">Contact</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path("zpb_sites_zoo_parrainage_show_basket") }}">Mon panier</a></li>
+            </ul>
         </div><!--/.nav-collapse -->
     </div>
 </div>
