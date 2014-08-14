@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class GodparentRepository extends EntityRepository
 {
+    public function createPassword()
+    {
+        $chars = array_merge(range(0,9), range('a','z'),range('A', 'Z'));
+        shuffle($chars);
+        $password = '';
+        for($i=0;$i<20;$i++){
+            $password .= $chars[rand(0,61)];
+        }
+        return $password;
+    }
 }
