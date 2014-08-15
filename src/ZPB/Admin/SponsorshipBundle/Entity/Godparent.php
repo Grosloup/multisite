@@ -798,6 +798,7 @@ class Godparent implements AdvancedUserInterface, Serializable
         return $this;
     }
 
+
     /**
      * Get postalCode
      *
