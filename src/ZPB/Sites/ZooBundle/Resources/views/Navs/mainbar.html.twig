@@ -18,6 +18,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ path("zpb_sites_zoo_parrainage_show_basket") }}">Mon panier</a></li>
                 <li {% if active_section == "parrainage-compte" %}class="active"{% endif %}><a href="{{ path("zpb_sites_zoo_parrainage_my_account") }}">Mon compte</a></li>
+                {% if is_granted("ROLE_GODPARENT") %}
+                    <li><a href="{{ path("zpb_sites_zoo_parrainage_logout") }}">Déconnexion</a></li>
+                {% endif %}
             </ul>
         </div><!--/.nav-collapse -->
     </div>

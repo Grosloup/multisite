@@ -175,7 +175,7 @@ class ParrainageController extends BaseController
         return $this->render('ZPBSitesZooBundle:Parrainage:Compte/myAccount.html.twig');
     }
 
-    public function myAnimalsAction($canonic, Request $request)
+    public function myAnimalsAction(Request $request)
     {
         $user = $this->getUser();
         if(!$user || true !== $this->get('security.context')->isGranted('ROLE_GODPARENT')){

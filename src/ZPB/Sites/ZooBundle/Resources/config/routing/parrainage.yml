@@ -61,11 +61,10 @@ zpb_sites_zoo_parrainage_my_account:
     methods: ["GET"]
 
 zpb_sites_zoo_parrainage_my_account_animals:
-    path: /mon-compte/{canonic}/mes-parrainages
+    path: /mon-compte/mes-parrainages
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:myAnimals }
     methods: ["GET"]
-    requirements:
-        canonic: "[a-zA-Z0-9_-]+"
+
 
 
 
