@@ -201,7 +201,7 @@ class Godparent implements AdvancedUserInterface, Serializable
 
     public function __construct()
     {
-        $this->roles = ['ROLE_GODFATHER'];
+        $this->roles = ['ROLE_GODPARENT'];
         $this->isActive = true;
         $this->country = 'France';
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);

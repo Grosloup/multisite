@@ -77,7 +77,9 @@
                 {% endif %}
                 <hr/>
                 <a class="btn btn-success btn-lg" href="{{ path("zpb_sites_zoo_parrainage_homepage") }}">Ajouter des parrainages</a>
+                {% if packs|length > 0 %}
                 <a class="btn btn-success btn-lg" href="{{ path("zpb_sites_zoo_parrainage_payment_login_register") }}">Regler votre commande</a>
+                {% endif %}
             </div>
         </div>
     </div>

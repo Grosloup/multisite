@@ -114,7 +114,7 @@ class ParrainageController extends BaseController
     {
         $user = $this->getUser();
 
-        if($user && true === $this->get('security.context')->isGranted('ROLE_GODFATHER')){
+        if($user && true === $this->get('security.context')->isGranted('ROLE_GODPARENT')){
             return $this->redirect($this->generateUrl('zpb_sites_zoo_parrainage_payment_recap'));
         }
         $godparent = new Godparent();
@@ -146,7 +146,7 @@ class ParrainageController extends BaseController
     public function recapOrderAfterLoginAction(Request $request)
     {
         $user = $this->getUser();
-        if(!$user || true !== $this->get('security.context')->isGranted('ROLE_GODFATHER')){
+        if(!$user || true !== $this->get('security.context')->isGranted('ROLE_GODPARENT')){
             throw $this->createAccessDeniedException();
         }
         $sb = $this->container->get('zpb.zoo.sponsor_basket');
@@ -168,12 +168,20 @@ class ParrainageController extends BaseController
     public function myAccountAction(Request $request)
     {
         $user = $this->getUser();
+        if(!$user || true !== $this->get('security.context')->isGranted('ROLE_GODPARENT')){
+            throw $this->createAccessDeniedException();
+        }
+
         return $this->render('ZPBSitesZooBundle:Parrainage:Compte/myAccount.html.twig');
     }
 
     public function myAnimalsAction($canonic, Request $request)
     {
         $user = $this->getUser();
+        if(!$user || true !== $this->get('security.context')->isGranted('ROLE_GODPARENT')){
+            throw $this->createAccessDeniedException();
+        }
+
         return $this->render('ZPBSitesZooBundle:Parrainage:Compte/myAnimals.html.twig');
     }
 
