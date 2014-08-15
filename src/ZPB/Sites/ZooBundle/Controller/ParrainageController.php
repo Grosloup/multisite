@@ -134,7 +134,7 @@ class ParrainageController extends BaseController
             $em->persist($godparent);
             $em->flush();
 
-            die();
+
         }
 
         return $this->render('ZPBSitesZooBundle:Parrainage/Payment:loginOrRegister.html.twig', ['form'=>$form->createView()]);

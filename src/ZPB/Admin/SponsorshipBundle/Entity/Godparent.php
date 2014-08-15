@@ -43,7 +43,7 @@ class Godparent implements AdvancedUserInterface, Serializable
      * @var string
      * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
      * @Assert\NotBlank(message="Ce champs est requis.")
-     *
+     * @Assert\Regex("/^[a-zA-Zéèëêàûôç' -]+$/", message="Ce champs contient des caractères non autorisés.")
      *
      *
      */

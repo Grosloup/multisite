@@ -42,6 +42,27 @@ class LoadGodparents extends AbstractFixture implements OrderedFixtureInterface,
 
     function load(ObjectManager $manager)
     {
+        $gp1 = new Godparent();
+        $gp1->setTmpPassword('aze123rty456uio789pq');
+        $gp1->setFirstname('nicolas');
+        $gp1->setLastname('canfrère');
+        $gp1->setUsername('nicolas41');
+        $gp1->setEmail('nico.canfrere@gmail.com');
+        $gp1->setPlainPassword('aze123rty456uio789pq');
+        $gp1->setPhone('0674065130');
+        $gp1->setBirthdate(\DateTime::createFromFormat('Y-m-d','1971-03-05'));
+        $gp1->setCivilite('Mr');
+        $gp1->setAddress('13 rue Dauphine');
+        $gp1->setPostalCode('41130');
+        $gp1->setCity('Selles/Cher');
+        $gp1->setCountry('France');
+
+        $manager->persist($gp1);
+
+        $manager->flush();
+
+        $this->addReference('sponsor-godparent-1',$gp1);
+
 
     }
 
