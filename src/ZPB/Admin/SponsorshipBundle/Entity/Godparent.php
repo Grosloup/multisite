@@ -9,7 +9,6 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\Role\Role;
 
 /**
  * Godparent
@@ -32,19 +31,21 @@ class Godparent implements AdvancedUserInterface, Serializable
 
     /**
      * @var string
-     *
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champs contient des caractères non autorisés.")
-     * @Assert\NotBlank(message="Ce champs est requis.")
      * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Ce champs est requis.")
+     * @Assert\Regex("/^[a-zA-Zéèëêàûôç' -]+$/", message="Ce champs contient des caractères non autorisés.")
+     *
+     *
      */
     private $firstname;
 
     /**
      * @var string
-     *
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champs contient des caractères non autorisés.")
-     * @Assert\NotBlank(message="Ce champs est requis.")
      * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Ce champs est requis.")
+     *
+     *
+     *
      */
     private $lastname;
 
@@ -346,8 +347,9 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     public function setFirstname($firstname)
     {
-        $this->firstname = ucfirst(strtolower($firstname));
 
+        $this->firstname = mb_strtoupper(substr($firstname,0,1),'UTF-8').mb_strtolower(substr($firstname,1), 'UTF-8');
+        //$this->firstname= $firstname;
         return $this;
     }
 
@@ -369,8 +371,8 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     public function setLastname($lastname)
     {
-        $this->lastname = ucfirst(strtolower($lastname));
-
+        $this->lastname = mb_strtoupper(substr($lastname,0,1),'UTF-8').mb_strtolower(substr($lastname,1), 'UTF-8');
+        //$this->lastname = $lastname;
         return $this;
     }
 
