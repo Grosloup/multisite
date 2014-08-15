@@ -582,7 +582,7 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     public function isAccountNonExpired()
     {
-        // TODO: Implement isAccountNonExpired() method.
+        return true;
     }
 
     /**
@@ -597,7 +597,7 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     public function isAccountNonLocked()
     {
-        // TODO: Implement isAccountNonLocked() method.
+        return $this->isActive;
     }
 
     /**
@@ -612,7 +612,7 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     public function isCredentialsNonExpired()
     {
-        // TODO: Implement isCredentialsNonExpired() method.
+        return true;
     }
 
     /**
@@ -627,7 +627,7 @@ class Godparent implements AdvancedUserInterface, Serializable
      */
     public function isEnabled()
     {
-        // TODO: Implement isEnabled() method.
+        return true;
     }
 
     /**
@@ -643,13 +643,22 @@ class Godparent implements AdvancedUserInterface, Serializable
 
     public function serialize()
     {
-        return serialize(['id' => $this->getId()]);
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt
+        ]);
     }
 
     public function unserialize($serialized)
     {
-        $datas = unserialize($serialized);
-        $this->id = $datas['id'];
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt
+            ) = unserialize($serialized);
     }
 
     /**

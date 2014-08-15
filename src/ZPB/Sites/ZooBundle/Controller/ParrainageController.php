@@ -22,6 +22,8 @@ namespace ZPB\Sites\ZooBundle\Controller;
 
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 use ZPB\Admin\SponsorshipBundle\Entity\Godparent;
 use ZPB\Sites\ZooBundle\Form\Type\GodparentType;
@@ -113,7 +115,7 @@ class ParrainageController extends BaseController
         $user = $this->getUser();
 
         if($user && true === $this->get('security.context')->isGranted('ROLE_GODFATHER')){
-            return $this->render('ZPBSitesZooBundle:Parrainage/Payment:recapOrder.html.twig');
+            return $this->redirect($this->generateUrl('zpb_sites_zoo_parrainage_payment_recap'));
         }
         $godparent = new Godparent();
         $form = $this->createForm(new GodparentType(), $godparent);
@@ -133,11 +135,21 @@ class ParrainageController extends BaseController
             $em = $this->getEm();
             $em->persist($godparent);
             $em->flush();
-
-
+            $token = new UsernamePasswordToken($godparent,null,'sponsorship',$godparent->getRoles());
+            $this->container->get('security.context')->setToken($token);
+            return $this->redirect($this->generateUrl('zpb_sites_zoo_parrainage_payment_recap'));
         }
 
         return $this->render('ZPBSitesZooBundle:Parrainage/Payment:loginOrRegister.html.twig', ['form'=>$form->createView()]);
+    }
+
+    public function recapOrderAfterLoginAction(Request $request)
+    {
+        $user = $this->getUser();
+        if(!$user || true !== $this->get('security.context')->isGranted('ROLE_GODFATHER')){
+            throw $this->createAccessDeniedException();
+        }
+        return $this->render('ZPBSitesZooBundle:Parrainage/Payment:recapOrder.html.twig');
     }
 
     public function myAccountAction(Request $request)
@@ -154,6 +166,20 @@ class ParrainageController extends BaseController
 
     public function loginAction(Request $request)
     {
-        return $this->render('ZPBSitesZooBundle:Parrainage:Compte/login.html.twig');
+        $session = $request->getSession();
+        if ($request->attributes->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(
+                SecurityContextInterface::AUTHENTICATION_ERROR
+            );
+        } elseif (null !== $session && $session->has(SecurityContextInterface::AUTHENTICATION_ERROR)) {
+            $error = $session->get(SecurityContextInterface::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContextInterface::AUTHENTICATION_ERROR);
+        } else {
+            $error = '';
+        }
+
+        // last username entered by the user
+        $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
+        return $this->render('ZPBSitesZooBundle:Parrainage:Compte/login.html.twig', ['error'=>$error, 'last_username'=>$lastUsername]);
     }
 }
