@@ -33,18 +33,18 @@ class Godparent implements AdvancedUserInterface, Serializable
     /**
      * @var string
      * @Assert\NotBlank(message="Ce champs est requis.")
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
-     * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
+     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champs contient des caractères non autorisés.")
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
      */
-    private $firstname;
+    private $lastname;
 
     /**
      * @var string
      * @Assert\NotBlank(message="Ce champs est requis.")
-     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champ contient des caractères non autorisés.")
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=false)
+     * @Assert\Regex("/^[a-zA-Zéèêëàûôç' -]+$/", message="Ce champs contient des caractères non autorisés.")
+     * @ORM\Column(name="firstname", type="string", length=255, nullable=false)
      */
-    private $lastname;
+    private $firstname;
 
     /**
      * @var string
@@ -56,7 +56,7 @@ class Godparent implements AdvancedUserInterface, Serializable
     /**
      * @var string
      * @Assert\NotBlank(message="Ce champs est requis.")
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'., _-]+$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'., _-]+$/", message="Ce champs contient des caractères non autorisés.")
      * @ORM\Column(name="username", type="string", length=255, nullable=false, unique=true)
      */
     private $username;
@@ -93,31 +93,31 @@ class Godparent implements AdvancedUserInterface, Serializable
     /**
      * @var string
      * @Assert\NotBlank(message="Ce champs est requis.")
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$/", message="Ce champs contient des caractères non autorisés.")
      * @ORM\Column(name="address", type="string", length=255, nullable=false)
      */
     private $address;
 
     /**
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]*$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]*$/", message="Ce champs contient des caractères non autorisés.")
      * @ORM\Column(name="address_two", type="string", nullable=true, length=255)
      */
     private $address2;
 
     /**
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]*$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]*$/", message="Ce champs contient des caractères non autorisés.")
      * @ORM\Column(name="batiment", type="string", nullable=true, length=255)
      */
     private $batiment;
 
     /**
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]*$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]*$/", message="Ce champs contient des caractères non autorisés.")
      * @ORM\Column(name="door", type="string", nullable=true, length=255)
      */
     private $door;
 
     /**
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]*$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]*$/", message="Ce champs contient des caractères non autorisés.")
      * @ORM\Column(name="floor", type="string", nullable=true, length=255)
      */
     private $floor;
@@ -131,7 +131,7 @@ class Godparent implements AdvancedUserInterface, Serializable
 
     /**
      * @Assert\NotBlank(message="Ce champs est requis.")
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$/", message="Ce champs contient des caractères non autorisés.")
      * @ORM\Column(name="city", type="string", nullable=false, length=255)
      */
     private $city;
@@ -139,7 +139,7 @@ class Godparent implements AdvancedUserInterface, Serializable
     /**
      * @var string
      * @Assert\NotBlank(message="Ce champs est requis.")
-     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$/", message="Ce champ contient des caractères non autorisés.")
+     * @Assert\Regex("/^[a-zA-Z0-9éèêëàûôç'.,;)(:\/ _-]+$/", message="Ce champs contient des caractères non autorisés.")
      * @ORM\Column(name="country", type="string", length=255, nullable=false)
      */
     private $country;
