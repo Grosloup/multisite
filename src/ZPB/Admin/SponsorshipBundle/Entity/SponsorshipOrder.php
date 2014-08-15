@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SponsorshipOrder
  *
- * @ORM\Table()
+ * @ORM\Table(name="zpb_sponsorship_order")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="ZPB\Admin\SponsorshipBundle\Entity\SponsorshipOrderRepository")
  */
 class SponsorshipOrder
@@ -27,6 +28,11 @@ class SponsorshipOrder
      * @ORM\Column(name="ref_id", type="integer")
      */
     private $refId;
+
+    /**
+     * @ORM\Column(name="ref", type="string", length=255, nullable=false, unique=true)
+     */
+    private $ref;
 
     /**
      * @var integer
@@ -81,7 +87,7 @@ class SponsorshipOrder
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -104,7 +110,7 @@ class SponsorshipOrder
     /**
      * Get refId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRefId()
     {
@@ -127,7 +133,7 @@ class SponsorshipOrder
     /**
      * Get clientId
      *
-     * @return integer 
+     * @return integer
      */
     public function getClientId()
     {
@@ -150,12 +156,32 @@ class SponsorshipOrder
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRef()
+    {
+        return $this->ref;
+    }
+
+    /**
+     * @param mixed $ref
+     * @return SponsorshipOrder
+     */
+    public function setRef($ref)
+    {
+        $this->ref = $ref;
+        return $this;
+    }
+
+
 
     /**
      * Set isValid
@@ -173,7 +199,7 @@ class SponsorshipOrder
     /**
      * Get isValid
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsValid()
     {
@@ -196,7 +222,7 @@ class SponsorshipOrder
     /**
      * Get isRefused
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsRefused()
     {
@@ -219,7 +245,7 @@ class SponsorshipOrder
     /**
      * Get amount
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -242,7 +268,7 @@ class SponsorshipOrder
     /**
      * Get paymentType
      *
-     * @return string 
+     * @return string
      */
     public function getPaymentType()
     {
@@ -265,7 +291,7 @@ class SponsorshipOrder
     /**
      * Get isDelayed
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsDelayed()
     {
