@@ -40,7 +40,7 @@ class OrderListener
     private function handleEvent(SponsorshipOrder $entity)
     {
         $createdAt = $entity->getCreatedAt();
-        $ref = $createdAt->format("ymd") . substr(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36),0,8);
+        $ref = $createdAt->format("ymd") . "-" . substr(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36),0,8);
 
         return $ref;
     }

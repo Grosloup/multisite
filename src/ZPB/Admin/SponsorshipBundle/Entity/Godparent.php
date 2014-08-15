@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Role\Role;
 /**
  * Godparent
  *
- * @ORM\Table(name="zpb_sponsorship_godfathers")
+ * @ORM\Table(name="zpb_sponsorship_godparents")
  * @ORM\Entity(repositoryClass="ZPB\Admin\SponsorshipBundle\Entity\GodparentRepository")
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("username", message="Ce pseudo est déjà utilisé.")
