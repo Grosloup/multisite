@@ -65,7 +65,9 @@ zpb_sites_zoo_parrainage_my_account_animals:
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:myAnimals }
     methods: ["GET"]
 
-
-
+zpb_sites_zoo_parrainage_my_account_modify_password:
+    path: /mon-compte/change-mot-de-passe
+    defaults: { _controller: ZPBSitesZooBundle:Parrainage:modifyPassword }
+    methods: ["POST"]
 
 

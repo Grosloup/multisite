@@ -72,7 +72,7 @@ class LoadAnimals extends AbstractFixture implements OrderedFixtureInterface, Co
         $animal3 = new Animal();
         $animal3->setName("Joseph");
         $animal3->setBirthdate(\DateTime::createFromFormat('d-m-Y H:i:s', '01-01-1996 12:00:00', new \DateTimeZone('Europe/Paris')));
-        $animal3->setShortDesc('<p>Maecenas et odio bibendum, ornare metus sed, vehicula odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia.</p>');
+        $animal3->setShortDesc('<p>Maecenas et odio bibendum, ornare metus sed, vehicula odio. Vestibulum ante ipsum primis in faucibus orci.</p>');
         $animal3->setLongDesc('<p>Integer imperdiet placerat hendrerit. Fusce eu neque ut felis faucibus euismod a id urna. Morbi ut mauris a leo accumsan semper vel non purus. Duis porttitor tortor a enim rutrum, at porta leo consequat. Ut mattis eget sapien et fermentum. Donec ac ligula mollis, venenatis massa quis, accumsan risus. Maecenas tristique sapien eu diam cursus elementum. Proin quis dolor ac nisl laoreet laoreet a eget ante. Nam ultrices fermentum lectus, vel feugiat arcu porttitor sed. In eu adipiscing justo. Mauris porttitor tempor nunc et dignissim. Morbi a lectus sit amet nibh eleifend aliquet vel at sapien. Praesent tempor felis id semper bibendum. Nam mattis eu ipsum in elementum. </p><p>Maecenas vestibulum, orci eget venenatis venenatis, risus ante commodo nibh, non tristique nunc nunc eget felis. Fusce dolor arcu, dictum sit amet diam quis, vestibulum rhoncus ligula. Aliquam in mi faucibus, adipiscing dolor vel, sodales massa. Quisque nec vestibulum turpis. Integer convallis faucibus consequat.</p>');
         $animal3->setLongName('Joseph, le mâle girafe');
         $animal3->setBirthPlace('Afrique du sud');

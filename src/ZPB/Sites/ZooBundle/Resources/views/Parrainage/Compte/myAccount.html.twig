@@ -1,5 +1,42 @@
 {%  extends "ZPBSitesZooBundle:Parrainage/Compte:base.html.twig" %}
 {% set subsection = "account" %}
 {% block content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="page-header">
+                <h3>Modifier mon mot de passe</h3>
 
+                {{ form_start(pw_form, {action: path("zpb_sites_zoo_parrainage_my_account_modify_password")}) }}
+
+                <div class="form-group">
+                    {{ form_label(pw_form.oldPassword) }}
+                    {{ form_widget(pw_form.oldPassword,{attr: {class: "form-control"}}) }}
+                    {{ form_errors(pw_form.oldPassword) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(pw_form.newPassword.first) }}
+                    {{ form_widget(pw_form.newPassword.first,{attr: {class: "form-control"}}) }}
+                    {{ form_errors(pw_form.newPassword.first) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(pw_form.newPassword.second) }}
+                    {{ form_widget(pw_form.newPassword.second,{attr: {class: "form-control"}}) }}
+                    {{ form_errors(pw_form.newPassword.second) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(pw_form.save, {attr:{class: "btn btn-primary"}}) }}
+                </div>
+
+                {{ form_end(pw_form) }}
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h3>Modifier mes coordonnées</h3>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -21,6 +21,30 @@
 </head>
 <body>
 {{ render(controller('ZPBSitesZooBundle:Navs:mainbar', {active: active_section|default('home')})) }}
+{% for flash in app.session.flashbag.get("error") %}
+    <div class="alert alert-danger fade in">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>
+        <strong>Attention ! </strong> {{ flash }}
+    </div>
+{% endfor %}
+{% for flash in app.session.flashbag.get("warning") %}
+    <div class="alert alert-warning fade in">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>
+        <strong>Attention ! </strong> {{ flash }}
+    </div>
+{% endfor %}
+{% for flash in app.session.flashbag.get("success") %}
+    <div class="alert alert-success fade in">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>
+        <strong>Succès ! </strong> {{ flash }}
+    </div>
+{% endfor %}
+{% for flash in app.session.flashbag.get("info") %}
+    <div class="alert alert-success fade in">
+        <button class="close" data-dismiss="alert" type="button">&times;</button>
+        <strong>Info ! </strong> {{ flash }}
+    </div>
+{% endfor %}
 {% block main %}{% endblock %}
 
 {% block footScripts %}

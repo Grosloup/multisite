@@ -26,7 +26,9 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use ZPB\Admin\CommonBundle\Controller\BaseController;
 use ZPB\Admin\SponsorshipBundle\Entity\Godparent;
+use ZPB\Sites\ZooBundle\Form\Model\ChangePassword;
 use ZPB\Sites\ZooBundle\Form\Type\GodparentType;
+use ZPB\Sites\ZooBundle\Form\Type\NewPasswordType;
 
 class ParrainageController extends BaseController
 {
@@ -172,7 +174,10 @@ class ParrainageController extends BaseController
             throw $this->createAccessDeniedException();
         }
 
-        return $this->render('ZPBSitesZooBundle:Parrainage:Compte/myAccount.html.twig');
+        $changePasswordModel = new ChangePassword();
+        $pw_form = $this->createForm(new NewPasswordType(), $changePasswordModel);
+
+        return $this->render('ZPBSitesZooBundle:Parrainage:Compte/myAccount.html.twig', ['pw_form'=>$pw_form->createView()]);
     }
 
     public function myAnimalsAction(Request $request)
@@ -202,5 +207,27 @@ class ParrainageController extends BaseController
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
         return $this->render('ZPBSitesZooBundle:Parrainage:Compte/login.html.twig', ['error'=>$error, 'last_username'=>$lastUsername]);
+    }
+
+    public function modifyPasswordAction(Request $request)
+    {
+        $user = $this->getUser();
+        if(!$user || true !== $this->get('security.context')->isGranted('ROLE_GODPARENT')){
+            throw $this->createAccessDeniedException();
+        }
+        $changePasswordModel = new ChangePassword();
+        $pw_form = $this->createForm(new NewPasswordType(), $changePasswordModel);
+
+        $pw_form->handleRequest($request);
+        if($pw_form->isValid()){
+
+            $em = $this->getEm();
+            $user->setPlainPassword($changePasswordModel->getNewPassword());
+            $em->persist($user);
+            $em->flush();
+            $this->successMessage('Mot de passe modifié');
+            return $this->redirect($this->generateUrl('zpb_sites_zoo_parrainage_my_account'));
+        }
+        return $this->render('ZPBSitesZooBundle:Parrainage:Compte/myAccount.html.twig', ['pw_form'=>$pw_form->createView()]);
     }
 }
