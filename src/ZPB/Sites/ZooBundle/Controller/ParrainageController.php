@@ -149,7 +149,20 @@ class ParrainageController extends BaseController
         if(!$user || true !== $this->get('security.context')->isGranted('ROLE_GODFATHER')){
             throw $this->createAccessDeniedException();
         }
-        return $this->render('ZPBSitesZooBundle:Parrainage/Payment:recapOrder.html.twig');
+        $sb = $this->container->get('zpb.zoo.sponsor_basket');
+        $items = [];
+
+        if(!$sb->isEmpty()){
+            $em = $this->getEm();
+            foreach($sb->getItems() as $k=>$v){
+                $animalId = $v->getAnimal()->getId();
+                $packId = $v->getPack()->getId();
+                $animal = $em->find(get_class($v->getAnimal()),$animalId);
+                $pack = $em->find(get_class($v->getPack()), $packId);
+                $items[$v->getId()] = ["pack"=>$pack, "animal"=>$animal];
+            }
+        }
+        return $this->render('ZPBSitesZooBundle:Parrainage/Payment:recapOrder.html.twig', ['packs'=>$items]);
     }
 
     public function myAccountAction(Request $request)

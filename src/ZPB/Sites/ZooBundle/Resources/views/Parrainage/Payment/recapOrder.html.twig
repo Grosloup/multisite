@@ -1,12 +1,107 @@
 {% extends "ZPBSitesZooBundle:Layouts:master.html.twig" %}
 {% set active_section = "parrainage" %}
+{% block headStyles %}
+    {{ parent() }}
+    <style>
+        .items{
+            padding: 16px;
+            width: 100%;
+        }
+        .item, .sum{
+            margin-bottom: 10px;
+            padding: 16px;
+            background-color: #ddd;
+            *zoom:1;
+            width: 100%;
+        }
+        .item:before, .item:after, .sum:before, .sum:after{
+            content: " ";
+            display: table;
+        }
+        .item:after, .sum:after{
+            clear: both;
+        }
+        .sum{
+            background-color: #eee;
+        }
+        .item span, .sum span{
+            display: inline-block;
+            padding: 8px;
+            font-size: 20px;
+            float: left;
+            width: 30%;
+        }
+        .item span:first-child{
+            width: 50%;
+        }
+        .sum span:first-child{
+            width: 80%;
+            text-align: right;
+        }
+        .item span:last-child, .sum span:last-child{
+            width: 20%;
+            text-align: center;
+        }
 
+        .item span.right, .sum span.right{
+            float: right;
+        }
+        .help{
+            padding: 16px;
+            background-color: #eee;
+            text-align: right;
+        }
+    </style>
+{% endblock %}
 {% block main %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h2>Récapitulatif</h2>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="items">
+                            {% for id,pack in packs %}
+                                <div class="item" id="item-{{ id }}">
+                                    <span>{{ pack.animal.longName }}</span><span>{{ pack.pack.name }}</span><span>{{ pack.pack.price|number_format(2,',','.') }}€</span>
+                                </div>
+                            {% endfor %}
+                            <div class="sum">
+                                {% set price = 0 %}
+                                {% set priceRedux = 0 %}
+                                {% for pack in packs %}
+                                    {% set price = price + pack.pack.price %}
+                                    {% set priceRedux = priceRedux + pack.pack.taxFreePrice %}
+                                {% endfor %}
+                                 <span>Montant total</span><span>{{ price|number_format(2,',','.') }}€</span>
+                            </div>
+                            <div class="help">
+                                <span>Soit <strong><em>{{ priceRedux|number_format(2,',','.') }}€</em></strong> après réduction fiscale</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-4">
+                                    <a class="btn btn-lg btn-success btn-block" href="#">Paiement par carte</a>
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    <a class="btn btn-lg btn-success btn-block" href="#">Paiement par chéque</a>
+                                </div>
+                                <div class="col-md-1"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
