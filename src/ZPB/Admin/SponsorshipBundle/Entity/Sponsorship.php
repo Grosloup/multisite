@@ -46,7 +46,7 @@ class Sponsorship
 
     /**
      * @ORM\ManyToOne(targetEntity="ZPB\Admin\SponsorshipBundle\Entity\SponsorshipDesc")
-     * @ORM\JoinColumn(name="sponsorship_desc_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="sponsorship_desc_id", referencedColumnName="id", nullable=false)
      */
     private $description;
 
@@ -57,7 +57,7 @@ class Sponsorship
 
     /**
      * @ORM\ManyToOne(targetEntity="ZPB\Admin\SponsorshipBundle\Entity\Godparent", inversedBy="sponsorships")
-     * @ORM\JoinColumn(name="godparent_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="godparent_id", referencedColumnName="id", nullable=false)
      */
     private $godparent;
 

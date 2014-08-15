@@ -27,6 +27,11 @@ zpb_sites_zoo_parrainage_payment_login_register:
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:loginOrRegister }
     methods: ["GET"]
 
+zpb_sites_zoo_parrainage_payment_register:
+    path: /nouveau-parrain
+    defaults: { _controller: ZPBSitesZooBundle:Parrainage:register }
+    methods: ["POST"]
+
 zpb_sites_zoo_parrainage_show_basket:
     path: /mon-panier
     defaults: { _controller: ZPBSitesZooBundle:Parrainage:showSponsorshipToBasket }

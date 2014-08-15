@@ -121,6 +121,25 @@ class ParrainageController extends BaseController
         return $this->render('ZPBSitesZooBundle:Parrainage/Payment:loginOrRegister.html.twig', ['form'=>$form->createView()]);
     }
 
+    public function registerAction(Request $request)
+    {
+        $godparent = new Godparent();
+        $plainPassword = $this->getRepo('ZPBAdminSponsorshipBundle:Godparent')->createPassword();
+        $godparent->setPlainPassword($plainPassword);
+        $godparent->setTmpPassword($plainPassword);
+        $form = $this->createForm(new GodparentType(), $godparent);
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $em = $this->getEm();
+            $em->persist($godparent);
+            $em->flush();
+
+            die();
+        }
+
+        return $this->render('ZPBSitesZooBundle:Parrainage/Payment:loginOrRegister.html.twig', ['form'=>$form->createView()]);
+    }
+
     public function myAccountAction(Request $request)
     {
         $user = $this->getUser();
